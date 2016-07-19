@@ -7,10 +7,40 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimaryDark"
     tools:context="summerresearch.iui.ku.autocompletiondemo.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFF">
+
+        <TextView
+            android:layout_width="276dp"
+            android:layout_height="62dp"
+            android:text="here"
+            android:paddingLeft="8dp"
+            android:id="@+id/probabilitiesText"
+            android:layout_gravity="left|bottom" />
+
+        <Button
+            android:layout_width="83dp"
+            android:layout_height="70dp"
+            android:text="Send"
+            android:id="@+id/sendButton"
+            android:layout_gravity="right|bottom"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"></FrameLayout>
+    </FrameLayout>
 </RelativeLayout>
