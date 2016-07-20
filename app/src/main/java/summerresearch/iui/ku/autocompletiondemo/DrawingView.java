@@ -74,10 +74,12 @@ public class DrawingView extends View {
         mX = x;
         mY = y;
         long currTime = getTime();
-        Log.d("EYE", Long.toString( currTime));
-        Log.d("X", Float.toString( x ));
-        Log.d("Y", Float.toString( y ));
+        //Log.d("EYE", Long.toString( currTime));
+        //Log.d("X", Float.toString( x ));
+        //Log.d("Y", Float.toString( y ));
         Point p = new Point( x, y, currTime );
+
+        Log.d("JSON", p.jsonString());
     }
 
     private void touch_move(float x, float y) {
@@ -89,9 +91,12 @@ public class DrawingView extends View {
             mY = y;
 
             long currTime = getTime();
-            Log.d("EYE", Long.toString( currTime));
-            Log.d("X", Float.toString( x ));
-            Log.d("Y", Float.toString( y ));
+  //          Log.d("EYE", Long.toString( currTime));
+            // Log.d("X", Float.toString( x ));
+ //           Log.d("Y", Float.toString( y ));
+            Point p = new Point( x, y, currTime );
+
+            Log.d("JSON", p.jsonString());
             circlePath.reset();
             circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
         }
