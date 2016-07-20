@@ -19,9 +19,13 @@ public class Sketch implements JSONable {
         strokes = new ArrayList<Stroke>();
     }
 
-    public void newStroke(int width, int r, int g, int b, int a) {
-        curStroke = new Stroke(width,r,g,b,a);
+    public void newStroke(int width) {
+        curStroke = new Stroke(width);
         strokes.add(curStroke);
+    }
+
+    public void addStroke( Stroke stroke ) {
+        strokes.add(stroke);
     }
 
     public void addPoint(double x, double y, long timestamp) {
