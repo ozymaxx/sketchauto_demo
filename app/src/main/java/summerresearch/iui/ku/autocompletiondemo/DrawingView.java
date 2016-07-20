@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import sketchImpl.Point;
+
 /**
  * Created by ElifYagmur on 20.07.2016.
  */
@@ -59,7 +61,7 @@ public class DrawingView extends View {
     }
 
     private float mX, mY;
-    private static final float TOUCH_TOLERANCE = 4;
+    private static final float TOUCH_TOLERANCE = 0.1f;
 
     public long getTime() {
         long time= System.currentTimeMillis();
@@ -72,7 +74,12 @@ public class DrawingView extends View {
         mX = x;
         mY = y;
         long currTime = getTime();
-        Log.d("EYE", Long.toString( currTime));
+        //Log.d("EYE", Long.toString( currTime));
+        //Log.d("X", Float.toString( x ));
+        //Log.d("Y", Float.toString( y ));
+        Point p = new Point( x, y, currTime );
+
+        Log.d("JSON", p.jsonString());
     }
 
     private void touch_move(float x, float y) {
@@ -84,7 +91,12 @@ public class DrawingView extends View {
             mY = y;
 
             long currTime = getTime();
-            Log.d("EYE", Long.toString( currTime));
+  //          Log.d("EYE", Long.toString( currTime));
+            // Log.d("X", Float.toString( x ));
+ //           Log.d("Y", Float.toString( y ));
+            Point p = new Point( x, y, currTime );
+
+            Log.d("JSON", p.jsonString());
             circlePath.reset();
             circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
         }
