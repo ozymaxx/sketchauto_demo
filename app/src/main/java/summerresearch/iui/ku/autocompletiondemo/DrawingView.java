@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import sketchImpl.Point;
+import sketchImpl.Sketch;
+import sketchImpl.Stroke;
 
 /**
  * Created by ElifYagmur on 20.07.2016.
@@ -27,6 +29,9 @@ public class DrawingView extends View {
     private Paint circlePaint;
     private Path circlePath;
     Paint mPaint;
+    Stroke stroke;
+    Sketch sketch;
+
 
     public DrawingView(Context c, Paint p) {
         super(c);
@@ -41,6 +46,7 @@ public class DrawingView extends View {
         circlePaint.setStyle(Paint.Style.STROKE);
         circlePaint.setStrokeJoin(Paint.Join.MITER);
         circlePaint.setStrokeWidth(4f);
+        sketch = new Sketch();
     }
 
     @Override
@@ -69,17 +75,13 @@ public class DrawingView extends View {
     }
 
     private void touch_start(float x, float y) {
+        stroke = new Stroke( width );
         mPath.reset();
         mPath.moveTo(x, y);
         mX = x;
         mY = y;
         long currTime = getTime();
-        //Log.d("EYE", Long.toString( currTime));
-        //Log.d("X", Float.toString( x ));
-        //Log.d("Y", Float.toString( y ));
-        Point p = new Point( x, y, currTime );
-
-        Log.d("JSON", p.jsonString());
+        stroke.addPoint( x, y, currTime );
     }
 
     private void touch_move(float x, float y) {
@@ -91,12 +93,7 @@ public class DrawingView extends View {
             mY = y;
 
             long currTime = getTime();
-  //          Log.d("EYE", Long.toString( currTime));
-            // Log.d("X", Float.toString( x ));
- //           Log.d("Y", Float.toString( y ));
-            Point p = new Point( x, y, currTime );
-
-            Log.d("JSON", p.jsonString());
+            stroke.addPoint( x, y, currTime );
             circlePath.reset();
             circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
         }
@@ -109,6 +106,8 @@ public class DrawingView extends View {
         mCanvas.drawPath(mPath,  mPaint);
         // kill this so we don't double draw
         mPath.reset();
+        sketch.addStroke(stroke);
+        Log.d("Stroke", sketch.jsonString());
     }
 
     @Override
