@@ -61,11 +61,18 @@ public class DrawingView extends View {
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
 
+    public long getTime() {
+        long time= System.currentTimeMillis();
+        return time;
+    }
+
     private void touch_start(float x, float y) {
         mPath.reset();
         mPath.moveTo(x, y);
         mX = x;
         mY = y;
+        long currTime = getTime();
+        Log.d("EYE", Long.toString( currTime));
     }
 
     private void touch_move(float x, float y) {
@@ -76,6 +83,8 @@ public class DrawingView extends View {
             mX = x;
             mY = y;
 
+            long currTime = getTime();
+            Log.d("EYE", Long.toString( currTime));
             circlePath.reset();
             circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
         }
