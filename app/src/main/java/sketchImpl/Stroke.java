@@ -17,7 +17,6 @@ public class Stroke implements JSONable {
 
     public Stroke(int width) {
         this.width = width;
-
         points = new ArrayList<Point>();
         sid = System.currentTimeMillis() + "";
     }

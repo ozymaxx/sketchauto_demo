@@ -131,4 +131,15 @@ public class DrawingView extends View {
         }
         return true;
     }
+
+    public Sketch getSketch() {
+        return sketch;
+    }
+
+    public void clear() {
+        mPath.reset();
+        mBitmap.eraseColor(Color.WHITE);
+        sketch = new Sketch();
+        invalidate();
+    }
 }

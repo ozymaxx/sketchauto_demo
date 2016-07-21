@@ -1,6 +1,28 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
-import android.content.pm.ActivityInfo;
+import java.io.IOException;
+import org.apache.http.client.ClientProtocolException;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+
+// import everything you need
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +40,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+
+import sketchImpl.Sketch;
 // the main activity of the application
 // it'll include the drawing canvas
 
@@ -56,68 +80,38 @@ public class MainActivity extends AppCompatActivity {
 
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         frame.addView(dv);
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                try {
-
-                    //generate a server socket
-                    serverSocket = new DatagramSocket(9000);
-
-                    //send initialization message
-                    InetAddress serverIp = InetAddress.getByName("192.168.56.103");
-                    String messageStr = "*" + "192.168.56.102" + "*2";
-                    int msg_length = messageStr.length();
-                    byte[] message = messageStr.getBytes();
-                    DatagramPacket p = new DatagramPacket(message, msg_length, serverIp, 9000);
-                    serverSocket.send(p);
-
-                    //prepare for receiving message
-                    byte[] receiveData = new byte[100];
-                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-
-                    //receive message in while loop
-                    while (true) {
-                        serverSocket.receive(receivePacket);
-                        String sentence = new String(receivePacket.getData(), 0, receivePacket.getLength());
-
-                        //show message
-                        //log(sentence);
-
-                    }
-                }
-                catch (SocketException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    shutdown();
-                }
-
-            }
-
-
-
-        });
-
-
     }
 
-    private void shutdown() {
-        try {
-            if (socket != null) {
-                socket.close();
+    public void send( View v )
+    {
+        Sketch sketch = dv.getSketch();
+        // make sure the fields are not empty
+        if (sketch.jsonString().length()>0)
+        {
+            Log.d("server", "before post");
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost("http://localhost:5000/server.php");
+
+            try {
+                Log.d("server", "try post");
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("message", sketch.jsonString()));
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                dv.clear();
+                httpclient.execute(httppost);
+                Log.d("server", "after execute post");
+            } catch (ClientProtocolException e) {
+                // TODO Auto-generated catch block
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
             }
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        else
+        {
+            Log.d("server", "else part");
+            // display message if text fields are empty
+            Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
         }
-        System.exit(0);
+
     }
 }
