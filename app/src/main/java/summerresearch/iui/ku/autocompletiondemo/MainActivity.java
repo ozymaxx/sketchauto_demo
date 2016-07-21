@@ -1,9 +1,12 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
 import java.io.IOException;
+
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.client.HttpClient;
@@ -33,7 +36,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -68,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         btn = (Button) findViewById(R.id.sendButton);
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -80,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         frame.addView(dv);
+
     }
 
     public void send( View v )
@@ -88,23 +96,49 @@ public class MainActivity extends AppCompatActivity {
         // make sure the fields are not empty
         if (sketch.jsonString().length()>0)
         {
+
             Log.d("server", "before post");
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://172.31.6.173:3000/");
+            HttpPost httppost = new HttpPost("http://172.31.:3000/");
 
+
+
+
+            HttpClient httpClient = new DefaultHttpClient();
+            // replace with your url
+            HttpPost httpPost = new HttpPost("http://localhost:5000/server.php");
+
+
+            //Post Data
+            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+            nameValuePair.add(new BasicNameValuePair("username", "test_user"));
+            nameValuePair.add(new BasicNameValuePair("password", "123456789"));
+
+
+            //Encoding POST data
             try {
-                Log.d("server", "try post");
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                nameValuePairs.add(new BasicNameValuePair("message", sketch.jsonString()));
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                dv.clear();
-                httpclient.execute(httppost);
-                Log.d("server", "after execute post");
-            } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+            } catch (UnsupportedEncodingException e) {
+                // log exception
+                e.printStackTrace();
             }
+
+            //making POST request.
+            try {
+                HttpResponse response = httpClient.execute(httpPost);
+                // write response to log
+                Log.d("Http Post Response:", response.toString());
+            } catch (ClientProtocolException e) {
+                // Log exception
+                e.printStackTrace();
+            } catch (IOException e) {
+                // Log exception
+                e.printStackTrace();
+            }
+
+
+
+
         }
         else
         {
@@ -114,4 +148,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }
