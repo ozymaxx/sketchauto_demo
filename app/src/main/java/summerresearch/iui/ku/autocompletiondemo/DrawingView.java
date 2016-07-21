@@ -139,7 +139,7 @@ public class DrawingView extends View {
     public void clear() {
         mPath.reset();
         mBitmap.eraseColor(Color.WHITE);
-        sketch = new Sketch();
+       // sketch = new Sketch();
         invalidate();
     }
 }

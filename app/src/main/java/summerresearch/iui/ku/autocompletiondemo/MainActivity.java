@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.d("server", "before post");
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://localhost:5000/server.php");
+            HttpPost httppost = new HttpPost("http://172.31.6.173:3000/");
 
             try {
                 Log.d("server", "try post");
