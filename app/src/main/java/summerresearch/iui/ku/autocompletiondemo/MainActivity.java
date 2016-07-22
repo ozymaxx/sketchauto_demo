@@ -61,18 +61,62 @@ public class MainActivity extends AppCompatActivity {
 
     public void send( View v )
     {
-        Sketch sketch = dv.getSketch();
-        if ( sketch.jsonString().length() > 0 )
-        {
-            Log.d("server", "if part");
-            new CallAPI( textView, image, image2, image3, image4, image5 ).execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
-            Log.d("server", "after if part");
-            dv.clear();
+        if( ( btn.getText() ).equals( "PAINT") ) {
+            Log.d("Img", "in paint");
+            btn.setText("Send");
+            frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+            dv = new DrawingView(this, mPaint);
+            frame.addView(dv);
         }
-        else
-        {
-            Log.d("server", "else part");
-            Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
+        else if( ( btn.getText() ).equals( "Send" )) {
+            Sketch sketch = dv.getSketch();
+            if ( sketch.jsonString().length() > 0 )
+            {
+                Log.d("server", "if part");
+                new CallAPI( textView, image, image2, image3, image4, image5 ).execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
+                Log.d("server", "after if part");
+                dv.clear();
+            }
+            else
+            {
+                Log.d("server", "else part");
+                Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
+            }
         }
+        else {
+            Log.d("Img", "does not equal to anything");
+        }
+    }
+
+    public void imageClicked ( View v )
+    {
+        frame.removeView(dv);
+        Log.d("Img", "1");
+        ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+        Log.d("Img", "2");
+
+        frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+        switch (v.getId()) {
+            case R.id.imageView:
+                imgView.setImageDrawable(image.getDrawable());
+                break;
+            case R.id.imageView2:
+                imgView.setImageDrawable(image2.getDrawable());
+                break;
+            case R.id.imageView3:
+                imgView.setImageDrawable(image3.getDrawable());
+                break;
+            case R.id.imageView4:
+                imgView.setImageDrawable(image4.getDrawable());
+                break;
+            case R.id.imageView5:
+                imgView.setImageDrawable(image5.getDrawable());
+                break;
+            default:
+                Log.d("Img", "indefault");
+        }
+        frame.invalidate();
+        btn.setText("PAINT");
+        Log.d("Img", "3");
     }
 }
