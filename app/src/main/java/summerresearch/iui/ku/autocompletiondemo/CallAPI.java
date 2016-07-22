@@ -84,11 +84,12 @@ public class CallAPI extends AsyncTask<String, String, String> {
         //Update the UI
         Log.d("response", result);
         textView.setText( result );
-        imV.setImageResource(R.mipmap.icon);
 
-        imV2.setImageResource(R.mipmap.icon);
-        imV3.setImageResource(R.mipmap.icon);
-        imV4.setImageResource(R.mipmap.icon);
-        imV5.setImageResource(R.mipmap.icon);
+        //GET NAME OF ICONS HERE AND PUT INTO IMAGES
+        imV.setImageResource(R.mipmap.icon);
+        imV2.setImageResource(R.mipmap.icon1);
+        imV3.setImageResource(R.mipmap.icon2);
+        imV4.setImageResource(R.mipmap.icon3);
+        imV5.setImageResource(R.mipmap.icon4);
     }
 }
