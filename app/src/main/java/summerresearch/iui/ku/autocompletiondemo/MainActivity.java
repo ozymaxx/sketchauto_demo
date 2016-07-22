@@ -1,12 +1,16 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
-
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
 
-import java.io.UnsupportedEncodingException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.client.HttpClient;
@@ -36,10 +40,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         btn = (Button) findViewById(R.id.sendButton);
-
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -87,58 +87,91 @@ public class MainActivity extends AppCompatActivity {
 
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         frame.addView(dv);
-
     }
 
-    public void send( View v )
-    {
+    public void send( View v ) throws IOException {
         Sketch sketch = dv.getSketch();
+
+
+
+/*
+        try {
+
+            //generate a server socket
+            serverSocket = new DatagramSocket(5000);
+
+            //send initialization message
+            InetAddress serverIp = InetAddress.getByName("172.31.155.112");
+            String messageStr = sketch.jsonString();
+            int msg_length = messageStr.length();
+            byte[] message = messageStr.getBytes();
+            DatagramPacket p = new DatagramPacket(message, msg_length, serverIp, 5000);
+            serverSocket.send(p);
+
+
+            //prepare for receiving message
+            byte[] receiveData = new byte[100];
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+
+            //receive message in while loop
+            while (true)
+            {
+                serverSocket.receive(receivePacket);
+                String sentence = new String(receivePacket.getData(), 0, receivePacket.getLength());
+
+            }
+
+        }
+        catch (SocketException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+*/
+
+        URL url = new URL("http://192.168.43.212:5000/");
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+
+
+        try {
+            urlConnection.setDoOutput(true);
+            urlConnection.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+            writeStream(out);
+
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            readStream(in);
+        } finally {
+            urlConnection.disconnect();
+        }
+        dv.clear();
+
+/*
         // make sure the fields are not empty
         if (sketch.jsonString().length()>0)
         {
-
             Log.d("server", "before post");
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://172.31.:3000/");
+            HttpPost httppost = new HttpPost("http://192.168.43.212:5000/");
 
-
-
-
-            HttpClient httpClient = new DefaultHttpClient();
-            // replace with your url
-            HttpPost httpPost = new HttpPost("http://localhost:5000/server.php");
-
-
-            //Post Data
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-            nameValuePair.add(new BasicNameValuePair("username", "test_user"));
-            nameValuePair.add(new BasicNameValuePair("password", "123456789"));
-
-
-            //Encoding POST data
             try {
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-            } catch (UnsupportedEncodingException e) {
-                // log exception
-                e.printStackTrace();
-            }
-
-            //making POST request.
-            try {
-                HttpResponse response = httpClient.execute(httpPost);
-                // write response to log
-                Log.d("Http Post Response:", response.toString());
+                Log.d("server", "try post");
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("message", sketch.jsonString()));
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                dv.clear();
+                httpclient.execute(httppost);
+                Log.d("server", "after execute post");
             } catch (ClientProtocolException e) {
-                // Log exception
-                e.printStackTrace();
+                // TODO Auto-generated catch block
             } catch (IOException e) {
-                // Log exception
-                e.printStackTrace();
+                // TODO Auto-generated catch block
             }
-
-
-
-
         }
         else
         {
@@ -147,6 +180,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
         }
 
+*/
     }
-
 }
