@@ -1,20 +1,19 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
 
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
@@ -61,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         setContentView(R.layout.activity_main);
     }*/
-
+    InputStream inputStream = null;
+    String result = "";
     private DrawingView dv ;
     private Paint mPaint;
     private FrameLayout frame;
@@ -89,89 +89,16 @@ public class MainActivity extends AppCompatActivity {
         frame.addView(dv);
     }
 
-    public void send( View v ) throws IOException {
+    public void send( View v )
+    {
         Sketch sketch = dv.getSketch();
-
-
-
-/*
-        try {
-
-            //generate a server socket
-            serverSocket = new DatagramSocket(5000);
-
-            //send initialization message
-            InetAddress serverIp = InetAddress.getByName("172.31.155.112");
-            String messageStr = sketch.jsonString();
-            int msg_length = messageStr.length();
-            byte[] message = messageStr.getBytes();
-            DatagramPacket p = new DatagramPacket(message, msg_length, serverIp, 5000);
-            serverSocket.send(p);
-
-
-            //prepare for receiving message
-            byte[] receiveData = new byte[100];
-            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-
-            //receive message in while loop
-            while (true)
-            {
-                serverSocket.receive(receivePacket);
-                String sentence = new String(receivePacket.getData(), 0, receivePacket.getLength());
-
-            }
-
-        }
-        catch (SocketException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-*/
-
-        URL url = new URL("http://192.168.43.212:5000/");
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-
-
-        try {
-            urlConnection.setDoOutput(true);
-            urlConnection.setChunkedStreamingMode(0);
-
-            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-            writeStream(out);
-
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            readStream(in);
-        } finally {
-            urlConnection.disconnect();
-        }
-        dv.clear();
-
-/*
         // make sure the fields are not empty
         if (sketch.jsonString().length()>0)
         {
-            Log.d("server", "before post");
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://192.168.43.212:5000/");
-
-            try {
-                Log.d("server", "try post");
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                nameValuePairs.add(new BasicNameValuePair("message", sketch.jsonString()));
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                dv.clear();
-                httpclient.execute(httppost);
-                Log.d("server", "after execute post");
-            } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-            }
+            Log.d("server", "if part");
+            new CallAPI().execute("http://172.31.155.112:5000");
+            Log.d("server", "after if part");
+            dv.clear();
         }
         else
         {
@@ -179,7 +106,5 @@ public class MainActivity extends AppCompatActivity {
             // display message if text fields are empty
             Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
         }
-
-*/
     }
 }
