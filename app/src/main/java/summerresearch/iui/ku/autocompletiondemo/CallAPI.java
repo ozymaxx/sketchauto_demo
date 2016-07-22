@@ -56,6 +56,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
         try {
             Log.d("server", "try 2");
             resultToDisplay = IOUtils.toString(in, "UTF-8");
+            Log.d("server", resultToDisplay );
             //to [convert][1] byte stream to a string
         } catch (IOException e) {
             Log.d("server", "catch 2");
@@ -69,5 +70,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         //Update the UI
+        Log.d("response", result);
     }
 }
