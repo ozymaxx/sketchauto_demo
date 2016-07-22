@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         if (sketch.jsonString().length()>0)
         {
             Log.d("server", "if part");
-            new CallAPI().execute("http://172.31.155.112:5000");
+            new CallAPI().execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
             Log.d("server", "after if part");
             dv.clear();
         }
