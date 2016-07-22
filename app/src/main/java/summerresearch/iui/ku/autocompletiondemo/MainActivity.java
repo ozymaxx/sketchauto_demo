@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import sketchImpl.Sketch;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DrawingView dv ;
     private Paint mPaint;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView image3;
     private ImageView image4;
     private ImageView image5;
+    private ImageView display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         image4 = (ImageView) findViewById(R.id.imageView4);
         image5 = (ImageView) findViewById(R.id.imageView5);
 
+        display = (ImageView) findViewById(R.id.imageView6);
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -52,11 +55,40 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(8);
-
         dv = new DrawingView(this, mPaint);
-        dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
+
+        dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         frame.addView(dv);
+
+        image.setOnClickListener(this);
+        image2.setOnClickListener(this);
+        image3.setOnClickListener(this);
+        image4.setOnClickListener(this);
+        image5.setOnClickListener(this);
+
+
+    }
+
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.imageView:
+                display.setImageResource(R.mipmap.icon);
+                break;
+            case R.id.imageView2:
+                display.setImageResource(R.mipmap.icon);
+                break;
+            case R.id.imageView3:
+                display.setImageResource(R.mipmap.icon);
+                break;
+            case R.id.imageView4:
+                display.setImageResource(R.mipmap.icon);
+                break;
+            case R.id.imageView5:
+                display.setImageResource(R.mipmap.icon);
+                break;
+
+        }
     }
 
     public void send( View v )
