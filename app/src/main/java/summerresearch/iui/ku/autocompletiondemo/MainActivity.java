@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Img", "1");
         ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
         Log.d("Img", "2");
-
+//bhjsdkifuesji
+        //bjvhsdk
         frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
         switch (v.getId()) {
             case R.id.imageView:
