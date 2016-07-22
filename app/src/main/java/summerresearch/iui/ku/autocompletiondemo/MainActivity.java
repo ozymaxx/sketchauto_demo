@@ -1,13 +1,19 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
@@ -54,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         setContentView(R.layout.activity_main);
     }*/
-
+    InputStream inputStream = null;
+    String result = "";
     private DrawingView dv ;
     private Paint mPaint;
     private FrameLayout frame;
@@ -88,23 +95,10 @@ public class MainActivity extends AppCompatActivity {
         // make sure the fields are not empty
         if (sketch.jsonString().length()>0)
         {
-            Log.d("server", "before post");
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://172.31.6.172:3000/");
-
-            try {
-                Log.d("server", "try post");
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                nameValuePairs.add(new BasicNameValuePair("message", sketch.jsonString()));
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                dv.clear();
-                httpclient.execute(httppost);
-                Log.d("server", "after execute post");
-            } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-            }
+            Log.d("server", "if part");
+            new CallAPI().execute("http://172.31.155.112:5000");
+            Log.d("server", "after if part");
+            dv.clear();
         }
         else
         {
@@ -112,6 +106,5 @@ public class MainActivity extends AppCompatActivity {
             // display message if text fields are empty
             Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
         }
-
     }
 }
