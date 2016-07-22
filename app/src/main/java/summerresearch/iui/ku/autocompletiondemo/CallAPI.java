@@ -1,7 +1,10 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.LockableFileWriter;
@@ -18,9 +21,9 @@ import java.net.URLEncoder;
  * Created by ElifYagmur on 22.07.2016.
  */
 public class CallAPI extends AsyncTask<String, String, String> {
-
-    public CallAPI() {
-        //set context variables if required
+    TextView textView;
+    public CallAPI( TextView view ) {
+        textView = view;
     }
 
     @Override
@@ -71,5 +74,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         //Update the UI
         Log.d("response", result);
+        textView.setText( result );
     }
 }
