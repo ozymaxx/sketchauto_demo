@@ -1,9 +1,12 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
@@ -22,8 +25,14 @@ import java.net.URLEncoder;
  */
 public class CallAPI extends AsyncTask<String, String, String> {
     TextView textView;
-    public CallAPI( TextView view ) {
+    ImageView imV, imV2, imV3, imV4, imV5;
+    public CallAPI(TextView view, ImageView image, ImageView image2, ImageView image3, ImageView image4, ImageView image5 ) {
         textView = view;
+        imV = image;
+        imV2 = image2;
+        imV3 = image3;
+        imV4 = image4;
+        imV5 = image5;
     }
 
     @Override
@@ -75,5 +84,11 @@ public class CallAPI extends AsyncTask<String, String, String> {
         //Update the UI
         Log.d("response", result);
         textView.setText( result );
+        imV.setImageResource(R.mipmap.icon);
+
+        imV2.setImageResource(R.mipmap.icon);
+        imV3.setImageResource(R.mipmap.icon);
+        imV4.setImageResource(R.mipmap.icon);
+        imV5.setImageResource(R.mipmap.icon);
     }
 }
