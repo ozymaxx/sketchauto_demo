@@ -91,14 +91,20 @@ public class CallAPI extends AsyncTask<String, String, String> {
         //PARSE THE STRING WHICH SERVER SENDS US
         separated = result.split("-");
 
-
+        Log.d("split", separated[0]);
+        Log.d("split", separated[1]);
+        Log.d("split", separated[2]);
+        Log.d("split", separated[3]);
+        Log.d("split", separated[4]);
 
 
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
-        imV.setImageResource(R.mipmap.icon);
-        imV2.setImageResource(R.mipmap.icon1);
-        imV3.setImageResource(R.mipmap.icon2);
-        imV4.setImageResource(R.mipmap.icon3);
-        imV5.setImageResource(R.mipmap.icon4);
+        ImageMap im = new ImageMap();
+
+        imV.setImageResource( im.getImageMap().get(separated[0]) );
+        imV2.setImageResource( im.getImageMap().get(separated[1]) );
+        imV3.setImageResource( im.getImageMap().get(separated[2]) );
+        imV4.setImageResource( im.getImageMap().get(separated[3]) );
+        imV5.setImageResource( im.getImageMap().get(separated[4]) );
     }
 }
