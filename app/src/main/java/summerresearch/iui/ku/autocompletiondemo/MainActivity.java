@@ -63,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
     {
         if( ( btn.getText() ).equals( "PAINT") ) {
             Log.d("Img", "in paint");
+            image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
+            image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
+            image3.findViewById(R.id.imageView3).setVisibility(View.INVISIBLE);
+            image4.findViewById(R.id.imageView4).setVisibility(View.INVISIBLE);
+            image5.findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
             btn.setText("Send");
             frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
             dv = new DrawingView(this, mPaint);
@@ -74,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 Log.d("server", "if part");
                 new CallAPI( textView, image, image2, image3, image4, image5 ).execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
+                image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+                image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
+                image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
+                image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
+                image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
                 Log.d("server", "after if part");
                 dv.clear();
             }

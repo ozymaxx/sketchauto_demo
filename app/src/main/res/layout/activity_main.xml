@@ -52,6 +52,10 @@
         android:layout_below="@+id/imageView4"
         android:onClick="imageClicked"/>
 
+
+
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="630dp"
@@ -68,6 +72,14 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:id="@+id/imageView6"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:id="@+id/imageView6"
+            android:layout_below="@+id/imageView5"/>
 
     </FrameLayout>
 
