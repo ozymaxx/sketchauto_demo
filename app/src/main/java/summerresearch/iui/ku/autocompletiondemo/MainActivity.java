@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import sketchImpl.Sketch;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private DrawingView dv ;
     private Paint mPaint;
@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView image3;
     private ImageView image4;
     private ImageView image5;
-    private ImageView display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         image4 = (ImageView) findViewById(R.id.imageView4);
         image5 = (ImageView) findViewById(R.id.imageView5);
 
-        display = (ImageView) findViewById(R.id.imageView6);
-
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -55,46 +52,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(8);
+
         dv = new DrawingView(this, mPaint);
-
-
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
         frame.addView(dv);
-
-        image.setOnClickListener(this);
-        image2.setOnClickListener(this);
-        image3.setOnClickListener(this);
-        image4.setOnClickListener(this);
-        image5.setOnClickListener(this);
-
-
-    }
-
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.imageView:
-                display.setImageResource(R.mipmap.icon);
-                break;
-            case R.id.imageView2:
-                display.setImageResource(R.mipmap.icon);
-                break;
-            case R.id.imageView3:
-                display.setImageResource(R.mipmap.icon);
-                break;
-            case R.id.imageView4:
-                display.setImageResource(R.mipmap.icon);
-                break;
-            case R.id.imageView5:
-                display.setImageResource(R.mipmap.icon);
-                break;
-
-        }
     }
 
     public void send( View v )
     {
         if( ( btn.getText() ).equals( "PAINT") ) {
             Log.d("Img", "in paint");
+            image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
+            image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
+            image3.findViewById(R.id.imageView3).setVisibility(View.INVISIBLE);
+            image4.findViewById(R.id.imageView4).setVisibility(View.INVISIBLE);
+            image5.findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
             btn.setText("Send");
             frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
             dv = new DrawingView(this, mPaint);
@@ -106,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 Log.d("server", "if part");
                 new CallAPI( textView, image, image2, image3, image4, image5 ).execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
+                image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+                image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
+                image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
+                image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
+                image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
                 Log.d("server", "after if part");
                 dv.clear();
             }
@@ -126,8 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("Img", "1");
         ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
         Log.d("Img", "2");
-//bhjsdkifuesji
-        //bjvhsdk
+
         frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
         switch (v.getId()) {
             case R.id.imageView:
