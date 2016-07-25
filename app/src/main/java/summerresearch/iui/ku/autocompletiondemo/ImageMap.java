@@ -253,7 +253,7 @@ public class ImageMap {
             put("spider", R.mipmap.spider );
             put("sponge bob", R.mipmap.spongebob );
             put("spoon", R.mipmap.spoon );
-            put("squirrel", R.mipmap.squirrle );
+            put("squirrel", R.mipmap.squirrel );
             put("standing bird", R.mipmap.standingbird );
             put("stapler", R.mipmap.stapler );
             put("strawberry", R.mipmap.strawberry );
@@ -269,7 +269,7 @@ public class ImageMap {
             put("table", R.mipmap.table );
             put("tablelamp", R.mipmap.tablelamp );
             put("teacup", R.mipmap.teacup );
-            put("teapot", R.mipmap.taepot );
+            put("teapot", R.mipmap.teapot );
             put("teddy-bear", R.mipmap.teddybear );
             put("telephone", R.mipmap.telephone );
             put("tennis-racket", R.mipmap.tennisracket );
@@ -294,16 +294,15 @@ public class ImageMap {
 
             put("van", R.mipmap.van );
             put("vase", R.mipmap.vase );
-            put("violine", R.mipmap.violine );
+            put("violin", R.mipmap.violin );
 
             put("walkie talkie", R.mipmap.walkietalkie );
             put("wheel", R.mipmap.wheel );
-            put("wheelborrow", R.mipmap.wheelborrow );
+            put("wheelbarrow", R.mipmap.wheelbarrow );
             put("windmill", R.mipmap.windmill );
             put("wine-bottle", R.mipmap.winebottle );
             put("wineglass", R.mipmap.wineglass );
             put("wrist-watch", R.mipmap.wristwatch );
-
             put("zebra", R.mipmap.zebra );
         }};
     }
