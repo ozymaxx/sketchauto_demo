@@ -126,7 +126,7 @@ public class ImageMap {
             put("grenade", R.mipmap.grenade );
 
 
-            put("zebra", R.mipmap.zebra );
+            //put("zebra", R.mipmap.zebra );
 
 
 
