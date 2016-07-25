@@ -125,35 +125,9 @@ public class ImageMap {
             put("grapes", R.mipmap.grapes );
             put("grenade", R.mipmap.grenade );
 
-            put("guitar", R.mipmap.guitar );
-            put("hamburger", R.mipmap.hamburger );
-            put("hammer", R.mipmap.hammer );
-            put("hand", R.mipmap.hand );
-            put("harp", R.mipmap.harp );
 
-            put("hat", R.mipmap.hat);
-            put("head", R.mipmap.head );
-            put("head-phones", R.mipmap.headphones );
-            put("hedgehog", R.mipmap.hedgehog );
-            put("helicopter", R.mipmap.helicopter );
 
-            put("helmet", R.mipmap.helmet );
-            put("horse", R.mipmap.horse );
-            put("hot air ballon", R.mipmap.hotairballoon );
-            put("hot-dog", R.mipmap.hotdog );
-            put("hourglass", R.mipmap.hourglass );
 
-            put("house", R.mipmap.house );
-            put("human-skeleton", R.mipmap.humanskeleton );
-            put("ice-cream-cone", R.mipmap.icecreamcone );
-            put("ipod", R.mipmap.ipod );
-            put("kangroo", R.mipmap.kangaroo );
-
-            put("key", R.mipmap.key );
-            put("keyboard", R.mipmap.keyboard );
-            put("knife", R.mipmap.knife );
-            put("ladder", R.mipmap.ladder );
-            put("laptop", R.mipmap.laptop );
 
         }};
     }
