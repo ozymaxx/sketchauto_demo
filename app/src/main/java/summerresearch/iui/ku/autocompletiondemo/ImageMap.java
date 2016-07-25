@@ -124,7 +124,7 @@ public class ImageMap {
             put("giraffe", R.mipmap.giraffe );
             put("grapes", R.mipmap.grapes );
             put("grenade", R.mipmap.grenade );
-            
+
             put("guitar", R.mipmap.guitar );
             put("hamburger", R.mipmap.hamburger );
             put("hammer", R.mipmap.hammer );
@@ -155,7 +155,103 @@ public class ImageMap {
             put("ladder", R.mipmap.ladder );
             put("laptop", R.mipmap.laptop );
 
+            put("leaf", R.mipmap.leaf );
+            put("lightbulb", R.mipmap.lightbulb );
+            put("lighter", R.mipmap.lighter );
+            put("lion", R.mipmap.lion );
+            put("lobster", R.mipmap.lobster );
 
+            put("loudspeaker", R.mipmap.loudspeaker );
+            put("mailbox", R.mipmap.mailbox );
+            put("megaphone", R.mipmap.megaphone );
+            put("mermaid", R.mipmap.mermaid );
+            put("microphone", R.mipmap.microphone );
+
+            put("microscope", R.mipmap.microscope );
+            put("monkey", R.mipmap.monkey );
+            put("moon", R.mipmap.moon );
+            put("mosquito", R.mipmap.mosquito );
+            put("motorbike", R.mipmap.motorbike );
+
+            put("mouse (animal)", R.mipmap.mouse );
+            put("mouth", R.mipmap.mouth );
+            put("mug", R.mipmap.mug );
+            put("mushroom", R.mipmap.mushroom );
+            put("nose", R.mipmap.nose );
+
+            put("octopus", R.mipmap.octopus );
+            put("owl", R.mipmap.owl );
+            put("palm tree", R.mipmap.palmtree );
+            put("panda", R.mipmap.panda );
+            put("paper clip", R.mipmap.paperclip );
+
+            put("parachute", R.mipmap.parachute );
+            put("parking meter", R.mipmap.parkingmeter );
+            put("parrot", R.mipmap.parrot );
+            put("pear", R.mipmap.pear );
+            put("pen", R.mipmap.pen );
+
+            put("penguin", R.mipmap.penguin );
+            put("person sitting", R.mipmap.personsitting );
+            put("person walking", R.mipmap.personwalking );
+            put("piano", R.mipmap.piano );
+            put("pickup truck", R.mipmap.pickuptruck );
+
+            put("pig", R.mipmap.pig );
+            put("pigeon", R.mipmap.pigeon );
+            put("pineapple", R.mipmap.pineapple );
+            put("pipe (for smoking)", R.mipmap.pipe );
+            put("pizza", R.mipmap.pizza );
+
+            put("potted plant", R.mipmap.pottedplant );
+            put("power outlet", R.mipmap.poweroutlet );
+            put("present", R.mipmap.present );
+            put("pretzel", R.mipmap.pretzel );
+            put("pumpkin", R.mipmap.pumpkin );
+
+
+            put("purse", R.mipmap.purse);
+            put("rabbit", R.mipmap.rabbit );
+            put("race car", R.mipmap.racecar );
+            put("radio", R.mipmap.radio);
+            put("rainbow", R.mipmap.rainbow );
+
+
+            put("revolver", R.mipmap.revolver );
+            put("rifle", R.mipmap.rifle );
+            put("rollerblades", R.mipmap.rollerblades );
+            put("rooster", R.mipmap.rooster );
+            put("sailboat", R.mipmap.sailboat );
+
+            put("santa claus", R.mipmap.santaclaus );
+            put("satellite dish", R.mipmap.satellitedish );
+            put("saxophone", R.mipmap.saxophone );
+            put("scissors", R.mipmap.scissor );
+            put("scorpion", R.mipmap.scorpion );
+
+            put("screwdriver", R.mipmap.screwdriver );
+            put("sea turtle", R.mipmap.seaturtle );
+            put("seagull", R.mipmap.seagull );
+            put("shark", R.mipmap.shark );
+            put("sheep", R.mipmap.sheep );
+
+            put("ship", R.mipmap.ship );
+            put("shoe", R.mipmap.shoe );
+            put("shovel", R.mipmap.shovel );
+            put("skateboard", R.mipmap.skateboard );
+            put("skull", R.mipmap.skull );
+
+            put("skyscraper", R.mipmap.skyscarper );
+            put("snail", R.mipmap.snail);
+            put("snake", R.mipmap.snake );
+            put("snowboard", R.mipmap.snowboard );
+            put("snowman", R.mipmap.snowman );
+
+            put("socks", R.mipmap.socks );
+            put("space shuttle", R.mipmap.spaceshuttle );
+            put("speed-boat", R.mipmap.speedboat );
+            put("spider", R.mipmap.spider );
+            put("sponge bob", R.mipmap.spongebob );
         }};
     }
 
