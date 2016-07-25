@@ -26,6 +26,8 @@ import java.net.URLEncoder;
 public class CallAPI extends AsyncTask<String, String, String> {
     TextView textView;
     ImageView imV, imV2, imV3, imV4, imV5;
+    String[] separated;
+
     public CallAPI(TextView view, ImageView image, ImageView image2, ImageView image3, ImageView image4, ImageView image5 ) {
         textView = view;
         imV = image;
@@ -84,6 +86,13 @@ public class CallAPI extends AsyncTask<String, String, String> {
         //Update the UI
         Log.d("response", result);
         textView.setText( result );
+
+
+        //PARSE THE STRING WHICH SERVER SENDS US
+        separated = result.split("-");
+
+
+
 
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
         imV.setImageResource(R.mipmap.icon);
