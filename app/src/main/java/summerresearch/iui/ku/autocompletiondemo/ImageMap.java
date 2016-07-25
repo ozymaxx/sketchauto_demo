@@ -252,6 +252,59 @@ public class ImageMap {
             put("speed-boat", R.mipmap.speedboat );
             put("spider", R.mipmap.spider );
             put("sponge bob", R.mipmap.spongebob );
+            put("spoon", R.mipmap.spoon );
+            put("squirrel", R.mipmap.squirrle );
+            put("standing bird", R.mipmap.standingbird );
+            put("stapler", R.mipmap.stapler );
+            put("strawberry", R.mipmap.strawberry );
+            put("streetlight", R.mipmap.streetlight );
+            put("submarine", R.mipmap.submarine );
+            put("suitcase", R.mipmap.suitcase );
+            put("sun", R.mipmap.sun );
+            put("suv", R.mipmap.suv );
+            put("swan", R.mipmap.swan );
+            put("sword", R.mipmap.sword );
+            put("syringe", R.mipmap.syringe );
+
+            put("table", R.mipmap.table );
+            put("tablelamp", R.mipmap.tablelamp );
+            put("teacup", R.mipmap.teacup );
+            put("teapot", R.mipmap.taepot );
+            put("teddy-bear", R.mipmap.teddybear );
+            put("telephone", R.mipmap.telephone );
+            put("tennis-racket", R.mipmap.tennisracket );
+            put("tent", R.mipmap.tent );
+            put("tire", R.mipmap.tire );
+            put("toilet", R.mipmap.toilet );
+            put("tomato", R.mipmap.tomato );
+            put("tooth", R.mipmap.tooth );
+            put("toothbrush", R.mipmap.toothbrush );
+            put("tractor", R.mipmap.tractor );
+            put("traffic light", R.mipmap.trafficlight );
+            put("train", R.mipmap.train );
+            put("tree", R.mipmap.tree );
+            put("trombone", R.mipmap.trombone );
+            put("trousers", R.mipmap.trousers );
+            put("truck", R.mipmap.truck );
+            put("trumpet", R.mipmap.trumpet );
+            put("t-shirt", R.mipmap.tshirt );
+            put("tv", R.mipmap.tv );
+
+            put("umbrella", R.mipmap.umbrella );
+
+            put("van", R.mipmap.van );
+            put("vase", R.mipmap.vase );
+            put("violine", R.mipmap.violine );
+
+            put("walkie talkie", R.mipmap.walkietalkie );
+            put("wheel", R.mipmap.wheel );
+            put("wheelborrow", R.mipmap.wheelborrow );
+            put("windmill", R.mipmap.windmill );
+            put("wine-bottle", R.mipmap.winebottle );
+            put("wineglass", R.mipmap.wineglass );
+            put("wrist-watch", R.mipmap.wristwatch );
+
+            put("zebra", R.mipmap.zebra );
         }};
     }
 
