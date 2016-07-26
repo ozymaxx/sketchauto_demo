@@ -89,7 +89,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
 
         //PARSE THE STRING WHICH SERVER SENDS US
-        separated = result.split("-");
+        separated = result.split("&");
 
         Log.d("split", separated[0]);
         Log.d("split", separated[1]);

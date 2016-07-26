@@ -64,6 +64,8 @@ public class DrawingView extends View {
         canvas.drawBitmap( mBitmap, 0, 0, mBitmapPaint);
         canvas.drawPath( mPath,  mPaint);
         canvas.drawPath( circlePath,  circlePaint);
+
+        Log.d("canvas", "" + canvas.getHeight() );
     }
 
     private float mX, mY;
@@ -81,7 +83,7 @@ public class DrawingView extends View {
         mX = x;
         mY = y;
         long currTime = getTime();
-        stroke.addPoint( x, y, currTime );
+        stroke.addPoint( x, mCanvas.getHeight() - y, currTime );
     }
 
     private void touch_move(float x, float y) {
@@ -93,7 +95,7 @@ public class DrawingView extends View {
             mY = y;
 
             long currTime = getTime();
-            stroke.addPoint( x, y, currTime );
+            stroke.addPoint( x, mCanvas.getHeight() - y, currTime );
             circlePath.reset();
             circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
         }

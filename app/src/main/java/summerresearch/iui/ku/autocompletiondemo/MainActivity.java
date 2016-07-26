@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         frame.addView(dv);
+
+        Log.d("frame", "" + frame.getWidth() );
+        Log.d("frame", "" + frame.getHeight() );
     }
 
     public void send( View v )
