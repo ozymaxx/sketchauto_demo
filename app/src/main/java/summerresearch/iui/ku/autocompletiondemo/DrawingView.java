@@ -31,15 +31,17 @@ public class DrawingView extends View {
     Paint mPaint;
     Stroke stroke;
     Sketch sketch;
-    CircleButton  btn;
+    CircleButton  drawbtn;
+    CircleButton  sendbtn;
 
 
-    public DrawingView(Context c, Paint p, CircleButton button) {
+    public DrawingView(Context c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
         super(c);
         context = c;
         mPath = new Path();
         mPaint = p;
-        btn = button;
+        this.drawbtn = drawbtn;
+        this.sendbtn = sendbtn;
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
         circlePaint = new Paint();
         circlePath = new Path();
@@ -80,9 +82,8 @@ public class DrawingView extends View {
     private void touch_start(float x, float y) {
         stroke = new Stroke( width );
         mPath.reset();
-        btn.setColor( R.color.colorOrangeButton );
-        btn.setImageResource(R.mipmap.ic_done_white_24dp);
-
+        drawbtn.setVisibility(View.INVISIBLE);
+        sendbtn.setVisibility(View.VISIBLE);
         mPath.moveTo(x, y);
         mX = x;
         mY = y;

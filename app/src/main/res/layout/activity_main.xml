@@ -127,6 +127,18 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="send"
+        android:visibility="invisible"
+        android:src="@mipmap/ic_done_white_24dp"
+        app:cb_color="@color/colorGreenButton"/>
+
+    <at.markushi.ui.CircleButton
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:id="@+id/draw"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="send"
         android:src="@mipmap/ic_brush_white_24dp"
         app:cb_color="@color/colorBlueButton"/>
 

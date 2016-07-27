@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private CircleButton sendbtn;
     private CircleButton undobtn;
     private CircleButton erasebtn;
+    private CircleButton drawbtn;
     private ImageView image;
     private ImageView image2;
     private ImageView image3;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         sendbtn = (CircleButton) findViewById(R.id.send);
         undobtn = (CircleButton) findViewById(R.id.undo);
         erasebtn = (CircleButton) findViewById(R.id.erase);
+        drawbtn = (CircleButton) findViewById(R.id.draw);
 
         textView = (TextView) findViewById(R.id.textView);
         textView1 = (TextView) findViewById(R.id.textView1);
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(8);
 
-        dv = new DrawingView(this, mPaint, sendbtn);
+        dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         frame.addView(dv);
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             isSent = false;
 
             frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-            dv = new DrawingView(this, mPaint, sendbtn);
+            dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
             frame.addView(dv);
         }
         else if( !isSent ) {
