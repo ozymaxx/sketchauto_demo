@@ -93,7 +93,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
         Log.d("response", result);
         textView.setText( result );
 
-
         //PARSE THE STRING WHICH SERVER SENDS US
         separated = result.split("&");
 

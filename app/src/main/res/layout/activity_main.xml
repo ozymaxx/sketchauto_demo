@@ -138,7 +138,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="send"
+        android:onClick="draw"
         android:src="@mipmap/ic_brush_white_24dp"
         app:cb_color="@color/colorBlueButton"/>
 

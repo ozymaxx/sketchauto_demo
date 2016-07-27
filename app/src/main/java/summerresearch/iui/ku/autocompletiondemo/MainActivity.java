@@ -78,48 +78,46 @@ public class MainActivity extends AppCompatActivity {
 
     public void send( View v )
     {
-        if( isSent ) {
-            image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
-            image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
-            image3.findViewById(R.id.imageView3).setVisibility(View.INVISIBLE);
-            image4.findViewById(R.id.imageView4).setVisibility(View.INVISIBLE);
-            image5.findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
-
-            textView1.findViewById(R.id.textView1).setVisibility(View.INVISIBLE);
-            textView2.findViewById(R.id.textView2).setVisibility(View.INVISIBLE);
-            textView3.findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
-            textView4.findViewById(R.id.textView4).setVisibility(View.INVISIBLE);
-            textView5.findViewById(R.id.textView5).setVisibility(View.INVISIBLE);
-
-            isSent = false;
-
-            frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-            dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
-            frame.addView(dv);
+        Sketch sketch = dv.getSketch();
+        if ( sketch.jsonString().length() > 0 )
+        {
+            Log.d("server", "if part");
+            new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.125.243:5000/?json=" + sketch.jsonString() );
+            image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+            image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
+            image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
+            image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
+            image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
+            Log.d("server", "after if part");
+            dv.clear();
         }
-        else if( !isSent ) {
-            Sketch sketch = dv.getSketch();
-            if ( sketch.jsonString().length() > 0 )
-            {
-                Log.d("server", "if part");
-                new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
-                image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
-                image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
-                image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
-                image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
-                image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-                Log.d("server", "after if part");
-                dv.clear();
-            }
-            else
-            {
-                Log.d("server", "else part");
-                Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
-            }
+        else
+        {
+            Log.d("server", "else part");
+            Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
         }
-        else {
-            Log.d("Img", "does not equal to anything");
-        }
+        sendbtn.setVisibility(View.INVISIBLE);
+        drawbtn.setVisibility(View.VISIBLE);
+    }
+
+    public void draw( View v ) {
+        image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
+        image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
+        image3.findViewById(R.id.imageView3).setVisibility(View.INVISIBLE);
+        image4.findViewById(R.id.imageView4).setVisibility(View.INVISIBLE);
+        image5.findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
+
+        textView1.findViewById(R.id.textView1).setVisibility(View.INVISIBLE);
+        textView2.findViewById(R.id.textView2).setVisibility(View.INVISIBLE);
+        textView3.findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+        textView4.findViewById(R.id.textView4).setVisibility(View.INVISIBLE);
+        textView5.findViewById(R.id.textView5).setVisibility(View.INVISIBLE);
+
+        isSent = false;
+
+        frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+        dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
+        frame.addView(dv);
     }
 
     public void imageClicked ( View v )
