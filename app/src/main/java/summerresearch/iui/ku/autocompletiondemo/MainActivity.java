@@ -2,7 +2,6 @@ package summerresearch.iui.ku.autocompletiondemo;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
 import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
 
@@ -35,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView3;
     private TextView textView4;
     private TextView textView5;
+    private boolean isSent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isSent = false;
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         sendbtn = (CircleButton) findViewById(R.id.send);
         undobtn = (CircleButton) findViewById(R.id.undo);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(8);
 
-        dv = new DrawingView(this, mPaint);
+        dv = new DrawingView(this, mPaint, sendbtn);
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         frame.addView(dv);
@@ -76,24 +76,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void send( View v )
     {
-        /*if( ( btn.getText() ).equals( "PAINT") ) {
-            Log.d("Img", "in paint");
+        if( isSent ) {
             image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
             image3.findViewById(R.id.imageView3).setVisibility(View.INVISIBLE);
             image4.findViewById(R.id.imageView4).setVisibility(View.INVISIBLE);
             image5.findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
-            btn.setText("Send");
+
+            textView1.findViewById(R.id.textView1).setVisibility(View.INVISIBLE);
+            textView2.findViewById(R.id.textView2).setVisibility(View.INVISIBLE);
+            textView3.findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
+            textView4.findViewById(R.id.textView4).setVisibility(View.INVISIBLE);
+            textView5.findViewById(R.id.textView5).setVisibility(View.INVISIBLE);
+
+            isSent = false;
+
             frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-            dv = new DrawingView(this, mPaint);
+            dv = new DrawingView(this, mPaint, sendbtn);
             frame.addView(dv);
         }
-        else if( ( btn.getText() ).equals( "Send" )) {
+        else if( !isSent ) {
             Sketch sketch = dv.getSketch();
             if ( sketch.jsonString().length() > 0 )
             {
                 Log.d("server", "if part");
-                new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.125.243:5000/?json=" + sketch.jsonString() );
+                new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
                 image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
                 image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
                 image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
@@ -110,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Log.d("Img", "does not equal to anything");
-        }*/
+        }
     }
 
     public void imageClicked ( View v )

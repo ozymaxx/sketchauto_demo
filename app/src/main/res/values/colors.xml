@@ -5,4 +5,7 @@
     <color name="colorPrimary">#9098c4</color>
     <color name="colorPrimaryDark">#4d5270</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBlueButton">#2196F3</color>
+    <color name="colorOrangeButton">#FF9800</color>
+    <color name="colorGreenButton">#CDDC39</color>
 </resources>

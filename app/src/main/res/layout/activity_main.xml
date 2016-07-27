@@ -115,8 +115,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/sendButton"
-        android:layout_toStartOf="@+id/sendButton"
+        android:layout_toLeftOf="@+id/send"
+        android:layout_toStartOf="@+id/send"
         android:layout_below="@+id/textView5"/>
 
     <at.markushi.ui.CircleButton
@@ -127,8 +127,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="send"
-        android:src="@mipmap/ic_done_white_24dp"
-        app:cb_color="#CDDC39"/>
+        android:src="@mipmap/ic_brush_white_24dp"
+        app:cb_color="@color/colorBlueButton"/>
 
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"

@@ -9,6 +9,8 @@ import android.graphics.Path;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
 import sketchImpl.Stroke;
 
@@ -29,13 +31,15 @@ public class DrawingView extends View {
     Paint mPaint;
     Stroke stroke;
     Sketch sketch;
+    CircleButton  btn;
 
 
-    public DrawingView(Context c, Paint p) {
+    public DrawingView(Context c, Paint p, CircleButton button) {
         super(c);
         context = c;
         mPath = new Path();
         mPaint = p;
+        btn = button;
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
         circlePaint = new Paint();
         circlePath = new Path();
@@ -58,7 +62,6 @@ public class DrawingView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         canvas.drawBitmap( mBitmap, 0, 0, mBitmapPaint);
         canvas.drawPath( mPath,  mPaint);
         canvas.drawPath( circlePath,  circlePaint);
@@ -77,6 +80,9 @@ public class DrawingView extends View {
     private void touch_start(float x, float y) {
         stroke = new Stroke( width );
         mPath.reset();
+        btn.setColor( R.color.colorOrangeButton );
+        btn.setImageResource(R.mipmap.ic_done_white_24dp);
+
         mPath.moveTo(x, y);
         mX = x;
         mY = y;
