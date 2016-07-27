@@ -2,59 +2,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
     tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:paddingBottom="8dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView"
         android:layout_gravity="left|top"
         android:layout_alignParentTop="true"
         android:onClick="imageClicked"/>
 
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textView1"
+        android:layout_below="@+id/imageView"/>
+
     <ImageView
         android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView2"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/textView1"
         android:onClick="imageClicked"/>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/imageView2" />
 
     <ImageView
         android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView3"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/textView2"
         android:onClick="imageClicked"/>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/imageView3" />
 
     <ImageView
         android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView4"
-        android:layout_below="@+id/imageView3"
+        android:layout_below="@+id/textView3"
         android:onClick="imageClicked"/>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/imageView4" />
 
     <ImageView
         android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView5"
-        android:layout_below="@+id/imageView4"
+        android:layout_below="@+id/textView4"
         android:onClick="imageClicked"/>
 
-
-
-
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/imageView5" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -66,21 +97,13 @@
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
         android:background="@color/colorWhite">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:id="@+id/imageView6"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:id="@+id/imageView6"
-            android:layout_below="@+id/imageView5"/>
-
     </FrameLayout>
 
     <TextView
@@ -93,16 +116,40 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/sendButton"
-        android:layout_toStartOf="@+id/sendButton" />
+        android:layout_toStartOf="@+id/sendButton"
+        android:layout_below="@+id/textView5"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="Send"
+    <at.markushi.ui.CircleButton
+        android:layout_width="64dip"
+        android:layout_height="64dip"
         android:id="@+id/sendButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="send"/>
+        android:onClick="send"
+        android:src="@mipmap/ic_done_white_24dp"
+        app:cb_color="#CDDC39"/>
+
+    <at.markushi.ui.CircleButton
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/sendButton"
+        android:layout_toStartOf="@+id/sendButton"
+        android:clickable="false"
+        android:src="@mipmap/ic_done_white_24dp"
+        app:cb_color="#FFBB33"/>
+
+    <at.markushi.ui.CircleButton
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:id="@+id/button2"
+        android:layout_alignTop="@+id/button"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button"
+        android:clickable="false"
+        android:src="@mipmap/ic_done_white_24dp"
+        app:cb_color="#B71C1C"/>
 
 </RelativeLayout>

@@ -24,12 +24,18 @@ import java.net.URLEncoder;
  * Created by ElifYagmur on 22.07.2016.
  */
 public class CallAPI extends AsyncTask<String, String, String> {
-    TextView textView;
+    TextView textView, textView1, textView2, textView3, textView4, textView5;
     ImageView imV, imV2, imV3, imV4, imV5;
     String[] separated;
 
-    public CallAPI(TextView view, ImageView image, ImageView image2, ImageView image3, ImageView image4, ImageView image5 ) {
+    public CallAPI(TextView view, TextView view1, TextView view2, TextView view3, TextView view4, TextView view5,ImageView image, ImageView image2, ImageView image3, ImageView image4, ImageView image5 ) {
         textView = view;
+        textView1 = view1;
+        textView2 = view2;
+        textView3 = view3;
+        textView4 = view4;
+        textView5 = view5;
+
         imV = image;
         imV2 = image2;
         imV3 = image3;
@@ -106,5 +112,11 @@ public class CallAPI extends AsyncTask<String, String, String> {
         imV3.setImageResource( im.getImageMap().get(separated[2]) );
         imV4.setImageResource( im.getImageMap().get(separated[3]) );
         imV5.setImageResource( im.getImageMap().get(separated[4]) );
+
+        textView1.setText(separated[0]);
+        textView2.setText(separated[1]);
+        textView3.setText(separated[2]);
+        textView4.setText(separated[3]);
+        textView5.setText(separated[4]);
     }
 }

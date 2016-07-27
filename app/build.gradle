@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    compile 'com.github.markushi:circlebutton:1.1'
 }

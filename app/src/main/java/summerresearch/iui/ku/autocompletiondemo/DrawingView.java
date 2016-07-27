@@ -9,8 +9,6 @@ import android.graphics.Path;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import sketchImpl.Point;
 import sketchImpl.Sketch;
 import sketchImpl.Stroke;
 
@@ -20,7 +18,7 @@ import sketchImpl.Stroke;
 public class DrawingView extends View {
 
     public int width;
-    public  int height;
+    public int height;
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Path mPath;
@@ -35,7 +33,7 @@ public class DrawingView extends View {
 
     public DrawingView(Context c, Paint p) {
         super(c);
-        context=c;
+        context = c;
         mPath = new Path();
         mPaint = p;
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);

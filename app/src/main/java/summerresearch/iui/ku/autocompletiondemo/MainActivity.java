@@ -1,13 +1,11 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
-import java.io.InputStream;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView image3;
     private ImageView image4;
     private ImageView image5;
+    private TextView textView1;
+    private TextView textView2;
+    private TextView textView3;
+    private TextView textView4;
+    private TextView textView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         btn = (Button) findViewById(R.id.sendButton);
+
         textView = (TextView) findViewById(R.id.textView);
+        textView1 = (TextView) findViewById(R.id.textView1);
+        textView2 = (TextView) findViewById(R.id.textView2);
+        textView3 = (TextView) findViewById(R.id.textView3);
+        textView4 = (TextView) findViewById(R.id.textView4);
+        textView5 = (TextView) findViewById(R.id.textView5);
 
         image = (ImageView) findViewById(R.id.imageView);
         image2 = (ImageView) findViewById(R.id.imageView2);
@@ -57,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         frame.addView(dv);
-
-        Log.d("frame", "" + frame.getWidth() );
-        Log.d("frame", "" + frame.getHeight() );
     }
 
     public void send( View v )
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             if ( sketch.jsonString().length() > 0 )
             {
                 Log.d("server", "if part");
-                new CallAPI( textView, image, image2, image3, image4, image5 ).execute("http://172.31.155.112:5000/?json=" + sketch.jsonString() );
+                new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.125.243:5000/?json=" + sketch.jsonString() );
                 image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
                 image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
                 image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
@@ -131,5 +137,13 @@ public class MainActivity extends AppCompatActivity {
         frame.invalidate();
         btn.setText("PAINT");
         Log.d("Img", "3");
+    }
+
+    public void revert( View v ) {
+
+    }
+
+    public void erase( View v ) {
+
     }
 }
