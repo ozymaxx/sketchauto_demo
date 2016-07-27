@@ -72,7 +72,7 @@ public class DrawingView extends View {
     private static final float TOUCH_TOLERANCE = 0.1f;
 
     public long getTime() {
-        long time= System.currentTimeMillis();
+        long time= System.nanoTime();
         return time;
     }
 
