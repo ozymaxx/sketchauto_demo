@@ -133,23 +133,23 @@
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
         android:layout_height="64dip"
-        android:id="@+id/button"
+        android:id="@+id/undo"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/sendButton"
         android:layout_toStartOf="@+id/sendButton"
         android:clickable="false"
-        android:src="@mipmap/ic_done_white_24dp"
+        android:src="@mipmap/ic_undo_white_24dp"
         app:cb_color="#FFBB33"/>
 
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
         android:layout_height="64dip"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button"
+        android:id="@+id/erase"
+        android:layout_alignTop="@+id/undo"
+        android:layout_toLeftOf="@+id/undo"
+        android:layout_toStartOf="@+id/undo"
         android:clickable="false"
-        android:src="@mipmap/ic_done_white_24dp"
+        android:src="@mipmap/ic_backspace_white_24dp"
         app:cb_color="#B71C1C"/>
 
 </RelativeLayout>
