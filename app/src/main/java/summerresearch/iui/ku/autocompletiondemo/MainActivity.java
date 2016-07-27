@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Paint mPaint;
     private FrameLayout frame;
     private TextView textView;
-    private Button btn;
+    private CircleButton btn;
     private ImageView image;
     private ImageView image2;
     private ImageView image3;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         frame = (FrameLayout)findViewById(R.id.frameLayout);
-        btn = (Button) findViewById(R.id.sendButton);
+        btn = (CircleButton) findViewById(R.id.sendButton);
 
         textView = (TextView) findViewById(R.id.textView);
         textView1 = (TextView) findViewById(R.id.textView1);
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void send( View v )
     {
-        if( ( btn.getText() ).equals( "PAINT") ) {
+        /*if( ( btn.getText() ).equals( "PAINT") ) {
             Log.d("Img", "in paint");
             image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Log.d("Img", "does not equal to anything");
-        }
+        }*/
     }
 
     public void imageClicked ( View v )
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Img", "indefault");
         }
         frame.invalidate();
-        btn.setText("PAINT");
+        //btn.setText("PAINT");
         Log.d("Img", "3");
     }
 
