@@ -122,7 +122,7 @@
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
         android:layout_height="64dip"
-        android:id="@+id/sendButton"
+        android:id="@+id/send"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -135,8 +135,8 @@
         android:layout_height="64dip"
         android:id="@+id/undo"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/sendButton"
-        android:layout_toStartOf="@+id/sendButton"
+        android:layout_toLeftOf="@+id/send"
+        android:layout_toStartOf="@+id/send"
         android:clickable="false"
         android:src="@mipmap/ic_undo_white_24dp"
         app:cb_color="#FFBB33"/>

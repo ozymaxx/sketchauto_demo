@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private Paint mPaint;
     private FrameLayout frame;
     private TextView textView;
-    private CircleButton btn;
+    private CircleButton sendbtn;
+    private CircleButton undobtn;
+    private CircleButton erasebtn;
     private ImageView image;
     private ImageView image2;
     private ImageView image3;
@@ -40,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         frame = (FrameLayout)findViewById(R.id.frameLayout);
-        btn = (CircleButton) findViewById(R.id.sendButton);
+        sendbtn = (CircleButton) findViewById(R.id.send);
+        undobtn = (CircleButton) findViewById(R.id.undo);
+        erasebtn = (CircleButton) findViewById(R.id.erase);
 
         textView = (TextView) findViewById(R.id.textView);
         textView1 = (TextView) findViewById(R.id.textView1);
