@@ -1,5 +1,6 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,14 +35,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView3;
     private TextView textView4;
     private TextView textView5;
-    private boolean isSent;
+    private Canvas recentCanvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isSent = false;
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         sendbtn = (CircleButton) findViewById(R.id.send);
         undobtn = (CircleButton) findViewById(R.id.undo);
@@ -81,14 +81,13 @@ public class MainActivity extends AppCompatActivity {
         Sketch sketch = dv.getSketch();
         if ( sketch.jsonString().length() > 0 )
         {
-            Log.d("server", "if part");
-            new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.125.243:5000/?json=" + sketch.jsonString() );
+            new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.175.204:5000/?json=" + sketch.jsonString() );
             image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
             image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
             image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
             image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-            Log.d("server", "after if part");
+            recentCanvas = dv.getCanvas();
             dv.clear();
         }
         else
@@ -113,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
         textView4.findViewById(R.id.textView4).setVisibility(View.INVISIBLE);
         textView5.findViewById(R.id.textView5).setVisibility(View.INVISIBLE);
 
-        isSent = false;
-
         frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
         dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
         frame.addView(dv);
@@ -123,9 +120,7 @@ public class MainActivity extends AppCompatActivity {
     public void imageClicked ( View v )
     {
         frame.removeView(dv);
-        Log.d("Img", "1");
         ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
-        Log.d("Img", "2");
 
         frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
         switch (v.getId()) {
@@ -152,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Img", "3");
     }
 
-    public void revert( View v ) {
-
+    public void undo( View v ) {
+        dv.repaint();
     }
 
     public void erase( View v ) {

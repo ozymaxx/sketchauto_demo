@@ -12,7 +12,7 @@ public class ImageMap {
     public ImageMap() {
         imageMap = new HashMap<String,Integer>() {{
             put("airplane", R.mipmap.airplane );
-            put("alarm clock", R.mipmap.alarmclock );
+            put("alarm-clock", R.mipmap.alarmclock );
             put("angel", R.mipmap.angel );
             put("ant", R.mipmap.ant );
             put("apple", R.mipmap.apple );

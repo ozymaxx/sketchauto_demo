@@ -22,6 +22,8 @@ public class Stroke implements JSONable {
     }
 
     public void addPoint(double x, double y, long timestamp) {
+        x = (double)Math.round(x * 10000d) / 10000;
+        y = (double)Math.round(y * 10000d) / 10000;
         points.add( new Point(x,y,timestamp) );
     }
 
