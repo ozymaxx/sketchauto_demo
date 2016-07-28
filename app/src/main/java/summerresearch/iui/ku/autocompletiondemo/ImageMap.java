@@ -10,6 +10,7 @@ public class ImageMap {
     private Map <String, Integer> imageMap;
 
     public ImageMap() {
+
         imageMap = new HashMap<String,Integer>() {{
             put("airplane", R.mipmap.airplane );
             put("alarm-clock", R.mipmap.alarmclock );
@@ -25,11 +26,11 @@ public class ImageMap {
 
             put("banana", R.mipmap.banana );
             put("barn", R.mipmap.barn );
-            put("baseball bat", R.mipmap.baseballbat );
+            put("baseball-bat", R.mipmap.baseballbat );
             put("basket", R.mipmap.basket );
             put("bathtub", R.mipmap.bathtub );
 
-            put("bear(animal)", R.mipmap.bear );
+            put("bear-animal)", R.mipmap.bear );
             put("bed", R.mipmap.bed );
             put("bee", R.mipmap.bee );
             put("beer-mug", R.mipmap.beermug );
@@ -43,7 +44,7 @@ public class ImageMap {
 
             put("bookshelf", R.mipmap.bookshelf );
             put("boomerang", R.mipmap.boomerang );
-            put("bottle opener", R.mipmap.bottleopener );
+            put("bottle-opener", R.mipmap.bottleopener );
             put("bowl", R.mipmap.bowl);
             put("brain", R.mipmap.brain );
 
@@ -65,11 +66,11 @@ public class ImageMap {
             put("cannon", R.mipmap.cannon );
             put("canoe", R.mipmap.canoe );
 
-            put("car (sedan)", R.mipmap.car );
+            put("car-(sedan)", R.mipmap.car );
             put("carrot", R.mipmap.carrot );
             put("castle", R.mipmap.castle );
             put("cat", R.mipmap.cat );
-            put("cell phone", R.mipmap.cellphone );
+            put("cell-phone", R.mipmap.cellphone );
 
             put("chair", R.mipmap.chair );
             put("chandelier", R.mipmap.chandelier );
@@ -78,13 +79,13 @@ public class ImageMap {
             put("cloud", R.mipmap.cloud );
 
             put("comb", R.mipmap.comb );
-            put("computer monitor", R.mipmap.computermonitor );
+            put("computer-monitor", R.mipmap.computermonitor );
             put("computer-mouse", R.mipmap.computermouse );
             put("couch", R.mipmap.couch );
             put("cow", R.mipmap.cow );
 
             put("crab", R.mipmap.crab );
-            put("crane (machine)", R.mipmap.crane );
+            put("crane-(machine)", R.mipmap.crane );
             put("crocodile", R.mipmap.crocodile );
             put("crown", R.mipmap.crown );
             put("cup", R.mipmap.cup );
@@ -95,7 +96,7 @@ public class ImageMap {
             put("donut", R.mipmap.donut );
             put("door", R.mipmap.door );
 
-            put("door handle", R.mipmap.doorhandle );
+            put("door-handle", R.mipmap.doorhandle );
             put("dragon", R.mipmap.dragon );
             put("duck", R.mipmap.duck );
             put("ear", R.mipmap.ear );
@@ -108,14 +109,14 @@ public class ImageMap {
             put("fan", R.mipmap.fan );
 
             put("feather", R.mipmap.feather );
-            put("fire hydrant", R.mipmap.firehydrant );
+            put("fire-hydrant", R.mipmap.firehydrant );
             put("fish", R.mipmap.fish );
             put("flashlight", R.mipmap.flashlight );
-            put("floor lamp", R.mipmap.floorlamp );
+            put("floor-lamp", R.mipmap.floorlamp );
 
-            put("flower with stem", R.mipmap.flowerwithstem );
-            put("flying bird", R.mipmap.flyingbird );
-            put("flying saucer", R.mipmap.flyingsaucer );
+            put("flower-with-stem", R.mipmap.flowerwithstem );
+            put("flying-bird", R.mipmap.flyingbird );
+            put("flying-saucer", R.mipmap.flyingsaucer );
             put("foot", R.mipmap.foot );
             put("fork", R.mipmap.fork );
 
@@ -139,7 +140,7 @@ public class ImageMap {
 
             put("helmet", R.mipmap.helmet );
             put("horse", R.mipmap.horse );
-            put("hot air ballon", R.mipmap.hotairballoon );
+            put("hot-air-ballon", R.mipmap.hotairballoon );
             put("hot-dog", R.mipmap.hotdog );
             put("hourglass", R.mipmap.hourglass );
 
@@ -173,7 +174,7 @@ public class ImageMap {
             put("mosquito", R.mipmap.mosquito );
             put("motorbike", R.mipmap.motorbike );
 
-            put("mouse (animal)", R.mipmap.mouse );
+            put("mouse-(animal)", R.mipmap.mouse );
             put("mouth", R.mipmap.mouth );
             put("mug", R.mipmap.mug );
             put("mushroom", R.mipmap.mushroom );
@@ -181,30 +182,30 @@ public class ImageMap {
 
             put("octopus", R.mipmap.octopus );
             put("owl", R.mipmap.owl );
-            put("palm tree", R.mipmap.palmtree );
+            put("palm-tree", R.mipmap.palmtree );
             put("panda", R.mipmap.panda );
-            put("paper clip", R.mipmap.paperclip );
+            put("paper-clip", R.mipmap.paperclip );
 
             put("parachute", R.mipmap.parachute );
-            put("parking meter", R.mipmap.parkingmeter );
+            put("parking-meter", R.mipmap.parkingmeter );
             put("parrot", R.mipmap.parrot );
             put("pear", R.mipmap.pear );
             put("pen", R.mipmap.pen );
 
             put("penguin", R.mipmap.penguin );
-            put("person sitting", R.mipmap.personsitting );
-            put("person walking", R.mipmap.personwalking );
+            put("person-sitting", R.mipmap.personsitting );
+            put("person-walking", R.mipmap.personwalking );
             put("piano", R.mipmap.piano );
-            put("pickup truck", R.mipmap.pickuptruck );
+            put("pickup-truck", R.mipmap.pickuptruck );
 
             put("pig", R.mipmap.pig );
             put("pigeon", R.mipmap.pigeon );
             put("pineapple", R.mipmap.pineapple );
-            put("pipe (for smoking)", R.mipmap.pipe );
+            put("pipe-(for-smoking)", R.mipmap.pipe );
             put("pizza", R.mipmap.pizza );
 
-            put("potted plant", R.mipmap.pottedplant );
-            put("power outlet", R.mipmap.poweroutlet );
+            put("potted-plant", R.mipmap.pottedplant );
+            put("power-outlet", R.mipmap.poweroutlet );
             put("present", R.mipmap.present );
             put("pretzel", R.mipmap.pretzel );
             put("pumpkin", R.mipmap.pumpkin );
@@ -212,7 +213,7 @@ public class ImageMap {
 
             put("purse", R.mipmap.purse);
             put("rabbit", R.mipmap.rabbit );
-            put("race car", R.mipmap.racecar );
+            put("race-car", R.mipmap.racecar );
             put("radio", R.mipmap.radio);
             put("rainbow", R.mipmap.rainbow );
 
@@ -223,14 +224,14 @@ public class ImageMap {
             put("rooster", R.mipmap.rooster );
             put("sailboat", R.mipmap.sailboat );
 
-            put("santa claus", R.mipmap.santaclaus );
+            put("santa-claus", R.mipmap.santaclaus );
             put("satellite dish", R.mipmap.satellitedish );
             put("saxophone", R.mipmap.saxophone );
             put("scissors", R.mipmap.scissor );
             put("scorpion", R.mipmap.scorpion );
 
             put("screwdriver", R.mipmap.screwdriver );
-            put("sea turtle", R.mipmap.seaturtle );
+            put("sea-turtle", R.mipmap.seaturtle );
             put("seagull", R.mipmap.seagull );
             put("shark", R.mipmap.shark );
             put("sheep", R.mipmap.sheep );
@@ -248,14 +249,14 @@ public class ImageMap {
             put("snowman", R.mipmap.snowman );
 
             put("socks", R.mipmap.socks );
-            put("space shuttle", R.mipmap.spaceshuttle );
+            put("space-shuttle", R.mipmap.spaceshuttle );
             put("speed-boat", R.mipmap.speedboat );
             put("spider", R.mipmap.spider );
-            put("sponge bob", R.mipmap.spongebob );
+            put("sponge-bob", R.mipmap.spongebob );
 
             put("spoon", R.mipmap.spoon );
             put("squirrel", R.mipmap.squirrel );
-            put("standing bird", R.mipmap.standingbird );
+            put("standing-bird", R.mipmap.standingbird );
             put("stapler", R.mipmap.stapler );
             put("strawberry", R.mipmap.strawberry );
 
@@ -285,7 +286,7 @@ public class ImageMap {
 
             put("toothbrush", R.mipmap.toothbrush );
             put("tractor", R.mipmap.tractor );
-            put("traffic light", R.mipmap.trafficlight );
+            put("traffic-light", R.mipmap.trafficlight );
             put("train", R.mipmap.train );
             put("tree", R.mipmap.tree );
 
@@ -301,7 +302,7 @@ public class ImageMap {
             put("vase", R.mipmap.vase );
             put("violin", R.mipmap.violin );
 
-            put("walkie talkie", R.mipmap.walkietalkie );
+            put("walkie-talkie", R.mipmap.walkietalkie );
             put("wheel", R.mipmap.wheel );
             put("wheelbarrow", R.mipmap.wheelbarrow );
             put("windmill", R.mipmap.windmill );
