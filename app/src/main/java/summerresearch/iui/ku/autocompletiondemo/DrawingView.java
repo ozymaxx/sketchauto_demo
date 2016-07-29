@@ -76,8 +76,7 @@ public class DrawingView extends View {
     {
         super.onDraw(canvas);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-        //canvas.drawPath(mPath, mPaint);
-        canvas.drawPath(circlePath, circlePaint);
+        canvas.drawPath(mPath, mPaint);
 
         mPaint.setColor(Color.WHITE);
         mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()*2));
@@ -93,6 +92,7 @@ public class DrawingView extends View {
                 canvas.drawPath(paths.get(index), mPaint);
             }
         }
+        canvas.drawPath(circlePath, circlePaint);
 
     }
 

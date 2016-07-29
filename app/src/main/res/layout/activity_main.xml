@@ -38,7 +38,7 @@
         android:layout_width="120dp"
         android:layout_height="100dp"
         android:id="@+id/imageView2"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@id/textView1"
         android:onClick="imageClicked"/>
 
     <TextView
@@ -49,13 +49,13 @@
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView2"
-        android:layout_below="@+id/imageView2" />
+        android:layout_below="@id/imageView2" />
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="100dp"
         android:id="@+id/imageView3"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@id/textView2"
         android:onClick="imageClicked"/>
 
     <TextView
@@ -66,13 +66,13 @@
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView3"
-        android:layout_below="@+id/imageView3" />
+        android:layout_below="@id/imageView3" />
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="100dp"
         android:id="@+id/imageView4"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@id/textView3"
         android:onClick="imageClicked"/>
 
     <TextView
@@ -83,7 +83,7 @@
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView4"
-        android:layout_below="@+id/imageView4" />
+        android:layout_below="@id/imageView4" />
 
     <ImageView
         android:layout_width="120dp"
@@ -100,13 +100,13 @@
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView5"
-        android:layout_below="@+id/imageView5" />
+        android:layout_below="@id/imageView5"/>
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="100dp"
         android:id="@+id/imageView7"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/textView5"
         android:onClick="imageClicked"/>
 
     <TextView
@@ -117,14 +117,13 @@
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView6"
-        android:layout_below="@+id/imageView5" />
-
+        android:layout_below="@+id/imageView7" />
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="100dp"
         android:id="@+id/imageView8"
-        android:layout_below="@+id/textView7"
+        android:layout_below="@+id/textView6"
         android:onClick="imageClicked"/>
 
     <TextView
@@ -135,7 +134,7 @@
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView7"
-        android:layout_below="@+id/imageView7" />
+        android:layout_below="@+id/imageView8" />
 
 
     </RelativeLayout>

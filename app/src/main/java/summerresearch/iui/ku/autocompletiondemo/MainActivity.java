@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         textView4 = (TextView) findViewById(R.id.textView4);
         textView5 = (TextView) findViewById(R.id.textView5);
         textView5 = (TextView) findViewById(R.id.textView6);
-        textView5 = (TextView) findViewById(R.id.textView6);
+        textView6 = (TextView) findViewById(R.id.textView6);
+        textView7 = (TextView) findViewById(R.id.textView7);
 
         image = (ImageView) findViewById(R.id.imageView);
         image2 = (ImageView) findViewById(R.id.imageView2);
