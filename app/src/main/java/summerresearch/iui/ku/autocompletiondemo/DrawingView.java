@@ -38,7 +38,8 @@ public class DrawingView extends View {
     CircleButton  drawbtn;
     CircleButton  sendbtn;
     private ArrayList<Path> paths;
-    ArrayList<Path> removedPath = null;
+    DecimalFormat decimalFormat;
+    ArrayList<Integer> removedPathIndex = null;
 
     public DrawingView(Context c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
         super(c);
@@ -58,7 +59,8 @@ public class DrawingView extends View {
         circlePaint.setStrokeJoin(Paint.Join.MITER);
         circlePaint.setStrokeWidth(4f);
         sketch = new Sketch();
-        removedPath = new ArrayList<Path>();
+        decimalFormat = new DecimalFormat("#.0000");
+        removedPathIndex = new ArrayList<Integer>();
     }
 
 
@@ -74,17 +76,24 @@ public class DrawingView extends View {
     {
         super.onDraw(canvas);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-        canvas.drawPath(mPath, mPaint);
+        //canvas.drawPath(mPath, mPaint);
         canvas.drawPath(circlePath, circlePaint);
 
-        for (Path path : removedPath)
-        {
-            mPaint.setColor(Color.YELLOW);
-            mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()*2));
-            canvas.drawPath(path, mPaint);
-            mPaint.setColor(Color.BLACK);
-            mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()/2));
+        mPaint.setColor(Color.WHITE);
+        mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()*2));
+        for (Integer index : removedPathIndex){
+            canvas.drawPath(paths.get(index), mPaint);
         }
+
+
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()/2));
+        for (int index = 0; index < paths.size(); index++){
+            if (!removedPathIndex.contains(new Integer(index))){
+                canvas.drawPath(paths.get(index), mPaint);
+            }
+        }
+
     }
 
     private float mX, mY;
@@ -167,7 +176,8 @@ public class DrawingView extends View {
         mPath = new Path();
         mBitmap.eraseColor(Color.WHITE);
         sketch = new Sketch();
-        removedPath.clear();
+        removedPathIndex.clear();
+        paths.clear();
         invalidate();
     }
 
@@ -177,9 +187,14 @@ public class DrawingView extends View {
 
     public void undo()
     {
-        if (!paths.isEmpty()){
-            removedPath.add(paths.get(paths.size()-1));
-            paths.remove(paths.size()-1);
+        if (!paths.isEmpty() && !(paths.size() == removedPathIndex.size())){
+            // find the first non-deleted index from path
+            int index = paths.size() -1 ;
+            while (removedPathIndex.contains(index)) {
+                index--;
+            }
+            removedPathIndex.add(index);
+            //paths.remove(paths.size()-1);
         }
         sketch.undo();
         invalidate();

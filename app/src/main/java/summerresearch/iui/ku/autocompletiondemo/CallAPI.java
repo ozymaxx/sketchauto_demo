@@ -78,10 +78,12 @@ public class CallAPI extends AsyncTask<String, String, String> {
         Log.d("server", "before return");
         urlConnection.disconnect();
 
-        try {
+        try
+        {
             in.close();
         }
-        catch (IOException e) {
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
         return resultToDisplay;
@@ -90,6 +92,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String result) {
+
         //Update the UI
         Log.d("response", result);
         //PARSE THE STRING WHICH SERVER SENDS US
@@ -97,9 +100,11 @@ public class CallAPI extends AsyncTask<String, String, String> {
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
         ImageMap im = new ImageMap();
 
-        for( int i = 0; i < separated.length; i++ ) {
-            imageViews[i].setImageResource( im.getImageMap().get(separated[i]) );
+
+        for (int i = 0; i < separated.length; i++) {
+            imageViews[i].setImageResource(im.getImageMap().get(separated[i]));
             textViews[i].setText(separated[i]);
         }
+
     }
 }
