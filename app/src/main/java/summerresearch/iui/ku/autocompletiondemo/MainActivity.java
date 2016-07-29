@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private String IP = "172.31.175.204"; //Semih's
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
@@ -95,21 +96,21 @@ public class MainActivity extends AppCompatActivity {
         checkInternetConnection();
     }
 
-    public void send( View v )
+    public void send(DrawingView dv )
     {
         Sketch sketch = dv.getSketch();
-        if ( sketch.jsonString().length() > 0 )
+        if (sketch.jsonString().length() > 0)
         {
             TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5, textView6, textView7 };
             ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5, image7, image8 };
-            new CallAPI( textViews, imageViews ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
+            new CallAPI( textViews, imageViews, dv ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
             image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
             image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
             image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
             image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
             recentCanvas = dv.getCanvas();
-            dv.clear();
+            //dv.clear();
         }
         else
         {
@@ -120,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         drawbtn.setVisibility(View.VISIBLE);
     }
 
-    private void showFinishingAlertDialog(String title, String message) {
+    private void showFinishingAlertDialog(String title, String message)
+    {
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
     }
 
-    public void setip(View v)
+    public void setip()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Set IP");
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void draw( View v )
+    public void draw()
     {
         image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
         image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
@@ -179,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         frame.addView(dv);
     }
 
-    public void imageClicked ( View v )
+    public void imageClicked (View v)
     {
         frame.removeView(dv);
         ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
@@ -213,12 +215,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Img", "3");
     }
 
-    public void undo( View v )
+    public void undo(View view)
     {
         dv.undo();
     }
 
-    public void erase( View v )
+    public void erase(View view)
     {
         dv.clear();
     }

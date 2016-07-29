@@ -40,9 +40,12 @@ public class DrawingView extends View {
     private ArrayList<Path> paths;
     DecimalFormat decimalFormat;
     ArrayList<Integer> removedPathIndex = null;
+    boolean httpReady;
+    MainActivity ma;
 
-    public DrawingView(Context c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
-        super(c);
+    public DrawingView(MainActivity c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
+        super((Context)c);
+        this.ma = c;
         paths = new ArrayList<Path>();
         context = c;
         mPath = new Path();
@@ -61,6 +64,7 @@ public class DrawingView extends View {
         sketch = new Sketch();
         decimalFormat = new DecimalFormat("#.0000");
         removedPathIndex = new ArrayList<Integer>();
+        httpReady = true;
     }
 
 
@@ -142,6 +146,11 @@ public class DrawingView extends View {
         // kill this so we don't double draw
         //mPath.reset();
         Log.d("Stroke", sketch.jsonString());
+
+        if (httpReady) {
+            ma.send(this);
+            httpReady = false;
+        }
     }
 
     @Override
@@ -197,10 +206,20 @@ public class DrawingView extends View {
 
             sketch.undo();
             invalidate();
+
+            if (httpReady)  {
+                ma.send(this);
+                httpReady = false;
+            }
         }
         else {
             clear();
         }
 
+
+    }
+
+    public void HttpResult(){
+        httpReady = true;
     }
 }

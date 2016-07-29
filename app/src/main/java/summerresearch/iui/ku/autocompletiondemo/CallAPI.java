@@ -1,6 +1,7 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,10 +21,12 @@ public class CallAPI extends AsyncTask<String, String, String> {
     TextView[] textViews;
     ImageView [] imageViews;
     String[] separated;
+    DrawingView dv;
 
-    public CallAPI(TextView [] textViews, ImageView [] imageViews ) {
+    public CallAPI(TextView [] textViews, ImageView [] imageViews, DrawingView dv ) {
         this.textViews = textViews;
         this.imageViews = imageViews;
+        this.dv = dv;
     }
 
     @Override
@@ -91,8 +94,8 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
 
     @Override
-    protected void onPostExecute(String result) {
-
+    protected void onPostExecute(String result)
+    {
         //Update the UI
         Log.d("response", result);
         //PARSE THE STRING WHICH SERVER SENDS US
@@ -111,5 +114,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
             String text = String.format("%s %.2f%%", separated[i], prob);
             textViews[i].setText(text);
         }
+        dv.HttpResult();
     }
 }
