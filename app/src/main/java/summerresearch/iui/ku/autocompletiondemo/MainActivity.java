@@ -35,11 +35,19 @@ public class MainActivity extends AppCompatActivity {
     private ImageView image3;
     private ImageView image4;
     private ImageView image5;
+    private ImageView image7;
+    private ImageView image8;
+
     private TextView textView1;
     private TextView textView2;
     private TextView textView3;
     private TextView textView4;
     private TextView textView5;
+    private TextView textView6;
+    private TextView textView7;
+
+
+
     private Canvas recentCanvas;
     private String IP = "172.31.175.204";
 
@@ -59,12 +67,17 @@ public class MainActivity extends AppCompatActivity {
         textView3 = (TextView) findViewById(R.id.textView3);
         textView4 = (TextView) findViewById(R.id.textView4);
         textView5 = (TextView) findViewById(R.id.textView5);
+        textView5 = (TextView) findViewById(R.id.textView6);
+        textView5 = (TextView) findViewById(R.id.textView6);
 
         image = (ImageView) findViewById(R.id.imageView);
         image2 = (ImageView) findViewById(R.id.imageView2);
         image3 = (ImageView) findViewById(R.id.imageView3);
         image4 = (ImageView) findViewById(R.id.imageView4);
         image5 = (ImageView) findViewById(R.id.imageView5);
+        //image6
+        image7 = (ImageView) findViewById(R.id.imageView7);
+        image8 = (ImageView) findViewById(R.id.imageView8);
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -87,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         Sketch sketch = dv.getSketch();
         if ( sketch.jsonString().length() > 0 )
         {
-            TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5 };
-            ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5 };
+            TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5, textView6, textView7 };
+            ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5, image7, image8 };
             new CallAPI( textViews, imageViews ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
             image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
