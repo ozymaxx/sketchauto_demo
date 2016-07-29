@@ -1,6 +1,7 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
                     }
                 }).show();
     }
