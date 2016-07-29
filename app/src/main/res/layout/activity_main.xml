@@ -59,7 +59,7 @@
         android:onClick="imageClicked"/>
 
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -76,7 +76,7 @@
         android:onClick="imageClicked"/>
 
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -93,7 +93,7 @@
         android:onClick="imageClicked"/>
 
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -110,7 +110,7 @@
         android:onClick="imageClicked"/>
 
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -127,7 +127,7 @@
         android:onClick="imageClicked"/>
 
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -135,8 +135,6 @@
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView7"
         android:layout_below="@+id/imageView8" />
-
-
     </RelativeLayout>
     </ScrollView>
 
