@@ -207,7 +207,7 @@
         android:layout_below = "@+id/erase"
         android:layout_alignParentRight="true"
         android:onClick="setip"
-        android:src="@mipmap/ic_done_white_24dp"
+        android:src="@mipmap/ic_settings_ethernet_white_24dp"
         app:cb_color="#000000"/>
 
 </RelativeLayout>
