@@ -104,12 +104,14 @@ public class MainActivity extends AppCompatActivity {
             TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5, textView6, textView7 };
             ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5, image7, image8 };
             new CallAPI( textViews, imageViews, dv ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
+            /*
             image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
             image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
             image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
             image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-            recentCanvas = dv.getCanvas();
+            */
+            //recentCanvas = dv.getCanvas();
             //dv.clear();
         }
         else
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
     }
 
-    public void setip()
+    public void setip(View v)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Set IP");

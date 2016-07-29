@@ -84,7 +84,8 @@ public class DrawingView extends View {
 
         mPaint.setColor(Color.WHITE);
         mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()*2));
-        for (Integer index : removedPathIndex){
+        for (Integer index : removedPathIndex)
+        {
             canvas.drawPath(paths.get(index), mPaint);
         }
 
@@ -100,14 +101,15 @@ public class DrawingView extends View {
     }
 
     private float mX, mY;
-    private static final float TOUCH_TOLERANCE = 0.1f;
+    private static final float TOUCH_TOLERANCE = 0.4f;
 
     public long getTime() {
         long time= System.nanoTime();
         return time;
     }
 
-    private void touch_start(float x, float y) {
+    private void touch_start(float x, float y)
+    {
         mPath = new Path();
         paths.add(mPath);
         stroke = new Stroke( width );
@@ -121,7 +123,8 @@ public class DrawingView extends View {
         stroke.addPoint( x, mCanvas.getHeight() - y, currTime );
     }
 
-    private void touch_move(float x, float y) {
+    private void touch_move(float x, float y)
+    {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
@@ -215,8 +218,6 @@ public class DrawingView extends View {
         else {
             clear();
         }
-
-
     }
 
     public void HttpResult(){
