@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView4;
     private TextView textView5;
     private Canvas recentCanvas;
-    private String IP = "172.31.175.204";
+    private String IP = "172.31.175.204"; //Semih's
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,17 @@ public class MainActivity extends AppCompatActivity {
         drawbtn.setVisibility(View.VISIBLE);
     }
 
+    private void showFinishingAlertDialog(String title, String message) {
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                }).show();
+    }
 
     public void setip(View v)
     {
@@ -203,10 +214,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Check for network connections
         if ( connec.getActiveNetworkInfo() != null) {
-            Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
             return true;
         }else {
-            Toast.makeText(this, " Not Connected ", Toast.LENGTH_LONG).show();
+            showFinishingAlertDialog("Internet Connection Error", "Device does not have active internet connection!!!");
             return false;
         }
     }
