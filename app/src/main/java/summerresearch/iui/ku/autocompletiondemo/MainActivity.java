@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         {
             TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5 };
             ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5 };
-            new CallAPI( textViews, imageViews ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString() );
+            new CallAPI( textViews, imageViews ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
             image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
             image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
