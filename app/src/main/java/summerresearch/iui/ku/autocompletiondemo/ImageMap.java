@@ -10,7 +10,6 @@ public class ImageMap {
     private Map <String, Integer> imageMap;
 
     public ImageMap() {
-
         imageMap = new HashMap<String,Integer>() {{
             put("airplane", R.mipmap.airplane );
             put("alarm-clock", R.mipmap.alarmclock );

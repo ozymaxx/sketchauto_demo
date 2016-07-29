@@ -91,7 +91,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         //Update the UI
         Log.d("response", result);
-        textView.setText( result );
 
         //PARSE THE STRING WHICH SERVER SENDS US
         separated = result.split("&");

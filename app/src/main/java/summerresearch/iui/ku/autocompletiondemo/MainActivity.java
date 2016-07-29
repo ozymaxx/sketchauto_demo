@@ -1,8 +1,12 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,19 +40,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView4;
     private TextView textView5;
     private Canvas recentCanvas;
+    private String IP = "172.31.175.204";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getSupportActionBar().hide();
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         sendbtn = (CircleButton) findViewById(R.id.send);
         undobtn = (CircleButton) findViewById(R.id.undo);
         erasebtn = (CircleButton) findViewById(R.id.erase);
         drawbtn = (CircleButton) findViewById(R.id.draw);
 
-        textView = (TextView) findViewById(R.id.textView);
         textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
         textView3 = (TextView) findViewById(R.id.textView3);
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         Sketch sketch = dv.getSketch();
         if ( sketch.jsonString().length() > 0 )
         {
-            new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://172.31.175.204:5000/?json=" + sketch.jsonString() );
+            new CallAPI( textView, textView1, textView2, textView3, textView4, textView5, image, image2, image3, image4, image5 ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString() );
             image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
             image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
             image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
@@ -97,6 +101,35 @@ public class MainActivity extends AppCompatActivity {
         }
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);
+    }
+
+
+    public void setip(View v)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Set IP");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                IP = input.getText().toString();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     public void draw( View v ) {
@@ -147,11 +180,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Img", "3");
     }
 
-    public void undo( View v ) {
-        dv.repaint();
+    public void undo( View v )
+    {
+        dv.undo();
     }
 
-    public void erase( View v ) {
-
+    public void erase( View v )
+    {
+        dv.clear();
     }
 }

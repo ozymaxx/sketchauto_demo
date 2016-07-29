@@ -27,6 +27,7 @@ public class DrawingView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Path mPath;
+    private Path mPath2;
     private Paint mBitmapPaint;
     Context context;
     private Paint circlePaint;
@@ -38,12 +39,14 @@ public class DrawingView extends View {
     CircleButton  sendbtn;
     private ArrayList<Path> paths;
     DecimalFormat decimalFormat;
+    ArrayList<Path> removedPath = null;
 
     public DrawingView(Context c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
         super(c);
         paths = new ArrayList<Path>();
         context = c;
         mPath = new Path();
+        mPath2 = new Path();
         mPaint = p;
         this.drawbtn = drawbtn;
         this.sendbtn = sendbtn;
@@ -57,6 +60,7 @@ public class DrawingView extends View {
         circlePaint.setStrokeWidth(4f);
         sketch = new Sketch();
         decimalFormat = new DecimalFormat("#.0000");
+        removedPath = new ArrayList<Path>();
     }
 
 
@@ -68,11 +72,21 @@ public class DrawingView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
         super.onDraw(canvas);
-        canvas.drawBitmap( mBitmap, 0, 0, mBitmapPaint);
-        canvas.drawPath( mPath,  mPaint);
-        canvas.drawPath( circlePath,  circlePaint);
+        canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
+        canvas.drawPath(mPath, mPaint);
+        canvas.drawPath(circlePath, circlePaint);
+
+        for (Path path : removedPath)
+        {
+            mPaint.setColor(Color.YELLOW);
+            mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()*2));
+            canvas.drawPath(path, mPaint);
+            mPaint.setColor(Color.BLACK);
+            mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()/2));
+        }
     }
 
     private float mX, mY;
@@ -84,10 +98,12 @@ public class DrawingView extends View {
     }
 
     private void touch_start(float x, float y) {
+        mPath = new Path();
+        paths.add(mPath);
         stroke = new Stroke( width );
         drawbtn.setVisibility(View.INVISIBLE);
         sendbtn.setVisibility(View.VISIBLE);
-        mPath.reset();
+        //mPath.reset();
         mPath.moveTo(x, y);
         mX = x;
         mY = y;
@@ -115,10 +131,10 @@ public class DrawingView extends View {
         circlePath.reset();
         // commit the path to our offscreen
         mCanvas.drawPath(mPath,  mPaint);
-        paths.add(mPath);
+       // paths.add(mPath);
         sketch.addStroke(stroke);
         // kill this so we don't double draw
-        mPath.reset();
+        //mPath.reset();
         Log.d("Stroke", sketch.jsonString());
     }
 
@@ -149,9 +165,11 @@ public class DrawingView extends View {
     }
 
     public void clear() {
-        mPath.reset();
+        //mPath.reset();
+        mPath = new Path();
         mBitmap.eraseColor(Color.WHITE);
         sketch = new Sketch();
+        removedPath.clear();
         invalidate();
     }
 
@@ -159,10 +177,13 @@ public class DrawingView extends View {
         return mCanvas;
     }
 
-    public void repaint( ) {
-        mCanvas = new Canvas();
-        for( int i = 0; i < paths.size(); i++ ) {
-            mCanvas.drawPath( paths.get(i), mPaint);
+    public void undo()
+    {
+        if (!paths.isEmpty()){
+            removedPath.add(paths.get(paths.size()-1));
+            paths.remove(paths.size()-1);
         }
+        sketch.undo();
+        invalidate();
     }
 }

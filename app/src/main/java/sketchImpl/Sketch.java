@@ -52,4 +52,15 @@ public class Sketch implements JSONable {
     public ArrayList<Stroke> getStrokeList() {
         return strokes;
     }
+
+    public void erase() {
+        skid = System.currentTimeMillis() + "";
+        strokes = new ArrayList<Stroke>();
+    }
+
+    public void undo() {
+        if (!strokes.isEmpty()) {
+            strokes.remove(strokes.size() - 1);
+        }
+    }
 }
