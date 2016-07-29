@@ -29,7 +29,7 @@ public class ImageMap {
             put("basket", R.mipmap.basket );
             put("bathtub", R.mipmap.bathtub );
 
-            put("bear-animal)", R.mipmap.bear );
+            put("bear-(animal)", R.mipmap.bear );
             put("bed", R.mipmap.bed );
             put("bee", R.mipmap.bee );
             put("beer-mug", R.mipmap.beermug );

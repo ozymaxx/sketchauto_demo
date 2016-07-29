@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView6;
     private TextView textView7;
 
-
-
     private Canvas recentCanvas;
     private String IP = "172.31.175.204"; //Semih's
 
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         frame.addView(dv);
-        checkInternetConenction();
+        checkInternetConnection();
     }
 
     public void send( View v )
@@ -162,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void draw( View v ) {
+    public void draw( View v )
+    {
         image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
         image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
         image3.findViewById(R.id.imageView3).setVisibility(View.INVISIBLE);
@@ -201,6 +200,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.imageView5:
                 imgView.setImageDrawable(image5.getDrawable());
+            case R.id.imageView7:
+                imgView.setImageDrawable(image7.getDrawable());
+            case R.id.imageView8:
+                imgView.setImageDrawable(image8.getDrawable());
                 break;
             default:
                 Log.d("Img", "indefault");
@@ -220,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         dv.clear();
     }
 
-    private boolean checkInternetConenction() {
+    private boolean checkInternetConnection() {
         // get Connectivity Manager object to check connection
         ConnectivityManager connec =(ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
 

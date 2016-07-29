@@ -84,7 +84,6 @@ public class DrawingView extends View {
             canvas.drawPath(paths.get(index), mPaint);
         }
 
-
         mPaint.setColor(Color.BLACK);
         mPaint.setStrokeWidth((float)(mPaint.getStrokeWidth()/2));
         for (int index = 0; index < paths.size(); index++){
@@ -195,8 +194,13 @@ public class DrawingView extends View {
             }
             removedPathIndex.add(index);
             //paths.remove(paths.size()-1);
+
+            sketch.undo();
+            invalidate();
         }
-        sketch.undo();
-        invalidate();
+        else {
+            clear();
+        }
+
     }
 }
