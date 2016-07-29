@@ -2,6 +2,7 @@ package summerresearch.iui.ku.autocompletiondemo;
 
 import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         frame.addView(dv);
+        checkInternetConenction();
     }
 
     public void send( View v )
@@ -188,5 +190,22 @@ public class MainActivity extends AppCompatActivity {
     public void erase( View v )
     {
         dv.clear();
+    }
+
+    private boolean checkInternetConenction() {
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =(ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+            Log.d( "ConnectivityManager", "" + connec.getActiveNetworkInfo());
+
+
+        // Check for network connections
+        if ( connec.getActiveNetworkInfo() != null) {
+            Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
+            return true;
+        }else {
+            Toast.makeText(this, " Not Connected ", Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 }

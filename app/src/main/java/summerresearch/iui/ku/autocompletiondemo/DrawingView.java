@@ -38,7 +38,6 @@ public class DrawingView extends View {
     CircleButton  drawbtn;
     CircleButton  sendbtn;
     private ArrayList<Path> paths;
-    DecimalFormat decimalFormat;
     ArrayList<Path> removedPath = null;
 
     public DrawingView(Context c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
@@ -59,7 +58,6 @@ public class DrawingView extends View {
         circlePaint.setStrokeJoin(Paint.Join.MITER);
         circlePaint.setStrokeWidth(4f);
         sketch = new Sketch();
-        decimalFormat = new DecimalFormat("#.0000");
         removedPath = new ArrayList<Path>();
     }
 

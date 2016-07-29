@@ -1,46 +1,28 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.LockableFileWriter;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 /**
  * Created by ElifYagmur on 22.07.2016.
  */
 public class CallAPI extends AsyncTask<String, String, String> {
-    TextView textView, textView1, textView2, textView3, textView4, textView5;
-    ImageView imV, imV2, imV3, imV4, imV5;
+    TextView[] textViews;
+    ImageView [] imageViews;
     String[] separated;
 
-    public CallAPI(TextView view, TextView view1, TextView view2, TextView view3, TextView view4, TextView view5,ImageView image, ImageView image2, ImageView image3, ImageView image4, ImageView image5 ) {
-        textView = view;
-        textView1 = view1;
-        textView2 = view2;
-        textView3 = view3;
-        textView4 = view4;
-        textView5 = view5;
-
-        imV = image;
-        imV2 = image2;
-        imV3 = image3;
-        imV4 = image4;
-        imV5 = image5;
+    public CallAPI(TextView [] textViews, ImageView [] imageViews ) {
+        this.textViews = textViews;
+        this.imageViews = imageViews;
     }
 
     @Override
@@ -91,30 +73,14 @@ public class CallAPI extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         //Update the UI
         Log.d("response", result);
-
         //PARSE THE STRING WHICH SERVER SENDS US
         separated = result.split("&");
-
-        Log.d("split", separated[0]);
-        Log.d("split", separated[1]);
-        Log.d("split", separated[2]);
-        Log.d("split", separated[3]);
-        Log.d("split", separated[4]);
-
-
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
         ImageMap im = new ImageMap();
 
-        imV.setImageResource( im.getImageMap().get(separated[0]) );
-        imV2.setImageResource( im.getImageMap().get(separated[1]) );
-        imV3.setImageResource( im.getImageMap().get(separated[2]) );
-        imV4.setImageResource( im.getImageMap().get(separated[3]) );
-        imV5.setImageResource( im.getImageMap().get(separated[4]) );
-
-        textView1.setText(separated[0]);
-        textView2.setText(separated[1]);
-        textView3.setText(separated[2]);
-        textView4.setText(separated[3]);
-        textView5.setText(separated[4]);
+        for( int i = 0; i < separated.length; i++ ) {
+            imageViews[i].setImageResource( im.getImageMap().get(separated[i]) );
+            textViews[i].setText(separated[i]);
+        }
     }
 }
