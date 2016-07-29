@@ -10,6 +10,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -38,15 +39,25 @@ public class CallAPI extends AsyncTask<String, String, String> {
         Log.d("server",params[0] );
         String resultToDisplay = "";
         InputStream in = null;
+        Log.d("server", "try 1");
+
+        URL url = null;
         try {
             Log.d("server", "try 1");
-            URL url = new URL(urlString);
+            url = new URL(urlString);
             Log.d("server", "after url");
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        }
+
+        catch (MalformedURLException e){
+            Log.d("server", "catch 1");
+            return e.getMessage();
+        }
+        HttpURLConnection urlConnection = null;
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
             Log.d("server", "after urlConnection");
             in = new BufferedInputStream(urlConnection.getInputStream());
             Log.d("server", "after buff input stream");
-
         } catch (Exception e) {
 
             //System.out.println(e.getMessage());
@@ -65,6 +76,14 @@ public class CallAPI extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         Log.d("server", "before return");
+        urlConnection.disconnect();
+
+        try {
+            in.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
         return resultToDisplay;
     }
 
