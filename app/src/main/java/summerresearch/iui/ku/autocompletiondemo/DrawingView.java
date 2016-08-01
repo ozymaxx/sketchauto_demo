@@ -43,7 +43,7 @@ public class DrawingView extends View {
     boolean httpReady;
     MainActivity ma;
     private boolean eraseMode;
-    private int thrshld = 25;
+    private int thrshld = 30;
 
 
     public DrawingView(MainActivity c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
@@ -153,6 +153,7 @@ public class DrawingView extends View {
     private void touch_up() {
 
         if(eraseMode) {
+            Log.d("del",""+sketch.getStrokeList().size() + "     " + mX + "     " + mY );
             for (int i = 0; i < sketch.getStrokeList().size() ; i++) {
 
                 if (removedPathIndex.contains(i)){
@@ -190,7 +191,7 @@ public class DrawingView extends View {
             }
             Log.d("del", "5");
             eraseMode = false;
-        }else{
+        }else {
             mPath.lineTo(mX, mY);
             circlePath.reset();
             // commit the path to our offscreen
@@ -200,12 +201,12 @@ public class DrawingView extends View {
             // kill this so we don't double draw
             //mPath.reset();
             Log.d("Stroke", sketch.jsonString());
-
-            if (httpReady) {
-                ma.send(this);
-                httpReady = false;
-            }
         }
+        if (httpReady) {
+            ma.send(this);
+            httpReady = false;
+        }
+
     }
 
     @Override
