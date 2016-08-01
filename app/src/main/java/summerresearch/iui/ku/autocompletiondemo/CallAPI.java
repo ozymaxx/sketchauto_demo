@@ -14,6 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import sketchImpl.Sketch;
+
 /**
  * Created by ElifYagmur on 22.07.2016.
  */
@@ -22,11 +24,15 @@ public class CallAPI extends AsyncTask<String, String, String> {
     ImageView [] imageViews;
     String[] separated;
     DrawingView dv;
+    String link;
+    Sketch sketch;
 
-    public CallAPI(TextView [] textViews, ImageView [] imageViews, DrawingView dv ) {
+    public CallAPI(TextView [] textViews, ImageView [] imageViews, DrawingView dv, Sketch sketch, String link) {
         this.textViews = textViews;
         this.imageViews = imageViews;
         this.dv = dv;
+        this.sketch = sketch;
+        this.link = link;
     }
 
     @Override
@@ -34,12 +40,9 @@ public class CallAPI extends AsyncTask<String, String, String> {
         super.onPreExecute();
     }
 
-
     @Override
     protected String doInBackground(String... params) {
-
-        String urlString = params[0]; // URL to call
-        Log.d("server",params[0] );
+        String urlString = this.link + this.sketch.jsonString();
         String resultToDisplay = "";
         InputStream in = null;
         Log.d("server", "try 1");
@@ -66,7 +69,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
             //System.out.println(e.getMessage());
             Log.d("server", "catch 1");
             return e.getMessage();
-
         }
 
         try {
@@ -106,6 +108,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
         int i = 0;
         for (; i < separated.length/2 && i < imageViews.length && i < textViews.length; i++) {
+
             imageViews[i].setImageResource(im.getImageMap().get(separated[i]));
 
             Float prob = Float.parseFloat(separated[separated.length/2 + i]);
@@ -114,6 +117,13 @@ public class CallAPI extends AsyncTask<String, String, String> {
             String text = String.format("%s %.2f%%", separated[i], prob);
             textViews[i].setText(text);
         }
+        /*
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        */
         dv.HttpResult();
     }
 }

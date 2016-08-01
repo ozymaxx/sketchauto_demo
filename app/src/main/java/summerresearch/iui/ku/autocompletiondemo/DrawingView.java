@@ -201,7 +201,9 @@ public class DrawingView extends View {
             // kill this so we don't double draw
             //mPath.reset();
             Log.d("Stroke", sketch.jsonString());
+            invalidate();
         }
+
         if (httpReady) {
             ma.send(this);
             httpReady = false;

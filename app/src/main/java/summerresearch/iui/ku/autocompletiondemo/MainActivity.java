@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView7;
 
     private Canvas recentCanvas;
-    private String IP = "172.31.0.144"; //Semih's
+    private String IP = "172.31.175.204"; //Semih's
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -101,28 +101,25 @@ public class MainActivity extends AppCompatActivity {
     public void send(DrawingView dv )
     {
         Sketch sketch = dv.getSketch();
-        if (sketch.jsonString().length() > 0)
-        {
-            TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5, textView6, textView7 };
-            ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5, image7, image8 };
-            new CallAPI( textViews, imageViews, dv ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
-            /*
-            image.findViewById(R.id.imageView).setVisibility(View.VISIBLE);
-            image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
-            image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
-            image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
-            image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-            */
-            //recentCanvas = dv.getCanvas();
-            //dv.clear();
-        }
-        else
-        {
-            Log.d("server", "else part");
-            Toast.makeText(getBaseContext(),"All field are required",Toast.LENGTH_SHORT).show();
-        }
+
+        TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5, textView6, textView7 };
+        ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5, image7, image8 };
+
+        new CallAPI( textViews, imageViews, dv, sketch, "http://" + IP + ":5000/?json=").execute();
+        /*
+        image.findViewById(R.id.imageView).setVisibility(ViewVISIBLE);
+        image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
+        image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
+        image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
+        image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
+        */
+        //recentCanvas = dv.getCanvas();
+        //dv.clear();
+
+        /*
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);
+        */
     }
 
     private void showFinishingAlertDialog(String title, String message)
@@ -162,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-
         builder.show();
     }
 
@@ -234,10 +230,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean checkInternetConnection() {
         // get Connectivity Manager object to check connection
         ConnectivityManager connec =(ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-            Log.d( "ConnectivityManager", "" + connec.getActiveNetworkInfo());
-
-
+        Log.d( "ConnectivityManager", "" + connec.getActiveNetworkInfo());
         // Check for network connections
         if ( connec.getActiveNetworkInfo() != null) {
             return true;
