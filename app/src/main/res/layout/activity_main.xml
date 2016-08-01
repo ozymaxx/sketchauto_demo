@@ -192,12 +192,23 @@
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
         android:layout_height="64dip"
-        android:id="@+id/erase"
+        android:id="@+id/eraseStrk"
         android:layout_below = "@+id/undo"
         android:layout_alignParentRight="true"
         android:clickable="true"
-        android:onClick="erase"
+        android:onClick="eraseStrk"
         android:src="@mipmap/ic_backspace_white_24dp"
+        app:cb_color="#ff33e0"/>
+
+    <at.markushi.ui.CircleButton
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:id="@+id/erase"
+        android:layout_below = "@+id/eraseStrk"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:onClick="erase"
+        android:src="@mipmap/ic_clear_white_24dp"
         app:cb_color="#B71C1C"/>
 
     <at.markushi.ui.CircleButton

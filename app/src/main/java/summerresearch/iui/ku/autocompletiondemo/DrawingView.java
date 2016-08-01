@@ -42,6 +42,9 @@ public class DrawingView extends View {
     ArrayList<Integer> removedPathIndex = null;
     boolean httpReady;
     MainActivity ma;
+    private boolean eraseMode;
+    private int thrshld = 25;
+
 
     public DrawingView(MainActivity c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
         super((Context)c);
@@ -110,49 +113,98 @@ public class DrawingView extends View {
 
     private void touch_start(float x, float y)
     {
-        mPath = new Path();
-        paths.add(mPath);
-        stroke = new Stroke( width );
-        drawbtn.setVisibility(View.INVISIBLE);
-        sendbtn.setVisibility(View.VISIBLE);
-        //mPath.reset();
-        mPath.moveTo(x, y);
-        mX = x;
-        mY = y;
-        long currTime = getTime();
-        stroke.addPoint( x, mCanvas.getHeight() - y, currTime );
+        if(!eraseMode) {
+            mPath = new Path();
+            paths.add(mPath);
+            stroke = new Stroke(width);
+            drawbtn.setVisibility(View.INVISIBLE);
+            sendbtn.setVisibility(View.VISIBLE);
+            //mPath.reset();
+            mPath.moveTo(x, y);
+            mX = x;
+            mY = y;
+            long currTime = getTime();
+            stroke.addPoint(x, mCanvas.getHeight() - y, currTime);
+        }else{
+            mX = x;
+            mY = y;
+        }
+
     }
 
     private void touch_move(float x, float y)
     {
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
-        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
-            mX = x;
-            mY = y;
+        if(!eraseMode) {
+            float dx = Math.abs(x - mX);
+            float dy = Math.abs(y - mY);
+            if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+                mX = x;
+                mY = y;
 
-            long currTime = getTime();
-            stroke.addPoint( x, mCanvas.getHeight() - y, currTime );
-            circlePath.reset();
-            circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
+                long currTime = getTime();
+                stroke.addPoint(x, mCanvas.getHeight() - y, currTime);
+                circlePath.reset();
+                circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
+            }
         }
     }
 
     private void touch_up() {
-        mPath.lineTo(mX, mY);
-        circlePath.reset();
-        // commit the path to our offscreen
-        mCanvas.drawPath(mPath,  mPaint);
-       // paths.add(mPath);
-        sketch.addStroke(stroke);
-        // kill this so we don't double draw
-        //mPath.reset();
-        Log.d("Stroke", sketch.jsonString());
 
-        if (httpReady) {
-            ma.send(this);
-            httpReady = false;
+        if(eraseMode) {
+            for (int i = 0; i < sketch.getStrokeList().size() ; i++) {
+
+                if (removedPathIndex.contains(i)){
+                    continue;
+                }
+
+                int recogFlag = 0;
+
+                for (int j = 0; j < sketch.getStrokeList().get(i).getPointList().size(); j++) {
+//                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getX() + "        x      " + mX+"     "+ i);
+//                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getY() + "        y      " + (mCanvas.getHeight() - mY));
+
+
+                    //find the points which are in touched area
+                    if ((sketch.getStrokeList().get(i).getPointList().get(j).getX() > (mX - thrshld)) &&
+                            (sketch.getStrokeList().get(i).getPointList().get(j).getX() < (mX + thrshld)) &&
+                            (sketch.getStrokeList().get(i).getPointList().get(j).getY() > (mCanvas.getHeight() - mY - thrshld)) &&
+                            (sketch.getStrokeList().get(i).getPointList().get(j).getY() < (mCanvas.getHeight() - mY + thrshld))) {
+
+
+                        recogFlag = 1;
+                        Log.d("del", "3" + "            "  + i);
+
+                    }
+                    if (recogFlag == 1) {
+                        removedPathIndex.add(i);
+                        sketch.delete(i);
+                        i--;
+                    }
+
+                    //find a point in the stroke
+                    if (recogFlag == 1)
+                        break;
+                }
+            }
+            Log.d("del", "5");
+            eraseMode = false;
+        }else{
+            mPath.lineTo(mX, mY);
+            circlePath.reset();
+            // commit the path to our offscreen
+            mCanvas.drawPath(mPath, mPaint);
+            // paths.add(mPath);
+            sketch.addStroke(stroke);
+            // kill this so we don't double draw
+            //mPath.reset();
+            Log.d("Stroke", sketch.jsonString());
+
+            if (httpReady) {
+                ma.send(this);
+                httpReady = false;
+            }
         }
     }
 
@@ -218,6 +270,12 @@ public class DrawingView extends View {
         else {
             clear();
         }
+    }
+
+    public void eraseStrk (boolean b){
+        eraseMode = b;
+        invalidate();
+        return;
     }
 
     public void HttpResult(){

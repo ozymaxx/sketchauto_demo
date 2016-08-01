@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private CircleButton undobtn;
     private CircleButton erasebtn;
     private CircleButton drawbtn;
+    private CircleButton eraseStrkbtn;
     private ImageView image;
     private ImageView image2;
     private ImageView image3;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView7;
 
     private Canvas recentCanvas;
-    private String IP = "172.31.175.204"; //Semih's
+    private String IP = "172.31.0.144"; //Semih's
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         undobtn = (CircleButton) findViewById(R.id.undo);
         erasebtn = (CircleButton) findViewById(R.id.erase);
         drawbtn = (CircleButton) findViewById(R.id.draw);
+        eraseStrkbtn = (CircleButton) findViewById(R.id.eraseStrk);
 
         textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
@@ -221,6 +223,8 @@ public class MainActivity extends AppCompatActivity {
     {
         dv.undo();
     }
+
+    public void eraseStrk (View view) { dv.eraseStrk( true ); }
 
     public void erase(View view)
     {
