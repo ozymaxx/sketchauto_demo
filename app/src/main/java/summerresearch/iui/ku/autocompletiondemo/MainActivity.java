@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView7;
 
     private Canvas recentCanvas;
-    private String IP = "172.31.0.144"; //Semih's
+    private String IP = "172.31.175.204"; //Semih's
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
