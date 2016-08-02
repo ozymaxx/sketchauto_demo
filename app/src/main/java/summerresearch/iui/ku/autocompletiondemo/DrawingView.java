@@ -13,6 +13,8 @@ import android.view.View;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
@@ -36,6 +38,7 @@ public class DrawingView extends View {
     Paint mPaint;
     Stroke stroke;
     Sketch sketch;
+    Sketch sketchShadow;
     CircleButton  drawbtn;
     CircleButton  sendbtn;
     private ArrayList<Path> paths;
@@ -45,6 +48,8 @@ public class DrawingView extends View {
     MainActivity ma;
     private boolean eraseMode;
     private int thrshld = 20;
+    ArrayList<Integer> change; // 1 for drawing and 0 for erasing
+    List<List<Integer>> changeIndex; // each List means indexes of changed strokes
 
 
     public DrawingView(MainActivity c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
@@ -66,9 +71,12 @@ public class DrawingView extends View {
         circlePaint.setStrokeJoin(Paint.Join.MITER);
         circlePaint.setStrokeWidth(4f);
         sketch = new Sketch();
+        sketchShadow = new Sketch();
         decimalFormat = new DecimalFormat("#.0000");
         removedPathIndex = new ArrayList<Integer>();
         httpReady = true;
+        change = new ArrayList<Integer>();
+        changeIndex = new ArrayList<List<Integer>>();
     }
 
 
@@ -117,6 +125,8 @@ public class DrawingView extends View {
         if(!eraseMode) {
             mPath = new Path();
             paths.add(mPath);
+            change.add(1);
+            changeIndex.add(Arrays.asList(paths.size() - 1));
             stroke = new Stroke(width);
             drawbtn.setVisibility(View.INVISIBLE);
             sendbtn.setVisibility(View.VISIBLE);
@@ -154,7 +164,9 @@ public class DrawingView extends View {
     private void touch_up() {
 
         if(eraseMode) {
-            Log.d("del",""+paths.size() + "     " + mX + "     " + mY );
+//            Log.d("del",""+paths.size() + "     " + mX + "     " + mY );
+
+            int changeFlag = 0;
 
 
             for (int i = 0; i < paths.size() ; i++) {
@@ -173,12 +185,13 @@ public class DrawingView extends View {
 
                     pm.getPosTan(j, aCoordinates, null);
 
+
+
                     //find the points which are in touched area
                     float xx = aCoordinates[0];
                     float yy = aCoordinates[1];
-
-                    Log.d("del",xx + "        x      " + mX);
-                    Log.d("del",yy + "        y      " + (mY));
+//                    Log.d("del",xx + "        x      " + mX);
+//                    Log.d("del",yy + "        y      " + (mY));
 
                     if ((xx > (mX - thrshld)) &&
                             (xx < (mX + thrshld)) &&
@@ -188,17 +201,25 @@ public class DrawingView extends View {
 
                         recogFlag = 1;
                         Log.d("del", "3" + "            "  + i);
+                        if (changeFlag == 0) {
+                            change.add(0);
+                            changeIndex.add(Arrays.asList(i));
+                        }else{
+                            (changeIndex.get(changeIndex.size() - 1)).add(i);
+                            changeFlag = 1;
+                        }
 
                     }
                     if (recogFlag == 1) {
                         removedPathIndex.add(i);
                     }
 
+
                     //find a point in the stroke
                     if (recogFlag == 1)
                         break;
-                }
 
+                }
 
                 if (recogFlag == 1) {
                     int counter = 0;
@@ -208,12 +229,11 @@ public class DrawingView extends View {
                         }
                     }
                     Log.d("del", "33333333333333333333333333333" + "            " + counter);
-                    //sketch.delete(counter);
+
                 }
 
-
-                pm.isClosed();
                 aCoordinates = null;
+                pm.isClosed();
             }
 
             Log.d("del", "5");
@@ -226,6 +246,7 @@ public class DrawingView extends View {
             mCanvas.drawPath(mPath, mPaint);
             // paths.add(mPath);
             sketch.addStroke(stroke);
+            sketchShadow.addStroke(stroke);
             // kill this so we don't double draw
             //mPath.reset();
             Log.d("Stroke", sketch.jsonString());
@@ -267,6 +288,9 @@ public class DrawingView extends View {
         mPath = new Path();
         mBitmap.eraseColor(Color.WHITE);
         sketch = new Sketch();
+        sketchShadow = new Sketch();
+        change.clear();
+        changeIndex.clear();
         removedPathIndex.clear();
         paths.clear();
         invalidate();
@@ -278,25 +302,37 @@ public class DrawingView extends View {
 
     public void undo()
     {
-        if (!paths.isEmpty() && !(paths.size() == removedPathIndex.size())){
-            // find the first non-deleted index from path
-            int index = paths.size() -1 ;
-            while (removedPathIndex.contains(index)) {
-                index--;
-            }
-            removedPathIndex.add(index);
-            //paths.remove(paths.size()-1);
+        if (change.size() != 0) {
+            if (change.get(change.size() - 1) == 1) {
+                if (!paths.isEmpty() && !(paths.size() == removedPathIndex.size())) {
+                    // find the first non-deleted index from path
+                    int index = paths.size() - 1;
+                    while (removedPathIndex.contains(index)) {
+                        index--;
+                    }
+                    removedPathIndex.add(index);
+                    //paths.remove(paths.size()-1);
 
-            sketch.undo();
-            invalidate();
+                    sketch.undo();
 
-            if (httpReady)  {
-                ma.send(this);
-                httpReady = false;
+                } else {
+                    clear();
+                }
+            } else {
+//                Log.d("undo",""+changeIndex.get(changeIndex.size() - 1));
+                for(int i = 0 ; i < (changeIndex.get(changeIndex.size() - 1)).size() ; i++) {
+                    removedPathIndex.remove(Integer.valueOf((changeIndex.get(changeIndex.size() - 1).get(i))));
+                    sketch.addStroke(sketchShadow.getStrokeList().get((changeIndex.get(changeIndex.size() - 1).get(i))));
+                }
             }
+            change.remove(change.size() - 1);
+            changeIndex.remove(changeIndex.size() - 1);
         }
-        else {
-            clear();
+        invalidate();
+
+        if (httpReady) {
+            ma.send(this);
+            httpReady = false;
         }
     }
 
