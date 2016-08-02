@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         Sketch sketch = dv.getSketch();
         if (sketch.jsonString().length() > 0)
         {
-            new CallAPI( this, MainActivity.this, dv ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
+            new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
         }
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);
