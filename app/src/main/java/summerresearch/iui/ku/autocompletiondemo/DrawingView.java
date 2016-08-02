@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -153,25 +154,35 @@ public class DrawingView extends View {
     private void touch_up() {
 
         if(eraseMode) {
-            Log.d("del",""+sketch.getStrokeList().size() + "     " + mX + "     " + mY );
-            for (int i = 0; i < sketch.getStrokeList().size() ; i++) {
+            Log.d("del",""+paths.size() + "     " + mX + "     " + mY );
+
+
+            for (int i = 0; i < paths.size() ; i++) {
 
                 if (removedPathIndex.contains(i)){
                     continue;
                 }
 
                 int recogFlag = 0;
+                PathMeasure pm = new PathMeasure(paths.get(i), false);
+                float aCoordinates[] = {0f, 0f};
 
-                for (int j = 0; j < sketch.getStrokeList().get(i).getPointList().size(); j++) {
+
+                for (int j = 0; j < pm.getLength() ; j++) {
 //                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getX() + "        x      " + mX+"     "+ i);
 //                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getY() + "        y      " + (mCanvas.getHeight() - mY));
 
+                    pm.getPosTan(j, aCoordinates, null);
 
                     //find the points which are in touched area
-                    if ((sketch.getStrokeList().get(i).getPointList().get(j).getX() > (mX - thrshld)) &&
-                            (sketch.getStrokeList().get(i).getPointList().get(j).getX() < (mX + thrshld)) &&
-                            (sketch.getStrokeList().get(i).getPointList().get(j).getY() > (mCanvas.getHeight() - mY - thrshld)) &&
-                            (sketch.getStrokeList().get(i).getPointList().get(j).getY() < (mCanvas.getHeight() - mY + thrshld))) {
+                    float xx = aCoordinates[0];
+                    float yy = aCoordinates[1];
+
+
+                    if ((xx > (mX - thrshld)) &&
+                            (xx < (mX + thrshld)) &&
+                            (yy > (mCanvas.getHeight() - mY - thrshld)) &&
+                            (yy < (mCanvas.getHeight() - mY + thrshld))) {
 
 
                         recogFlag = 1;
@@ -180,17 +191,34 @@ public class DrawingView extends View {
                     }
                     if (recogFlag == 1) {
                         removedPathIndex.add(i);
-                        sketch.delete(i);
-                        i--;
                     }
 
                     //find a point in the stroke
                     if (recogFlag == 1)
                         break;
                 }
+
+
+                if (recogFlag == 1) {
+                    int counter = 0;
+                    for (int j= 0 ; j < i+1 ;j++){
+                        Log.d("del", "444444444444444444444" + "            " + counter+"    "+ i);
+                        if (!(removedPathIndex.contains(j))) {
+                            counter++;
+                        }
+                    }
+                    Log.d("del", "33333333333333333333333333333" + "            " + counter);
+                    //sketch.delete(counter);
+                }
+
+
+                pm.isClosed();
+                aCoordinates = null;
             }
+
             Log.d("del", "5");
             eraseMode = false;
+            invalidate();
         }else {
             mPath.lineTo(mX, mY);
             circlePath.reset();
@@ -201,9 +229,7 @@ public class DrawingView extends View {
             // kill this so we don't double draw
             //mPath.reset();
             Log.d("Stroke", sketch.jsonString());
-            invalidate();
         }
-
         if (httpReady) {
             ma.send(this);
             httpReady = false;
