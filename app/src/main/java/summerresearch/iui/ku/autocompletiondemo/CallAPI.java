@@ -1,11 +1,14 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.apache.commons.io.IOUtils;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -19,17 +22,21 @@ import sketchImpl.Sketch;
 /**
  * Created by ElifYagmur on 22.07.2016.
  */
+
 public class CallAPI extends AsyncTask<String, String, String> {
-    TextView[] textViews;
-    ImageView [] imageViews;
+    Context context;
+    LinearLayout scrollLayout;
     String[] separated;
+    Activity activity;
     DrawingView dv;
     String link;
     Sketch sketch;
 
-    public CallAPI(TextView [] textViews, ImageView [] imageViews, DrawingView dv, Sketch sketch, String link) {
-        this.textViews = textViews;
-        this.imageViews = imageViews;
+
+    public CallAPI(Activity activity, Context context, DrawingView dv ) {
+        this.activity = activity;
+        this.context = context;
+        this.scrollLayout = (LinearLayout) activity.findViewById(R.id.scrollLayout);
         this.dv = dv;
         this.sketch = sketch;
         this.link = link;
@@ -40,13 +47,14 @@ public class CallAPI extends AsyncTask<String, String, String> {
         super.onPreExecute();
     }
 
+
     @Override
     protected String doInBackground(String... params) {
+
         String urlString = this.link + this.sketch.jsonString();
         String resultToDisplay = "";
         InputStream in = null;
         Log.d("server", "try 1");
-
         URL url = null;
         try {
             Log.d("server", "try 1");
@@ -105,25 +113,54 @@ public class CallAPI extends AsyncTask<String, String, String> {
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
         ImageMap im = new ImageMap();
 
+        scrollLayout.removeAllViews();
+        for( int i = 0; i < separated.length; i++ ) {
+            Log.d("separated", "" + separated[i]);
+        }
 
-        int i = 0;
-        for (; i < separated.length/2 && i < imageViews.length && i < textViews.length; i++) {
+        for( int i = 0; i < separated.length/2; i++ ) {
+            ImageView image = new ImageView(context);
+            image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
+            image.setMaxHeight(40);
+            image.setMaxWidth(40);
+            image.setBackgroundResource(im.getImageMap().get(separated[i]));
+            image.getId();
+            image.setClickable(true);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("drawble", "" + view.getClass().getName());
+                    FrameLayout frame = (FrameLayout) activity.findViewById(R.id.frameLayout);
+                    frame.removeView(dv);
+                    ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+                    frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                    if( ((ImageView)view).getDrawable() != null ) {
+                        Log.d("drawable", "not null");
+                    }
+                    else {
+                        imgView.setImageDrawable(((ImageView) view).getDrawable());
+                        Log.d("drawable", "null");
+                        Log.d("drawable", "" + ((ImageView)view).getId());
+                    }
+                    frame.invalidate();
+                }
+            });
 
-            imageViews[i].setImageResource(im.getImageMap().get(separated[i]));
+            scrollLayout.addView(image);
 
+            TextView textView = new TextView(context);
             Float prob = Float.parseFloat(separated[separated.length/2 + i]);
             // to make it %
             prob *= 100;
-            String text = String.format("%s %.2f%%", separated[i], prob);
-            textViews[i].setText(text);
+            String text = String.format("%s\n%.2f%%", separated[i], prob);
+            Log.d("separeted", "sep : " + text );
+            textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
+            textView.setMaxHeight(40);
+            textView.setMaxWidth(40);
+            textView.setText( text );
+
+            scrollLayout.addView(textView);
         }
-        /*
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        */
         dv.HttpResult();
     }
 }

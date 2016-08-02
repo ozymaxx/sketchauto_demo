@@ -6,10 +6,13 @@ import android.graphics.Canvas;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.ScrollingTabContainerView;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Color;
@@ -26,30 +29,12 @@ public class MainActivity extends AppCompatActivity {
     private DrawingView dv ;
     private Paint mPaint;
     private FrameLayout frame;
-    private TextView textView;
     private CircleButton sendbtn;
-    private CircleButton undobtn;
-    private CircleButton erasebtn;
     private CircleButton drawbtn;
-    private CircleButton eraseStrkbtn;
-    private ImageView image;
-    private ImageView image2;
-    private ImageView image3;
-    private ImageView image4;
-    private ImageView image5;
-    private ImageView image7;
-    private ImageView image8;
 
-    private TextView textView1;
-    private TextView textView2;
-    private TextView textView3;
-    private TextView textView4;
-    private TextView textView5;
-    private TextView textView6;
-    private TextView textView7;
-
-    private Canvas recentCanvas;
+    private LinearLayout scrollLayout;
     private String IP = "172.31.175.204"; //Semih's
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,29 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         frame = (FrameLayout)findViewById(R.id.frameLayout);
+        scrollLayout = (LinearLayout)findViewById(R.id.scrollLayout);
         sendbtn = (CircleButton) findViewById(R.id.send);
-        undobtn = (CircleButton) findViewById(R.id.undo);
-        erasebtn = (CircleButton) findViewById(R.id.erase);
         drawbtn = (CircleButton) findViewById(R.id.draw);
-        eraseStrkbtn = (CircleButton) findViewById(R.id.eraseStrk);
-
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView2 = (TextView) findViewById(R.id.textView2);
-        textView3 = (TextView) findViewById(R.id.textView3);
-        textView4 = (TextView) findViewById(R.id.textView4);
-        textView5 = (TextView) findViewById(R.id.textView5);
-        textView5 = (TextView) findViewById(R.id.textView6);
-        textView6 = (TextView) findViewById(R.id.textView6);
-        textView7 = (TextView) findViewById(R.id.textView7);
-
-        image = (ImageView) findViewById(R.id.imageView);
-        image2 = (ImageView) findViewById(R.id.imageView2);
-        image3 = (ImageView) findViewById(R.id.imageView3);
-        image4 = (ImageView) findViewById(R.id.imageView4);
-        image5 = (ImageView) findViewById(R.id.imageView5);
-        //image6
-        image7 = (ImageView) findViewById(R.id.imageView7);
-        image8 = (ImageView) findViewById(R.id.imageView8);
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -96,30 +61,18 @@ public class MainActivity extends AppCompatActivity {
 
         frame.addView(dv);
         checkInternetConnection();
+
     }
 
     public void send(DrawingView dv )
     {
         Sketch sketch = dv.getSketch();
-
-        TextView[] textViews = new TextView[] { textView1,textView2,textView3, textView4, textView5, textView6, textView7 };
-        ImageView[] imageViews = new ImageView[]{ image, image2, image3, image4, image5, image7, image8 };
-
-        new CallAPI( textViews, imageViews, dv, sketch, "http://" + IP + ":5000/?json=").execute();
-        /*
-        image.findViewById(R.id.imageView).setVisibility(ViewVISIBLE);
-        image2.findViewById(R.id.imageView2).setVisibility(View.VISIBLE);
-        image3.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
-        image4.findViewById(R.id.imageView4).setVisibility(View.VISIBLE);
-        image5.findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-        */
-        //recentCanvas = dv.getCanvas();
-        //dv.clear();
-
-        /*
+        if (sketch.jsonString().length() > 0)
+        {
+            new CallAPI( this, MainActivity.this, dv ).execute("http://" + IP + ":5000/?json=" + sketch.jsonString());
+        }
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);
-        */
     }
 
     private void showFinishingAlertDialog(String title, String message)
@@ -159,23 +112,13 @@ public class MainActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+
         builder.show();
     }
 
     public void draw()
     {
-        image.findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
-        image2.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
-        image3.findViewById(R.id.imageView3).setVisibility(View.INVISIBLE);
-        image4.findViewById(R.id.imageView4).setVisibility(View.INVISIBLE);
-        image5.findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
-
-        textView1.findViewById(R.id.textView1).setVisibility(View.INVISIBLE);
-        textView2.findViewById(R.id.textView2).setVisibility(View.INVISIBLE);
-        textView3.findViewById(R.id.textView3).setVisibility(View.INVISIBLE);
-        textView4.findViewById(R.id.textView4).setVisibility(View.INVISIBLE);
-        textView5.findViewById(R.id.textView5).setVisibility(View.INVISIBLE);
-
+        //CLEAR LINEAR LAYOUT ON SCROLL EYE
         frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
         dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
         frame.addView(dv);
@@ -187,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
 
         frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+        /*
         switch (v.getId()) {
             case R.id.imageView:
                 imgView.setImageDrawable(image.getDrawable());
@@ -209,10 +153,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 Log.d("Img", "indefault");
+
         }
+         */
         frame.invalidate();
-        //btn.setText("PAINT");
-        Log.d("Img", "3");
     }
 
     public void undo(View view)
