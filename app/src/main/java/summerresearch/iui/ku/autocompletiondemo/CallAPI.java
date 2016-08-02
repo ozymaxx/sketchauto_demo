@@ -33,7 +33,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
     Sketch sketch;
 
 
-    public CallAPI(Activity activity, Context context, DrawingView dv ) {
+    public CallAPI(Activity activity, Context context, DrawingView dv, Sketch sketch, String link) {
         this.activity = activity;
         this.context = context;
         this.scrollLayout = (LinearLayout) activity.findViewById(R.id.scrollLayout);
