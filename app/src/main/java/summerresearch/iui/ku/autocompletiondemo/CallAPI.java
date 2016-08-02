@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -158,6 +159,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
             textView.setMaxHeight(40);
             textView.setMaxWidth(40);
             textView.setText( text );
+            textView.setGravity(Gravity.CENTER);
 
             scrollLayout.addView(textView);
         }
