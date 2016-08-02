@@ -44,7 +44,7 @@ public class DrawingView extends View {
     boolean httpReady;
     MainActivity ma;
     private boolean eraseMode;
-    private int thrshld = 30;
+    private int thrshld = 20;
 
 
     public DrawingView(MainActivity c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
@@ -169,8 +169,7 @@ public class DrawingView extends View {
 
 
                 for (int j = 0; j < pm.getLength() ; j++) {
-//                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getX() + "        x      " + mX);
-//                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getY() + "        y      " + (mCanvas.getHeight() - mY));
+
 
                     pm.getPosTan(j, aCoordinates, null);
 
@@ -178,11 +177,13 @@ public class DrawingView extends View {
                     float xx = aCoordinates[0];
                     float yy = aCoordinates[1];
 
+                    Log.d("del",xx + "        x      " + mX);
+                    Log.d("del",yy + "        y      " + (mY));
 
                     if ((xx > (mX - thrshld)) &&
                             (xx < (mX + thrshld)) &&
-                            (yy > (mCanvas.getHeight() - mY - thrshld)) &&
-                            (yy < (mCanvas.getHeight() - mY + thrshld))) {
+                            (yy > (mY - thrshld)) &&
+                            (yy < (mY + thrshld))) {
 
 
                         recogFlag = 1;
@@ -202,7 +203,6 @@ public class DrawingView extends View {
                 if (recogFlag == 1) {
                     int counter = 0;
                     for (int j= 0 ; j < i+1 ;j++){
-                        Log.d("del", "444444444444444444444" + "            " + counter+"    "+ i);
                         if (!(removedPathIndex.contains(j))) {
                             counter++;
                         }
