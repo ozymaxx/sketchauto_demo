@@ -169,7 +169,7 @@ public class DrawingView extends View {
 
 
                 for (int j = 0; j < pm.getLength() ; j++) {
-//                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getX() + "        x      " + mX+"     "+ i);
+//                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getX() + "        x      " + mX);
 //                    Log.d("del",sketch.getStrokeList().get(i).getPointList().get(j).getY() + "        y      " + (mCanvas.getHeight() - mY));
 
                     pm.getPosTan(j, aCoordinates, null);
