@@ -234,7 +234,6 @@ public class DrawingView extends View {
             ma.send(this);
             httpReady = false;
         }
-
     }
 
     @Override

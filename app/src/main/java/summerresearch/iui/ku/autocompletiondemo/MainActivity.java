@@ -67,10 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public void send(DrawingView dv )
     {
         Sketch sketch = dv.getSketch();
-        if (sketch.jsonString().length() > 0)
-        {
-            new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=" ).execute();
-        }
+        new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);
     }
@@ -130,32 +127,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
 
         frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-        /*
-        switch (v.getId()) {
-            case R.id.imageView:
-                imgView.setImageDrawable(image.getDrawable());
-                break;
-            case R.id.imageView2:
-                imgView.setImageDrawable(image2.getDrawable());
-                break;
-            case R.id.imageView3:
-                imgView.setImageDrawable(image3.getDrawable());
-                break;
-            case R.id.imageView4:
-                imgView.setImageDrawable(image4.getDrawable());
-                break;
-            case R.id.imageView5:
-                imgView.setImageDrawable(image5.getDrawable());
-            case R.id.imageView7:
-                imgView.setImageDrawable(image7.getDrawable());
-            case R.id.imageView8:
-                imgView.setImageDrawable(image8.getDrawable());
-                break;
-            default:
-                Log.d("Img", "indefault");
-
-        }
-         */
         frame.invalidate();
     }
 
