@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AutoCompletionDemo.iml" filepath="$PROJECT_DIR$/AutoCompletionDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sketchauto_demo.iml" filepath="$PROJECT_DIR$/sketchauto_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/sketchauto_demo.iml" filepath="$PROJECT_DIR$/sketchauto_demo.iml" />
     </modules>
   </component>
