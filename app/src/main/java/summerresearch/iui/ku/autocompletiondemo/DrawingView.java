@@ -226,7 +226,7 @@ public class DrawingView extends View {
                         }
                     }
                     Log.d("del", "33333333333333333333333333333" + "            " + counter);
-
+                    sketch.delete(counter);
                 }
 
                 aCoordinates = null;
@@ -319,6 +319,7 @@ public class DrawingView extends View {
 //                Log.d("undo",""+changeIndex.get(changeIndex.size() - 1));
                 for(int i = 0 ; i < (changeIndex.get(changeIndex.size() - 1)).size() ; i++) {
                     removedPathIndex.remove(Integer.valueOf((changeIndex.get(changeIndex.size() - 1).get(i))));
+
                     sketch.addStroke(sketchShadow.getStrokeList().get((changeIndex.get(changeIndex.size() - 1).get(i))));
                 }
             }
