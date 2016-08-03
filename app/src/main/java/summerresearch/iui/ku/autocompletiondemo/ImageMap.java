@@ -1,7 +1,5 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,287 +29,287 @@ public class ImageMap {
             put("basket", R.drawable.basket );
             put("bathtub", R.drawable.bathtub );
 
-            put("bear-(animal)", R.mipmap.bear );
-            put("bed", R.mipmap.bed );
-            put("bee", R.mipmap.bee );
-            put("beer-mug", R.mipmap.beermug );
-            put("bell", R.mipmap.bell);
+            put("bear-(animal)", R.drawable.bear );
+            put("bed", R.drawable.bed );
+            put("bee", R.drawable.bee );
+            put("beer-mug", R.drawable.beermug );
+            put("bell", R.drawable.bell);
 
-            put("bench", R.mipmap.bench );
-            put("bicycle", R.mipmap.bicycle );
-            put("binoculars", R.mipmap.binoculars );
-            put("blimp", R.mipmap.blimp );
-            put("book", R.mipmap.book );
+            put("bench", R.drawable.bench );
+            put("bicycle", R.drawable.bicycle );
+            put("binoculars", R.drawable.binoculars );
+            put("blimp", R.drawable.blimp );
+            put("book", R.drawable.book );
 
-            put("bookshelf", R.mipmap.bookshelf );
-            put("boomerang", R.mipmap.boomerang );
-            put("bottle-opener", R.mipmap.bottleopener );
-            put("bowl", R.mipmap.bowl);
-            put("brain", R.mipmap.brain );
+            put("bookshelf", R.drawable.bookshelf );
+            put("boomerang", R.drawable.boomerang );
+            put("bottle-opener", R.drawable.bottleopener );
+            put("bowl", R.drawable.bowl);
+            put("brain", R.drawable.brain );
 
-            put("bread", R.mipmap.bread );
-            put("bridge", R.mipmap.bridge );
-            put("bulldozer", R.mipmap.bulldozer );
-            put("bus", R.mipmap.bus );
-            put("bush", R.mipmap.bush );
+            put("bread", R.drawable.bread );
+            put("bridge", R.drawable.bridge );
+            put("bulldozer", R.drawable.bulldozer );
+            put("bus", R.drawable.bus );
+            put("bush", R.drawable.bush );
 
-            put("butterfly", R.mipmap.butterfly );
-            put("cabinet", R.mipmap.cabinet );
-            put("cactus", R.mipmap.cactus );
-            put("cake", R.mipmap.cake );
-            put("calculator", R.mipmap.calculator );
+            put("butterfly", R.drawable.butterfly );
+            put("cabinet", R.drawable.cabinet );
+            put("cactus", R.drawable.cactus );
+            put("cake", R.drawable.cake );
+            put("calculator", R.drawable.calculator );
 
-            put("camel", R.mipmap.camel );
-            put("camera", R.mipmap.camera );
-            put("candle", R.mipmap.candle );
-            put("cannon", R.mipmap.cannon );
-            put("canoe", R.mipmap.canoe );
+            put("camel", R.drawable.camel );
+            put("camera", R.drawable.camera );
+            put("candle", R.drawable.candle );
+            put("cannon", R.drawable.cannon );
+            put("canoe", R.drawable.canoe );
 
-            put("car-(sedan)", R.mipmap.car );
-            put("carrot", R.mipmap.carrot );
-            put("castle", R.mipmap.castle );
-            put("cat", R.mipmap.cat );
-            put("cell-phone", R.mipmap.cellphone );
+            put("car-(sedan)", R.drawable.car );
+            put("carrot", R.drawable.carrot );
+            put("castle", R.drawable.castle );
+            put("cat", R.drawable.cat );
+            put("cell-phone", R.drawable.cellphone );
 
-            put("chair", R.mipmap.chair );
-            put("chandelier", R.mipmap.chandelier );
-            put("church", R.mipmap.church );
-            put("cigarette", R.mipmap.cigarette );
+            put("chair", R.drawable.chair );
+            put("chandelier", R.drawable.chandelier );
+            put("church", R.drawable.church );
+            put("cigarette", R.drawable.cigarette );
             put("cloud", R.drawable.cloud );
 
-            put("comb", R.mipmap.comb );
+            put("comb", R.drawable.comb );
             put("computer-monitor", R.drawable.computermonitor );
-            put("computer-mouse", R.mipmap.computermouse );
-            put("couch", R.mipmap.couch );
-            put("cow", R.mipmap.cow );
+            put("computer-mouse", R.drawable.computermouse );
+            put("couch", R.drawable.couch );
+            put("cow", R.drawable.cow );
 
-            put("crab", R.mipmap.crab );
-            put("crane-(machine)", R.mipmap.crane );
-            put("crocodile", R.mipmap.crocodile );
-            put("crown", R.mipmap.crown );
-            put("cup", R.mipmap.cup );
+            put("crab", R.drawable.crab );
+            put("crane-(machine)", R.drawable.crane );
+            put("crocodile", R.drawable.crocodile );
+            put("crown", R.drawable.crown );
+            put("cup", R.drawable.cup );
 
-            put("diamond", R.mipmap.diamond );
-            put("dog", R.mipmap.dog );
-            put("dolphin", R.mipmap.dolphin );
-            put("donut", R.mipmap.donut );
-            put("door", R.mipmap.door );
+            put("diamond", R.drawable.diamond );
+            put("dog", R.drawable.dog );
+            put("dolphin", R.drawable.dolphin );
+            put("donut", R.drawable.donut );
+            put("door", R.drawable.door );
 
-            put("door-handle", R.mipmap.doorhandle );
-            put("dragon", R.mipmap.dragon );
-            put("duck", R.mipmap.duck );
-            put("ear", R.mipmap.ear );
-            put("elephant", R.mipmap.elephant );
+            put("door-handle", R.drawable.doorhandle );
+            put("dragon", R.drawable.dragon );
+            put("duck", R.drawable.duck );
+            put("ear", R.drawable.ear );
+            put("elephant", R.drawable.elephant );
 
-            put("envelope", R.mipmap.envelope );
-            put("eye", R.mipmap.eye );
-            put("eyeglasses", R.mipmap.eyeglasses );
-            put("face", R.mipmap.face );
-            put("fan", R.mipmap.fan );
+            put("envelope", R.drawable.envelope );
+            put("eye", R.drawable.eye );
+            put("eyeglasses", R.drawable.eyeglasses );
+            put("face", R.drawable.face );
+            put("fan", R.drawable.fan );
 
-            put("feather", R.mipmap.feather );
-            put("fire-hydrant", R.mipmap.firehydrant );
-            put("fish", R.mipmap.fish );
-            put("flashlight", R.mipmap.flashlight );
-            put("floor-lamp", R.mipmap.floorlamp );
+            put("feather", R.drawable.feather );
+            put("fire-hydrant", R.drawable.firehydrant );
+            put("fish", R.drawable.fish );
+            put("flashlight", R.drawable.flashlight );
+            put("floor-lamp", R.drawable.floorlamp );
 
-            put("flower-with-stem", R.mipmap.flowerwithstem );
-            put("flying-bird", R.mipmap.flyingbird );
-            put("flying-saucer", R.mipmap.flyingsaucer );
-            put("foot", R.mipmap.foot );
-            put("fork", R.mipmap.fork );
+            put("flower-with-stem", R.drawable.flowerwithstem );
+            put("flying-bird", R.drawable.flyingbird );
+            put("flying-saucer", R.drawable.flyingsaucer );
+            put("foot", R.drawable.foot );
+            put("fork", R.drawable.fork );
 
-            put("forg", R.mipmap.forg );
-            put("frying-pan", R.mipmap.fryingpan );
-            put("giraffe", R.mipmap.giraffe );
-            put("grapes", R.mipmap.grapes );
-            put("grenade", R.mipmap.grenade );
+            put("forg", R.drawable.forg );
+            put("frying-pan", R.drawable.fryingpan );
+            put("giraffe", R.drawable.giraffe );
+            put("grapes", R.drawable.grapes );
+            put("grenade", R.drawable.grenade );
 
-            put("guitar", R.mipmap.guitar );
-            put("hamburger", R.mipmap.hamburger );
-            put("hammer", R.mipmap.hammer );
-            put("hand", R.mipmap.hand );
-            put("harp", R.mipmap.harp );
+            put("guitar", R.drawable.guitar );
+            put("hamburger", R.drawable.hamburger );
+            put("hammer", R.drawable.hammer );
+            put("hand", R.drawable.hand );
+            put("harp", R.drawable.harp );
 
-            put("hat", R.mipmap.hat);
-            put("head", R.mipmap.head );
-            put("head-phones", R.mipmap.headphones );
-            put("hedgehog", R.mipmap.hedgehog );
-            put("helicopter", R.mipmap.helicopter );
+            put("hat", R.drawable.hat);
+            put("head", R.drawable.head );
+            put("head-phones", R.drawable.headphones );
+            put("hedgehog", R.drawable.hedgehog );
+            put("helicopter", R.drawable.helicopter );
 
-            put("helmet", R.mipmap.helmet );
-            put("horse", R.mipmap.horse );
-            put("hot-air-ballon", R.mipmap.hotairballoon );
-            put("hot-dog", R.mipmap.hotdog );
-            put("hourglass", R.mipmap.hourglass );
+            put("helmet", R.drawable.helmet );
+            put("horse", R.drawable.horse );
+            put("hot-air-ballon", R.drawable.hotairballoon );
+            put("hot-dog", R.drawable.hotdog );
+            put("hourglass", R.drawable.hourglass );
 
-            put("house", R.mipmap.house );
-            put("human-skeleton", R.mipmap.humanskeleton );
-            put("ice-cream-cone", R.mipmap.icecreamcone );
-            put("ipod", R.mipmap.ipod );
+            put("house", R.drawable.house );
+            put("human-skeleton", R.drawable.humanskeleton );
+            put("ice-cream-cone", R.drawable.icecreamcone );
+            put("ipod", R.drawable.ipod );
             put("kangroo", R.drawable.kangaroo );
 
-            put("key", R.mipmap.key );
-            put("keyboard", R.mipmap.keyboard );
-            put("knife", R.mipmap.knife );
-            put("ladder", R.mipmap.ladder );
-            put("laptop", R.mipmap.laptop );
+            put("key", R.drawable.key );
+            put("keyboard", R.drawable.keyboard );
+            put("knife", R.drawable.knife );
+            put("ladder", R.drawable.ladder );
+            put("laptop", R.drawable.laptop );
 
-            put("leaf", R.mipmap.leaf );
-            put("lightbulb", R.mipmap.lightbulb );
-            put("lighter", R.mipmap.lighter );
-            put("lion", R.mipmap.lion );
-            put("lobster", R.mipmap.lobster );
+            put("leaf", R.drawable.leaf );
+            put("lightbulb", R.drawable.lightbulb );
+            put("lighter", R.drawable.lighter );
+            put("lion", R.drawable.lion );
+            put("lobster", R.drawable.lobster );
 
-            put("loudspeaker", R.mipmap.loudspeaker );
-            put("mailbox", R.mipmap.mailbox );
-            put("megaphone", R.mipmap.megaphone );
-            put("mermaid", R.mipmap.mermaid );
-            put("microphone", R.mipmap.microphone );
+            put("loudspeaker", R.drawable.loudspeaker );
+            put("mailbox", R.drawable.mailbox );
+            put("megaphone", R.drawable.megaphone );
+            put("mermaid", R.drawable.mermaid );
+            put("microphone", R.drawable.microphone );
 
-            put("microscope", R.mipmap.microscope );
-            put("monkey", R.mipmap.monkey );
-            put("moon", R.mipmap.moon );
-            put("mosquito", R.mipmap.mosquito );
-            put("motorbike", R.mipmap.motorbike );
+            put("microscope", R.drawable.microscope );
+            put("monkey", R.drawable.monkey );
+            put("moon", R.drawable.moon );
+            put("mosquito", R.drawable.mosquito );
+            put("motorbike", R.drawable.motorbike );
 
-            put("mouse-(animal)", R.mipmap.mouse );
-            put("mouth", R.mipmap.mouth );
-            put("mug", R.mipmap.mug );
-            put("mushroom", R.mipmap.mushroom );
-            put("nose", R.mipmap.nose );
+            put("mouse-(animal)", R.drawable.mouse );
+            put("mouth", R.drawable.mouth );
+            put("mug", R.drawable.mug );
+            put("mushroom", R.drawable.mushroom );
+            put("nose", R.drawable.nose );
 
-            put("octopus", R.mipmap.octopus );
-            put("owl", R.mipmap.owl );
-            put("palm-tree", R.mipmap.palmtree );
-            put("panda", R.mipmap.panda );
-            put("paper-clip", R.mipmap.paperclip );
+            put("octopus", R.drawable.octopus );
+            put("owl", R.drawable.owl );
+            put("palm-tree", R.drawable.palmtree );
+            put("panda", R.drawable.panda );
+            put("paper-clip", R.drawable.paperclip );
 
-            put("parachute", R.mipmap.parachute );
-            put("parking-meter", R.mipmap.parkingmeter );
-            put("parrot", R.mipmap.parrot );
-            put("pear", R.mipmap.pear );
-            put("pen", R.mipmap.pen );
+            put("parachute", R.drawable.parachute );
+            put("parking-meter", R.drawable.parkingmeter );
+            put("parrot", R.drawable.parrot );
+            put("pear", R.drawable.pear );
+            put("pen", R.drawable.pen );
 
-            put("penguin", R.mipmap.penguin );
-            put("person-sitting", R.mipmap.personsitting );
-            put("person-walking", R.mipmap.personwalking );
-            put("piano", R.mipmap.piano );
-            put("pickup-truck", R.mipmap.pickuptruck );
+            put("penguin", R.drawable.penguin );
+            put("person-sitting", R.drawable.personsitting );
+            put("person-walking", R.drawable.personwalking );
+            put("piano", R.drawable.piano );
+            put("pickup-truck", R.drawable.pickuptruck );
 
-            put("pig", R.mipmap.pig );
-            put("pigeon", R.mipmap.pigeon );
-            put("pineapple", R.mipmap.pineapple );
-            put("pipe-(for-smoking)", R.mipmap.pipe );
-            put("pizza", R.mipmap.pizza );
+            put("pig", R.drawable.pig );
+            put("pigeon", R.drawable.pigeon );
+            put("pineapple", R.drawable.pineapple );
+            put("pipe-(for-smoking)", R.drawable.pipe );
+            put("pizza", R.drawable.pizza );
 
-            put("potted-plant", R.mipmap.pottedplant );
-            put("power-outlet", R.mipmap.poweroutlet );
-            put("present", R.mipmap.present );
-            put("pretzel", R.mipmap.pretzel );
-            put("pumpkin", R.mipmap.pumpkin );
-
-
-            put("purse", R.mipmap.purse);
-            put("rabbit", R.mipmap.rabbit );
-            put("race-car", R.mipmap.racecar );
-            put("radio", R.mipmap.radio);
-            put("rainbow", R.mipmap.rainbow );
+            put("potted-plant", R.drawable.pottedplant );
+            put("power-outlet", R.drawable.poweroutlet );
+            put("present", R.drawable.present );
+            put("pretzel", R.drawable.pretzel );
+            put("pumpkin", R.drawable.pumpkin );
 
 
-            put("revolver", R.mipmap.revolver );
-            put("rifle", R.mipmap.rifle );
-            put("rollerblades", R.mipmap.rollerblades );
-            put("rooster", R.mipmap.rooster );
-            put("sailboat", R.mipmap.sailboat );
+            put("purse", R.drawable.purse);
+            put("rabbit", R.drawable.rabbit );
+            put("race-car", R.drawable.racecar );
+            put("radio", R.drawable.radio);
+            put("rainbow", R.drawable.rainbow );
 
-            put("santa-claus", R.mipmap.santaclaus );
-            put("satellite dish", R.mipmap.satellitedish );
-            put("saxophone", R.mipmap.saxophone );
-            put("scissors", R.mipmap.scissor );
-            put("scorpion", R.mipmap.scorpion );
 
-            put("screwdriver", R.mipmap.screwdriver );
-            put("sea-turtle", R.mipmap.seaturtle );
-            put("seagull", R.mipmap.seagull );
-            put("shark", R.mipmap.shark );
-            put("sheep", R.mipmap.sheep );
+            put("revolver", R.drawable.revolver );
+            put("rifle", R.drawable.rifle );
+            put("rollerblades", R.drawable.rollerblades );
+            put("rooster", R.drawable.rooster );
+            put("sailboat", R.drawable.sailboat );
 
-            put("ship", R.mipmap.ship );
-            put("shoe", R.mipmap.shoe );
-            put("shovel", R.mipmap.shovel );
-            put("skateboard", R.mipmap.skateboard );
-            put("skull", R.mipmap.skull );
+            put("santa-claus", R.drawable.santaclaus );
+            put("satellite dish", R.drawable.satellitedish );
+            put("saxophone", R.drawable.saxophone );
+            put("scissors", R.drawable.scissor );
+            put("scorpion", R.drawable.scorpion );
 
-            put("skyscraper", R.mipmap.skyscarper );
-            put("snail", R.mipmap.snail);
-            put("snake", R.mipmap.snake );
-            put("snowboard", R.mipmap.snowboard );
-            put("snowman", R.mipmap.snowman );
+            put("screwdriver", R.drawable.screwdriver );
+            put("sea-turtle", R.drawable.seaturtle );
+            put("seagull", R.drawable.seagull );
+            put("shark", R.drawable.shark );
+            put("sheep", R.drawable.sheep );
 
-            put("socks", R.mipmap.socks );
-            put("space-shuttle", R.mipmap.spaceshuttle );
-            put("speed-boat", R.mipmap.speedboat );
-            put("spider", R.mipmap.spider );
-            put("sponge-bob", R.mipmap.spongebob );
+            put("ship", R.drawable.ship );
+            put("shoe", R.drawable.shoe );
+            put("shovel", R.drawable.shovel );
+            put("skateboard", R.drawable.skateboard );
+            put("skull", R.drawable.skull );
 
-            put("spoon", R.mipmap.spoon );
-            put("squirrel", R.mipmap.squirrel );
-            put("standing-bird", R.mipmap.standingbird );
-            put("stapler", R.mipmap.stapler );
-            put("strawberry", R.mipmap.strawberry );
+            put("skyscraper", R.drawable.skyscarper );
+            put("snail", R.drawable.snail);
+            put("snake", R.drawable.snake );
+            put("snowboard", R.drawable.snowboard );
+            put("snowman", R.drawable.snowman );
 
-            put("streetlight", R.mipmap.streetlight );
-            put("submarine", R.mipmap.submarine );
-            put("suitcase", R.mipmap.suitcase );
-            put("sun", R.mipmap.sun );
-            put("suv", R.mipmap.suv );
+            put("socks", R.drawable.socks );
+            put("space-shuttle", R.drawable.spaceshuttle );
+            put("speed-boat", R.drawable.speedboat );
+            put("spider", R.drawable.spider );
+            put("sponge-bob", R.drawable.spongebob );
 
-            put("swan", R.mipmap.swan );
+            put("spoon", R.drawable.spoon );
+            put("squirrel", R.drawable.squirrel );
+            put("standing-bird", R.drawable.standingbird );
+            put("stapler", R.drawable.stapler );
+            put("strawberry", R.drawable.strawberry );
+
+            put("streetlight", R.drawable.streetlight );
+            put("submarine", R.drawable.submarine );
+            put("suitcase", R.drawable.suitcase );
+            put("sun", R.drawable.sun );
+            put("suv", R.drawable.suv );
+
+            put("swan", R.drawable.swan );
             put("sword", R.drawable.sword );
-            put("syringe", R.mipmap.syringe );
-            put("table", R.mipmap.table );
-            put("tablelamp", R.mipmap.tablelamp );
+            put("syringe", R.drawable.syringe );
+            put("table", R.drawable.table );
+            put("tablelamp", R.drawable.tablelamp );
 
-            put("teacup", R.mipmap.teacup );
-            put("teapot", R.mipmap.teapot );
-            put("teddy-bear", R.mipmap.teddybear );
-            put("telephone", R.mipmap.telephone );
+            put("teacup", R.drawable.teacup );
+            put("teapot", R.drawable.teapot );
+            put("teddy-bear", R.drawable.teddybear );
+            put("telephone", R.drawable.telephone );
             put("tennis-racket", R.drawable.tennisracket );
 
-            put("tent", R.mipmap.tent );
-            put("tire", R.mipmap.tire );
-            put("toilet", R.mipmap.toilet );
-            put("tomato", R.mipmap.tomato );
-            put("tooth", R.mipmap.tooth );
+            put("tent", R.drawable.tent );
+            put("tire", R.drawable.tire );
+            put("toilet", R.drawable.toilet );
+            put("tomato", R.drawable.tomato );
+            put("tooth", R.drawable.tooth );
 
-            put("toothbrush", R.mipmap.toothbrush );
-            put("tractor", R.mipmap.tractor );
-            put("traffic-light", R.mipmap.trafficlight );
-            put("train", R.mipmap.train );
-            put("tree", R.mipmap.tree );
+            put("toothbrush", R.drawable.toothbrush );
+            put("tractor", R.drawable.tractor );
+            put("traffic-light", R.drawable.trafficlight );
+            put("train", R.drawable.train );
+            put("tree", R.drawable.tree );
 
-            put("trombone", R.mipmap.trombone );
-            put("trousers", R.mipmap.trousers );
-            put("truck", R.mipmap.truck );
-            put("trumpet", R.mipmap.trumpet );
-            put("t-shirt", R.mipmap.tshirt );
+            put("trombone", R.drawable.trombone );
+            put("trousers", R.drawable.trousers );
+            put("truck", R.drawable.truck );
+            put("trumpet", R.drawable.trumpet );
+            put("t-shirt", R.drawable.tshirt );
 
-            put("tv", R.mipmap.tv );
-            put("umbrella", R.mipmap.umbrella );
-            put("van", R.mipmap.van );
-            put("vase", R.mipmap.vase );
-            put("violin", R.mipmap.violin );
+            put("tv", R.drawable.tv );
+            put("umbrella", R.drawable.umbrella );
+            put("van", R.drawable.van );
+            put("vase", R.drawable.vase );
+            put("violin", R.drawable.violin );
 
-            put("walkie-talkie", R.mipmap.walkietalkie );
-            put("wheel", R.mipmap.wheel );
-            put("wheelbarrow", R.mipmap.wheelbarrow );
-            put("windmill", R.mipmap.windmill );
-            put("wine-bottle", R.mipmap.winebottle );
+            put("walkie-talkie", R.drawable.walkietalkie );
+            put("wheel", R.drawable.wheel );
+            put("wheelbarrow", R.drawable.wheelbarrow );
+            put("windmill", R.drawable.windmill );
+            put("wine-bottle", R.drawable.winebottle );
 
-            put("wineglass", R.mipmap.wineglass );
-            put("wrist-watch", R.mipmap.wristwatch );
-            put("zebra", R.mipmap.zebra );
+            put("wineglass", R.drawable.wineglass );
+            put("wrist-watch", R.drawable.wristwatch );
+            put("zebra", R.drawable.zebra );
         }};
     }
 
