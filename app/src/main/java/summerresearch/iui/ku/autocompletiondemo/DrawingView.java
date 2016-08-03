@@ -200,10 +200,11 @@ public class DrawingView extends View {
                         Log.d("del", "3" + "            "  + i);
                         if (changeFlag == 0) {
                             change.add(0);
-                            changeIndex.add(Arrays.asList(i));
-                        }else{
-                            (changeIndex.get(changeIndex.size() - 1)).add(i);
+                            changeIndex.add(new ArrayList<Integer>());
+                            changeIndex.get(changeIndex.size() - 1).add(i);
                             changeFlag = 1;
+                        }else{
+                            changeIndex.get(changeIndex.size() - 1).add(i);
                         }
 
                     }
@@ -316,11 +317,16 @@ public class DrawingView extends View {
                     clear();
                 }
             } else {
-//                Log.d("undo",""+changeIndex.get(changeIndex.size() - 1));
+                Log.d("undo",""+changeIndex.get(changeIndex.size() - 1).size());
                 for(int i = 0 ; i < (changeIndex.get(changeIndex.size() - 1)).size() ; i++) {
                     removedPathIndex.remove(Integer.valueOf((changeIndex.get(changeIndex.size() - 1).get(i))));
-
-                    sketch.addStroke(sketchShadow.getStrokeList().get((changeIndex.get(changeIndex.size() - 1).get(i))));
+                    int indexComeBack = (changeIndex.get(changeIndex.size() - 1).get(i));
+                    int prevNum = 0;
+                    for(int j = 0 ; j < removedPathIndex.size() ; j++){
+                        if(j < indexComeBack)
+                            prevNum++;
+                    }
+                    sketch.addPositionStroke(indexComeBack - prevNum , sketchShadow.getStrokeList().get( indexComeBack  ));
                 }
             }
             change.remove(change.size() - 1);

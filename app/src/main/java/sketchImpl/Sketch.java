@@ -74,4 +74,10 @@ public class Sketch implements JSONable {
             strokes.remove(i);
         }
     }
+
+    public void addPositionStroke( int num , Stroke stroke ) {
+        strokes.add(num , stroke);
+        String[] sprtdStr = strokesString.split(",");
+        sprtdStr[num] = stroke.jsonString()+ ", " + sprtdStr[num];
+    }
 }
