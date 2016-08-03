@@ -1,5 +1,7 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,23 +13,23 @@ public class ImageMap {
 
     public ImageMap() {
         imageMap = new HashMap<String,Integer>() {{
-            put("airplane", R.mipmap.airplane );
-            put("alarm-clock", R.mipmap.alarmclock );
-            put("angel", R.mipmap.angel );
-            put("ant", R.mipmap.ant );
-            put("apple", R.mipmap.apple );
+            put("airplane", R.drawable.airplane );
+            put("alarm-clock", R.drawable.alarmclock );
+            put("angel", R.drawable.angel );
+            put("ant", R.drawable.ant );
+            put("apple", R.drawable.apple );
 
-            put("arm", R.mipmap.arm );
-            put("armchair", R.mipmap.armchair );
-            put("ashtray", R.mipmap.ashtray );
-            put("axe", R.mipmap.axe );
-            put("backpack", R.mipmap.backpack );
+            put("arm", R.drawable.arm );
+            put("armchair", R.drawable.armchair );
+            put("ashtray", R.drawable.ashtray );
+            put("axe", R.drawable.axe );
+            put("backpack", R.drawable.backpack );
 
-            put("banana", R.mipmap.banana );
-            put("barn", R.mipmap.barn );
-            put("baseball-bat", R.mipmap.baseballbat );
-            put("basket", R.mipmap.basket );
-            put("bathtub", R.mipmap.bathtub );
+            put("banana", R.drawable.banana );
+            put("barn", R.drawable.barn );
+            put("baseball-bat", R.drawable.baseballbat );
+            put("basket", R.drawable.basket );
+            put("bathtub", R.drawable.bathtub );
 
             put("bear-(animal)", R.mipmap.bear );
             put("bed", R.mipmap.bed );
@@ -75,10 +77,10 @@ public class ImageMap {
             put("chandelier", R.mipmap.chandelier );
             put("church", R.mipmap.church );
             put("cigarette", R.mipmap.cigarette );
-            put("cloud", R.mipmap.cloud );
+            put("cloud", R.drawable.cloud );
 
             put("comb", R.mipmap.comb );
-            put("computer-monitor", R.mipmap.computermonitor );
+            put("computer-monitor", R.drawable.computermonitor );
             put("computer-mouse", R.mipmap.computermouse );
             put("couch", R.mipmap.couch );
             put("cow", R.mipmap.cow );
@@ -147,7 +149,7 @@ public class ImageMap {
             put("human-skeleton", R.mipmap.humanskeleton );
             put("ice-cream-cone", R.mipmap.icecreamcone );
             put("ipod", R.mipmap.ipod );
-            put("kangroo", R.mipmap.kangaroo );
+            put("kangroo", R.drawable.kangaroo );
 
             put("key", R.mipmap.key );
             put("keyboard", R.mipmap.keyboard );
@@ -266,7 +268,7 @@ public class ImageMap {
             put("suv", R.mipmap.suv );
 
             put("swan", R.mipmap.swan );
-            put("sword", R.mipmap.sword );
+            put("sword", R.drawable.sword );
             put("syringe", R.mipmap.syringe );
             put("table", R.mipmap.table );
             put("tablelamp", R.mipmap.tablelamp );
@@ -275,7 +277,7 @@ public class ImageMap {
             put("teapot", R.mipmap.teapot );
             put("teddy-bear", R.mipmap.teddybear );
             put("telephone", R.mipmap.telephone );
-            put("tennis-racket", R.mipmap.tennisracket );
+            put("tennis-racket", R.drawable.tennisracket );
 
             put("tent", R.mipmap.tent );
             put("tire", R.mipmap.tire );

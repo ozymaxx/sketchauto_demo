@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frame;
     private CircleButton sendbtn;
     private CircleButton drawbtn;
-
     private LinearLayout scrollLayout;
     private String IP = "172.31.0.134"; //Semih's
 

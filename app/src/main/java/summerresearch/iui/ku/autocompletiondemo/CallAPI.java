@@ -2,6 +2,7 @@ package summerresearch.iui.ku.autocompletiondemo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +18,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import sketchImpl.Sketch;
 
@@ -27,11 +30,12 @@ import sketchImpl.Sketch;
 public class CallAPI extends AsyncTask<String, String, String> {
     Context context;
     LinearLayout scrollLayout;
-    String[] separated;
+    public String[] separated;
     Activity activity;
     DrawingView dv;
     String link;
     Sketch sketch;
+    Map<Integer, Integer> imageResources;
 
 
     public CallAPI(Activity activity, Context context, DrawingView dv, Sketch sketch, String link) {
@@ -41,6 +45,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
         this.dv = dv;
         this.sketch = sketch;
         this.link = link;
+        imageResources = new HashMap<Integer, Integer>() {};
     }
 
     @Override
@@ -113,40 +118,28 @@ public class CallAPI extends AsyncTask<String, String, String> {
         separated = result.split("&");
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
         ImageMap im = new ImageMap();
-
         scrollLayout.removeAllViews();
-        for( int i = 0; i < separated.length; i++ ) {
-            Log.d("separated", "" + separated[i]);
-        }
 
         for( int i = 0; i < separated.length/2; i++ ) {
-            ImageView image = new ImageView(context);
+            final ImageView image = new ImageView(context);
             image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
             image.setMaxHeight(40);
             image.setMaxWidth(40);
-            image.setBackgroundResource(im.getImageMap().get(separated[i]));
-            image.getId();
+            image.setImageResource(im.getImageMap().get(separated[i]));
+            Log.d("img res name", "" + image.getDrawable());
             image.setClickable(true);
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("drawble", "" + view.getClass().getName());
                     FrameLayout frame = (FrameLayout) activity.findViewById(R.id.frameLayout);
                     frame.removeView(dv);
                     ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
                     frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                    if( ((ImageView)view).getDrawable() != null ) {
-                        Log.d("drawable", "not null");
-                    }
-                    else {
-                        imgView.setImageDrawable(((ImageView) view).getDrawable());
-                        Log.d("drawable", "null");
-                        Log.d("drawable", "" + ((ImageView)view).getId());
-                    }
+                    Resources r = view.getResources();
+                    imgView.setImageDrawable( ((ImageView)view).getDrawable() );
                     frame.invalidate();
                 }
             });
-
             scrollLayout.addView(image);
 
             TextView textView = new TextView(context);
@@ -160,7 +153,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
             textView.setMaxWidth(40);
             textView.setText( text );
             textView.setGravity(Gravity.CENTER);
-
             scrollLayout.addView(textView);
         }
         dv.HttpResult();
