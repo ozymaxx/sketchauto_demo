@@ -26,11 +26,9 @@ import sketchImpl.Stroke;
 public class DrawingView extends View {
 
     public int width;
-    public int height;
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Path mPath;
-    private Path mPath2;
     private Paint mBitmapPaint;
     Context context;
     private Paint circlePaint;
@@ -45,20 +43,19 @@ public class DrawingView extends View {
     DecimalFormat decimalFormat;
     ArrayList<Integer> removedPathIndex = null;
     boolean httpReady;
-    MainActivity ma;
+    MainActivity mainActivity;
     private boolean eraseMode;
     private int thrshld = 20;
     ArrayList<Integer> change; // 1 for drawing and 0 for erasing
     List<List<Integer>> changeIndex; // each List means indexes of changed strokes
 
 
-    public DrawingView(MainActivity c, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
-        super((Context)c);
-        this.ma = c;
+    public DrawingView(MainActivity mainActivity, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
+        super((Context) mainActivity);
+        this.mainActivity = mainActivity;
         paths = new ArrayList<Path>();
-        context = c;
+        context = mainActivity;
         mPath = new Path();
-        mPath2 = new Path();
         mPaint = p;
         this.drawbtn = drawbtn;
         this.sendbtn = sendbtn;
@@ -249,10 +246,10 @@ public class DrawingView extends View {
             sketchShadow.addStroke(stroke);
             // kill this so we don't double draw
             //mPath.reset();
-            Log.d("Stroke", sketch.jsonString());
+            //Log.d("Stroke", sketch.jsonString());
         }
         if (httpReady) {
-            ma.send(this);
+            mainActivity.send( sketch );
             httpReady = false;
         }
     }
@@ -331,7 +328,7 @@ public class DrawingView extends View {
         invalidate();
 
         if (httpReady) {
-            ma.send(this);
+            mainActivity.send( sketch );
             httpReady = false;
         }
     }

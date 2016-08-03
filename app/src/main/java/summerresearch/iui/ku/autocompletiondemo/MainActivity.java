@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private CircleButton sendbtn;
     private CircleButton drawbtn;
     private LinearLayout scrollLayout;
-    private String IP = "172.31.0.134"; //Semih's
+    private String IP = "172.31.0.144";
 
 
     @Override
@@ -63,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void send(DrawingView dv )
+    public void send( Sketch sketch )
     {
-        Sketch sketch = dv.getSketch();
         new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);

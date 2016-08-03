@@ -37,7 +37,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
     Sketch sketch;
     Map<Integer, Integer> imageResources;
 
-
     public CallAPI(Activity activity, Context context, DrawingView dv, Sketch sketch, String link) {
         this.activity = activity;
         this.context = context;

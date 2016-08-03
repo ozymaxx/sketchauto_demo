@@ -3,29 +3,33 @@ package sketchImpl;
 /**
  * Created by ElifYagmur on 20.07.2016.
  */
-import java.util.ArrayList;
 
-/**
- * Created by ozymaxx on 12.07.2016.
- */
+import java.util.ArrayList;
 
 public class Sketch implements JSONable {
     private ArrayList<Stroke> strokes;
     private String skid;
     private Stroke curStroke;
+    private String strokesString;
 
     public Sketch() {
         skid = System.currentTimeMillis() + "";
         strokes = new ArrayList<Stroke>();
-    }
-
-    public void newStroke(int width) {
-        curStroke = new Stroke(width);
-        strokes.add(curStroke);
+        strokesString = "";
     }
 
     public void addStroke( Stroke stroke ) {
         strokes.add(stroke);
+        if( strokes.size() == 1 ) {
+            strokesString += stroke.jsonString();
+        }
+        else {
+            strokesString += ", " + stroke.jsonString();
+        }
+    }
+
+    public String getJsonString() {
+        return "{\"id\":\""+skid+"\",\"strokes\": ["+ strokesString +"] }";
     }
 
     public void addPoint(double x, double y, long timestamp) {
@@ -44,10 +48,11 @@ public class Sketch implements JSONable {
         }
 
         result = "[" + result + "]";
-        result = "{\"id\":\""+skid+"\",\"strokes\":"+result+"}";
+        result = "{\"id\":\""+skid+"\",\"strokes\":"+ result +"}";
 
         return result;
     }
+
 
     public ArrayList<Stroke> getStrokeList() {
         return strokes;
