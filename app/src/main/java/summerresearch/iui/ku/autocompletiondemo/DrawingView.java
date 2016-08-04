@@ -228,6 +228,7 @@ public class DrawingView extends View {
                     }
                     Log.d("del", "33333333333333333333333333333" + "            " + counter);
                     sketch.delete(counter);
+                    ///////
                 }
 
                 aCoordinates = null;
