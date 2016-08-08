@@ -39,7 +39,7 @@ public class Stroke implements JSONable {
         }
 
         result = "[" + result + "]";
-        result = "{\"strokeId\":\""+sid+"\",\"points\":"+result+"}";
+        result = "{\"id\":\""+sid+"\",\"points\":"+result+"}";
 
         return result;
     }

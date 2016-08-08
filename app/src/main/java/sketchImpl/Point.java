@@ -32,6 +32,6 @@ public class Point implements JSONable {
     }
 
     public String jsonString() {
-        return "{\"pointId\":\""+pid+"\",\"time\":"+timestamp+",\"x\":"+x+",\"y\":"+y+"}";
+        return "{\"pid\":\""+pid+"\",\"time\":"+timestamp+",\"x\":"+x+",\"y\":"+y+"}";
     }
 }

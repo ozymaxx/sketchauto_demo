@@ -39,8 +39,8 @@ public class Sketch implements JSONable {
     }
 
     public String getJsonString() {
-        Log.d("tag", "getJsonString: " + "{\"sketchId\":\""+skid+"\",\"strokes\":["+ strokesString +"]}" );
-        return "{\"sketchId\":\""+skid+"\",\"strokes\":["+ strokesString +"]}";
+        Log.d("tag", "getJsonString: " + "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}" );
+        return "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}";
     }
 
     public String jsonString() {
