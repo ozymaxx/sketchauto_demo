@@ -89,16 +89,20 @@ public class Sketch implements JSONable {
     }
 
     public void deleteStrokeFromJsonString( int index ) {
-        //Find index of the stroke to delete
+
         Log.d("tag", "index : " + index );
         String firstPart = strokesString.substring( 0, startIndexes.get( index ) - 1);
         String secondPart = "";
-        if( index != ( strokes.size() - 1 ) )
-            secondPart = strokesString.substring( startIndexes.get( index + 1 ) );
+        if( index != ( strokes.size() - 1 ) ) {
+            secondPart = strokesString.substring(startIndexes.get(index + 1));
+
+            for(  int i = index; i < strokes.size() - 1; i++ ) {
+                startIndexes.set( i + 1, startIndexes.get(i) );
+            }
+        }
         Log.d("tag", "begin" + strokesString );
         strokesString = firstPart + secondPart;
         Log.d("tag", "end  " + strokesString );
-
         startIndexes.remove( index );
         sizes.remove( index );
         strokes.remove( index );
