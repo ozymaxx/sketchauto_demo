@@ -90,9 +90,11 @@ public class Sketch implements JSONable {
 
     public void deleteStrokeFromJsonString( int index ) {
 
-        Log.d("tag", "index : " + index );
-        String firstPart = strokesString.substring( 0, startIndexes.get( index ) - 1);
+        String firstPart = "";
         String secondPart = "";
+        if( index != 0 ) {
+            firstPart = strokesString.substring( 0, startIndexes.get( index ) - 1);
+        }
         if( index != ( strokes.size() - 1 ) ) {
             secondPart = strokesString.substring(startIndexes.get(index + 1));
 
@@ -115,8 +117,17 @@ public class Sketch implements JSONable {
     }
 
     public void addPositionStroke( int num , Stroke stroke ) {
-        strokes.add(num , stroke);
-        String[] sprtdStr = strokesString.split(",");
-        sprtdStr[num] = stroke.jsonString()+ ", " + sprtdStr[num];
+        strokes.add(stroke);
+        if( strokes.size() <= 1 ) {
+            strokesString += stroke.jsonString();
+            startIndexes.add(0);
+            sizes.add(stroke.jsonString().length());
+        }
+        else {
+            strokesString += ",";
+            startIndexes.add(strokesString.length());
+            strokesString += stroke.jsonString();
+            sizes.add(stroke.jsonString().length());
+        }
     }
 }
