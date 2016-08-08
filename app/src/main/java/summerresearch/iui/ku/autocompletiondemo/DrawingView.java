@@ -229,7 +229,8 @@ public class DrawingView extends View {
                         }
                     }
                     Log.d("del", "33333333333333333333333333333" + "            " + counter);
-                    sketch.delete(counter);
+
+                    sketch.delete( sketch.getStrokeList().get( counter ).getStrokeId() );
                     ///////
                 }
 
@@ -334,7 +335,7 @@ public class DrawingView extends View {
                         if(j < indexComeBack)
                             prevNum++;
                     }
-                    sketch.addPositionStroke(indexComeBack - prevNum , sketchShadow.getStrokeList().get( indexComeBack  ));
+                    sketch.addStroke( sketchShadow.getStrokeList().get( indexComeBack  ) );
                 }
             }
             change.remove(change.size() - 1);
