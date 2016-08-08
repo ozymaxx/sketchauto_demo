@@ -92,11 +92,13 @@ public class Sketch implements JSONable {
 
         String firstPart = "";
         String secondPart = "";
+
         if( index != 0 ) {
-            firstPart = strokesString.substring( 0, startIndexes.get( index ) - 1);
+            firstPart = strokesString.substring( 0, startIndexes.get( index ) - 1 );
         }
+
         if( index != ( strokes.size() - 1 ) ) {
-            secondPart = strokesString.substring(startIndexes.get(index + 1));
+            secondPart = strokesString.substring( startIndexes.get(index + 1) );
 
             for(  int i = index; i < strokes.size() - 1; i++ ) {
                 startIndexes.set( i + 1, startIndexes.get(i) );
