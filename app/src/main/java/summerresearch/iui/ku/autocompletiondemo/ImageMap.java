@@ -119,7 +119,7 @@ public class ImageMap {
             put("foot", R.drawable.foot );
             put("fork", R.drawable.fork );
 
-            put("forg", R.drawable.forg );
+            put("frog", R.drawable.forg );
             put("frying-pan", R.drawable.fryingpan );
             put("giraffe", R.drawable.giraffe );
             put("grapes", R.drawable.grapes );
@@ -139,7 +139,7 @@ public class ImageMap {
 
             put("helmet", R.drawable.helmet );
             put("horse", R.drawable.horse );
-            put("hot-air-ballon", R.drawable.hotairballoon );
+            put("hot-air-balloon", R.drawable.hotairballoon );
             put("hot-dog", R.drawable.hotdog );
             put("hourglass", R.drawable.hourglass );
 
@@ -147,7 +147,7 @@ public class ImageMap {
             put("human-skeleton", R.drawable.humanskeleton );
             put("ice-cream-cone", R.drawable.icecreamcone );
             put("ipod", R.drawable.ipod );
-            put("kangroo", R.drawable.kangaroo );
+            put("kangaroo", R.drawable.kangaroo );
 
             put("key", R.drawable.key );
             put("keyboard", R.drawable.keyboard );
@@ -224,7 +224,8 @@ public class ImageMap {
             put("sailboat", R.drawable.sailboat );
 
             put("santa-claus", R.drawable.santaclaus );
-            put("satellite dish", R.drawable.satellitedish );
+            put("satellite", R.drawable.satellite );
+            put("satellite-dish", R.drawable.satellitedish );
             put("saxophone", R.drawable.saxophone );
             put("scissors", R.drawable.scissor );
             put("scorpion", R.drawable.scorpion );
@@ -278,6 +279,7 @@ public class ImageMap {
             put("tennis-racket", R.drawable.tennisracket );
 
             put("tent", R.drawable.tent );
+            put("tiger", R.drawable.tiger );
             put("tire", R.drawable.tire );
             put("toilet", R.drawable.toilet );
             put("tomato", R.drawable.tomato );
