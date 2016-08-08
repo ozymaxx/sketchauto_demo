@@ -56,7 +56,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String urlString = this.link + this.sketch.jsonString();
+        String urlString = this.link + this.sketch.getJsonString();
         String resultToDisplay = "";
         InputStream in = null;
         Log.d("server", "try 1");

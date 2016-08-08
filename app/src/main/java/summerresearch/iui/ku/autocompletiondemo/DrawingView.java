@@ -179,7 +179,7 @@ public class DrawingView extends View {
                 float aCoordinates[] = {0f, 0f};
 
 
-                for (int j = 0; j < pm.getLength() ; j++) {
+                for (int j = 0; j < pm.getLength(); j++) {
 
 
                     pm.getPosTan(j, aCoordinates, null);

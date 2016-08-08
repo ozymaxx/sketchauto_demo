@@ -52,9 +52,14 @@ public class Stroke implements JSONable {
         return width;
     }
 
+    public String getStrokeId() {
+        return sid;
+    }
+
 /*
     public Color getColor() {
         return color;
     }
+
     */
 }
