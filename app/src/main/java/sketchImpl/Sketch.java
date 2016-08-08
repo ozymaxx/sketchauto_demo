@@ -5,9 +5,7 @@ package sketchImpl;
  */
 
 import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class Sketch implements JSONable {
     private ArrayList<Stroke> strokes;
@@ -111,9 +109,9 @@ public class Sketch implements JSONable {
         strokes.remove( index );
     }
 
-    public void delete(int i){
+    public void delete(String id){
         if (!strokes.isEmpty()) {
-            deleteStrokeFromJsonString( i );
+            deleteStrokeFromJsonString( id );
         }
     }
 
