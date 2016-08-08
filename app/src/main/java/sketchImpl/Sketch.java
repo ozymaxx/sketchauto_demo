@@ -7,6 +7,7 @@ package sketchImpl;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Sketch implements JSONable {
     private ArrayList<Stroke> strokes;
@@ -118,16 +119,46 @@ public class Sketch implements JSONable {
 
     public void addPositionStroke( int num , Stroke stroke ) {
         strokes.add( num, stroke );
-        if( strokes.size() <= 1 ) {
-            strokesString += stroke.jsonString();
-            startIndexes.add(0);
-            sizes.add(stroke.jsonString().length());
+        String str = stroke.jsonString();
+
+        if( num != strokes.size() - 1 ) {
+            //insert and shift
+
+            sizes.add( num, str.length());
+            int start = startIndexes.get( num );
+            int splitStartIndex = start;
+            startIndexes.add( num, start );
+            for( int i = num + 1; i < strokes.size(); i++ ) {
+                start = start + str.length() + 1;
+                startIndexes.set( i, start );
+            }
+
+            if( num == 0 ) {
+                str += ",";
+                str += strokesString;
+                strokesString = str;
+            }
+            else {
+                String first = strokesString.substring( 0, splitStartIndex );
+                String last = strokesString.substring( splitStartIndex );
+                Log.d("makeamistake", "first" + first);
+                Log.d("makeamistake", "last" + last);
+                strokesString = first + str + "," + last;
+                Log.d("makeamistake", "strokestring" + strokesString);
+            }
         }
         else {
-            strokesString += ",";
-            startIndexes.add(strokesString.length());
-            strokesString += stroke.jsonString();
-            sizes.add(stroke.jsonString().length());
+            if( strokes.size() <= 1 ) {
+                strokesString += stroke.jsonString();
+                startIndexes.add(0);
+                sizes.add(stroke.jsonString().length());
+            }
+            else {
+                strokesString += ",";
+                startIndexes.add(strokesString.length());
+                strokesString += stroke.jsonString();
+                sizes.add(stroke.jsonString().length());
+            }
         }
     }
 }
