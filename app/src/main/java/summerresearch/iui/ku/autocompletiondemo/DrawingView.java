@@ -142,6 +142,8 @@ public class DrawingView extends View {
 
     private void touch_move(float x, float y)
     {
+        Log.d("size",""+mCanvas.getHeight());
+        Log.d("size",""+mCanvas.getWidth());
         if(!eraseMode) {
             float dx = Math.abs(x - mX);
             float dy = Math.abs(y - mY);
@@ -293,6 +295,11 @@ public class DrawingView extends View {
         removedPathIndex.clear();
         paths.clear();
         invalidate();
+
+        if (httpReady) {
+            mainActivity.send( sketch );
+            httpReady = false;
+        }
     }
 
     public Canvas getCanvas() {

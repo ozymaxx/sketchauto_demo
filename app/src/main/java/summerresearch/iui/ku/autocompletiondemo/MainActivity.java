@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private CircleButton sendbtn;
     private CircleButton drawbtn;
     private LinearLayout scrollLayout;
-    private String IP = "172.31.0.144";
+    private String IP = "172.31.33.151";
 
 
     @Override
