@@ -107,9 +107,6 @@ public class Sketch implements JSONable {
     public void delete(int i){
         if (!strokes.isEmpty()) {
             deleteStrokeFromJsonString( i );
-            startIndexes.remove(i);
-            sizes.remove(i);
-            strokes.remove(i);
         }
     }
 
