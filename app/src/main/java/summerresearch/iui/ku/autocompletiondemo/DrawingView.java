@@ -106,7 +106,6 @@ public class DrawingView extends View {
             }
         }
         canvas.drawPath(circlePath, circlePaint);
-
     }
 
     private float mX, mY;

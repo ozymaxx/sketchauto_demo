@@ -22,24 +22,26 @@ public class Sketch implements JSONable {
         sizes = new ArrayList<Integer>();
     }
 
+
     public void addStroke( Stroke stroke ) {
         strokes.add(stroke);
-        if( strokes.size() <= 1 ) {
-            strokesString += stroke.jsonString();
+        String jsonString = stroke.jsonString();
+        if( strokes.size() == 1 ) {
+            strokesString = jsonString;
             startIndexes.add(0);
-            sizes.add(stroke.jsonString().length());
+            sizes.add( jsonString.length() );
         }
         else {
             strokesString += ",";
             startIndexes.add(strokesString.length());
-            strokesString += stroke.jsonString();
-            sizes.add(stroke.jsonString().length());
+            strokesString += jsonString;
+            sizes.add( jsonString.length() );
         }
     }
 
     public String getJsonString() {
         Log.d("tag", "getJsonString: " + "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}" );
-        return "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}";
+       return "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}";
     }
 
     public String jsonString() {
@@ -70,7 +72,7 @@ public class Sketch implements JSONable {
     }
 
     public void undo() {
-        if (!strokes.isEmpty()) {
+        if ( !strokes.isEmpty() ) {
             deleteStrokeFromJsonString( strokes.size() - 1  );
         }
     }
@@ -80,11 +82,10 @@ public class Sketch implements JSONable {
         int index = -1;
         for( int i = 0; i < strokes.size(); i++ ) {
             if( strokes.get(i).getStrokeId().equals( sId ) ) {
-                Log.d("tag", "inside if" + sId );
                 index = i;
             }
         }
-        Log.d("json","index = " + index);
+        Log.d("StrokeIndex","index = " + index);
         deleteStrokeFromJsonString( index );
     }
 
@@ -99,12 +100,14 @@ public class Sketch implements JSONable {
         if( index != ( strokes.size() - 1 ) ) {
             secondPart = strokesString.substring(startIndexes.get(index + 1));
 
-            for(  int i = index; i < strokes.size() - 1; i++ ) {
-                startIndexes.set( i + 1, startIndexes.get(i) );
+            startIndexes.set( index + 1, startIndexes.get(index) );
+            int l = sizes.get( index ) + 1;
+            for(  int i = index + 1; i < strokes.size(); i++ ) {
+                startIndexes.set( i, startIndexes.get(i) - l );
             }
         }
         else if( firstPart.length() > 0 ){
-            firstPart = firstPart.substring(0, firstPart.length()-1);
+            firstPart = firstPart.substring( 0, firstPart.length()- 1 );
 
         }
         Log.d("StrokeIndex", "begin" + strokesString );
@@ -120,5 +123,4 @@ public class Sketch implements JSONable {
             deleteStrokeFromJsonString( id );
         }
     }
-
 }
