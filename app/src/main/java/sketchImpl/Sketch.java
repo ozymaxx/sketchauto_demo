@@ -25,6 +25,7 @@ public class Sketch implements JSONable {
 
     public void addStroke( Stroke stroke ) {
         strokes.add(stroke);
+        Log.d("knocknock", "" + strokes.size() );
         String jsonString = stroke.jsonString();
         if( strokes.size() == 1 ) {
             strokesString = jsonString;
@@ -66,11 +67,6 @@ public class Sketch implements JSONable {
         return strokes;
     }
 
-    public void erase() {
-        skid = System.currentTimeMillis() + "";
-        strokes = new ArrayList<Stroke>();
-    }
-
     public void undo() {
         if ( !strokes.isEmpty() ) {
             deleteStrokeFromJsonString( strokes.size() - 1  );
@@ -100,7 +96,7 @@ public class Sketch implements JSONable {
         if( index != ( strokes.size() - 1 ) ) {
             secondPart = strokesString.substring(startIndexes.get(index + 1));
 
-            startIndexes.set( index + 1, startIndexes.get(index) );
+
             int l = sizes.get( index ) + 1;
             for(  int i = index + 1; i < strokes.size(); i++ ) {
                 startIndexes.set( i, startIndexes.get(i) - l );
