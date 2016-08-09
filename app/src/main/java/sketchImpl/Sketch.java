@@ -103,7 +103,7 @@ public class Sketch implements JSONable {
                 startIndexes.set( i + 1, startIndexes.get(i) );
             }
         }
-        else {
+        else if( firstPart.length() > 0 ){
             firstPart = firstPart.substring(0, firstPart.length()-1);
 
         }
