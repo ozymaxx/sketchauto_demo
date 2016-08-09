@@ -81,7 +81,7 @@ public class Sketch implements JSONable {
                 index = i;
             }
         }
-        Log.d("StrokeIndex","index = " + index);
+        Log.d("json","index = " + index);
         deleteStrokeFromJsonString( index );
     }
 
@@ -93,6 +93,7 @@ public class Sketch implements JSONable {
         if( index != 0 ) {
             firstPart = strokesString.substring( 0, startIndexes.get( index ) );
         }
+        Log.d("firstPart",""+ firstPart);
         if( index != ( strokes.size() - 1 ) ) {
             secondPart = strokesString.substring(startIndexes.get(index + 1));
 
@@ -106,9 +107,9 @@ public class Sketch implements JSONable {
             firstPart = firstPart.substring( 0, firstPart.length()- 1 );
 
         }
-        Log.d("StrokeIndex", "begin" + strokesString );
+        Log.d("MYStrokeIndex", "begin" + strokesString );
         strokesString = firstPart + secondPart;
-        Log.d("StrokeIndex", "end  " + strokesString );
+        Log.d("MYStrokeIndex", "end  " + strokesString );
         startIndexes.remove( index );
         sizes.remove( index );
         strokes.remove( index );

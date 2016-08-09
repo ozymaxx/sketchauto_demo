@@ -223,7 +223,7 @@ public class DrawingView extends View {
                             counter++;
                         }
                     }
-                    Log.d("check", "i" + "            " + i);
+                    Log.d("check", "i   =    " + i);
 
                     sketch.delete( sketchShadow.getStrokeList().get( i ).getStrokeId() );
 
@@ -317,8 +317,8 @@ public class DrawingView extends View {
                     }
                     removedPathIndex.add(index);
                     //paths.remove(paths.size()-1);
-
-                    sketch.undo();
+                    Log.d("check","index  =   " + paths.size());
+                    sketch.delete( sketchShadow.getStrokeList().get( index ).getStrokeId() );
 
                 } else {
                     clear();
