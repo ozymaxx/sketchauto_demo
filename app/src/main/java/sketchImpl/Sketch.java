@@ -84,6 +84,7 @@ public class Sketch implements JSONable {
                 index = i;
             }
         }
+        Log.d("json","index = " + index);
         deleteStrokeFromJsonString( index );
     }
 

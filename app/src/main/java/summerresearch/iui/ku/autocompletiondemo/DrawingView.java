@@ -122,8 +122,6 @@ public class DrawingView extends View {
         if(!eraseMode) {
             mPath = new Path();
             paths.add(mPath);
-            change.add(1);
-            changeIndex.add(Arrays.asList(paths.size() - 1));
             stroke = new Stroke(width);
             drawbtn.setVisibility(View.INVISIBLE);
             sendbtn.setVisibility(View.VISIBLE);
@@ -189,8 +187,6 @@ public class DrawingView extends View {
                     //find the points which are in touched area
                     float xx = aCoordinates[0];
                     float yy = aCoordinates[1];
-//                    Log.d("del",xx + "        x      " + mX);
-//                    Log.d("del",yy + "        y      " + (mY));
 
                     if ((xx > (mX - thrshld)) &&
                             (xx < (mX + thrshld)) &&
@@ -199,7 +195,7 @@ public class DrawingView extends View {
 
 
                         recogFlag = 1;
-                        Log.d("del", "3" + "            "  + i);
+
                         if (changeFlag == 0) {
                             change.add(0);
                             changeIndex.add(new ArrayList<Integer>());
@@ -228,10 +224,10 @@ public class DrawingView extends View {
                             counter++;
                         }
                     }
-                    Log.d("del", "33333333333333333333333333333" + "            " + counter);
+                    Log.d("check", "i" + "            " + i);
 
-                    sketch.delete( sketch.getStrokeList().get( counter ).getStrokeId() );
-                    ///////
+                    sketch.delete( sketchShadow.getStrokeList().get( i ).getStrokeId() );
+
                 }
 
                 aCoordinates = null;
@@ -249,6 +245,9 @@ public class DrawingView extends View {
             // paths.add(mPath);
             sketch.addStroke(stroke);
             sketchShadow.addStroke(stroke);
+            change.add(1);
+            changeIndex.add(Arrays.asList(paths.size() - 1));
+//            Log.d("check", ""+ sketchShadow.getStrokeList().size());
             // kill this so we don't double draw
             //mPath.reset();
             //Log.d("Stroke", sketch.jsonString());
@@ -328,14 +327,16 @@ public class DrawingView extends View {
             } else {
                 Log.d("undo",""+changeIndex.get(changeIndex.size() - 1).size());
                 for(int i = 0 ; i < (changeIndex.get(changeIndex.size() - 1)).size() ; i++) {
-                    removedPathIndex.remove(Integer.valueOf((changeIndex.get(changeIndex.size() - 1).get(i))));
                     int indexComeBack = (changeIndex.get(changeIndex.size() - 1).get(i));
-                    int prevNum = 0;
-                    for(int j = 0 ; j < removedPathIndex.size() ; j++){
-                        if(j < indexComeBack)
-                            prevNum++;
-                    }
-                    sketch.addStroke( sketchShadow.getStrokeList().get( indexComeBack  ) );
+                    removedPathIndex.remove(Integer.valueOf(indexComeBack));
+
+//                    int prevNum = 0;
+//                    for(int j = 0 ; j < removedPathIndex.size() ; j++){
+//                        if(j < indexComeBack)
+//                            prevNum++;
+//                    }
+                    Log.d("check","indexComeBack  =   " + indexComeBack);
+                    sketch.addStroke( sketchShadow.getStrokeList().get( indexComeBack ) );
                 }
             }
             change.remove(change.size() - 1);
