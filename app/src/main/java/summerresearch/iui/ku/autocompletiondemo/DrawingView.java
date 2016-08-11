@@ -344,6 +344,7 @@ public class DrawingView extends View {
             }
             change.remove(change.size() - 1);
             changeIndex.remove(changeIndex.size() - 1);
+            //
         }
         invalidate();
 
