@@ -295,10 +295,6 @@ public class DrawingView extends View {
         paths.clear();
         invalidate();
 
-        if (httpReady) {
-            mainActivity.send( sketch );
-            httpReady = false;
-        }
     }
 
     public Canvas getCanvas() {
