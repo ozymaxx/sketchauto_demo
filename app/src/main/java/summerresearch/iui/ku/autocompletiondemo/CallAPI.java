@@ -36,6 +36,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
     String link;
     Sketch sketch;
     Map<Integer, Integer> imageResources;
+    ImageMap im;
 
     public CallAPI(Activity activity, Context context, DrawingView dv, Sketch sketch, String link) {
         this.activity = activity;
@@ -45,6 +46,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
         this.sketch = sketch;
         this.link = link;
         imageResources = new HashMap<Integer, Integer>() {};
+        im  = new ImageMap();
     }
 
     @Override
@@ -111,13 +113,13 @@ public class CallAPI extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result)
     {
-        //Update the UI
+        //UPDATE UI
         Log.d("response", result);
         //PARSE THE STRING WHICH SERVER SENDS US
         separated = result.split("&");
-        //GET NAME OF ICONS HERE AND PUT INTO IMAGES
-        ImageMap im = new ImageMap();
+        //DELETE ALL EXISTING VIEWS ON SCROLL
         scrollLayout.removeAllViews();
+        //GET NAME OF ICONS HERE AND PUT INTO IMAGES
 
         for( int i = 0; i < separated.length/2; i++ ) {
             final ImageView image = new ImageView(context);
