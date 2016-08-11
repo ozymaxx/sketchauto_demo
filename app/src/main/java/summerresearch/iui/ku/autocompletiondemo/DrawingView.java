@@ -252,8 +252,8 @@ public class DrawingView extends View {
             //Log.d("Stroke", sketch.jsonString());
         }
         if (httpReady) {
-            if( sketch.getStrokeList().size() > 0 ) {
-                mainActivity.send( sketch );
+            if(sketch.getStrokeList().size() > 0) {
+                mainActivity.send(sketch);
                 httpReady = false;
             }
         }
@@ -298,8 +298,8 @@ public class DrawingView extends View {
         invalidate();
 
         if (httpReady) {
-            if( sketch.getStrokeList().size() > 0 ) {
-                mainActivity.send( sketch );
+            if(sketch.getStrokeList().size() > 0) {
+                mainActivity.send(sketch);
                 httpReady = false;
             }
         }
@@ -348,8 +348,8 @@ public class DrawingView extends View {
         invalidate();
 
         if (httpReady) {
-            if( sketch.getStrokeList().size() > 0 ) {
-                mainActivity.send( sketch );
+            if(sketch.getStrokeList().size() > 0) {
+                mainActivity.send(sketch);
                 httpReady = false;
             }
         }
