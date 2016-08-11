@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.ScrollingTabContainerView;
@@ -36,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout scrollLayout;
     private String IP = "172.31.33.151";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,11 +60,14 @@ public class MainActivity extends AppCompatActivity {
 
         frame.addView(dv);
         checkInternetConnection();
+
     }
 
     public void send( Sketch sketch )
     {
-        //new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
+        new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
+        sendbtn.setVisibility(View.INVISIBLE);
+        drawbtn.setVisibility(View.VISIBLE);
     }
 
     private void showFinishingAlertDialog(String title, String message)
