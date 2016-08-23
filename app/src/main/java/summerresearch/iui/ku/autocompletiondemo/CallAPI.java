@@ -121,12 +121,19 @@ public class CallAPI extends AsyncTask<String, String, String> {
         scrollLayout.removeAllViews();
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
 
+
         for( int i = 0; i < separated.length/2; i++ ) {
+
             final ImageView image = new ImageView(context);
             image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
             image.setMaxHeight(40);
             image.setMaxWidth(40);
-            image.setImageResource(im.getImageMap().get(separated[i]));
+            try {
+                image.setImageResource(im.getImageMap().get(separated[i]));
+            }
+            catch (NullPointerException e){
+
+            }
             Log.d("img res name", "" + image.getDrawable());
             image.setClickable(true);
             image.setOnClickListener(new View.OnClickListener() {
