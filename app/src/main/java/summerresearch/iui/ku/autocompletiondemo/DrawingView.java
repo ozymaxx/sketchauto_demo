@@ -254,7 +254,7 @@ public class DrawingView extends View {
         if (httpReady) {
             if(sketch.getStrokeList().size() > 0) {
                 mainActivity.send(sketch);
-                httpReady = false;
+                //httpReady = false;
             }
         }
     }
@@ -300,7 +300,7 @@ public class DrawingView extends View {
         if (httpReady) {
             if(sketch.getStrokeList().size() > 0) {
                 mainActivity.send(sketch);
-                httpReady = false;
+                //httpReady = false;
             }
         }
     }
@@ -351,7 +351,7 @@ public class DrawingView extends View {
         if (httpReady) {
             if(sketch.getStrokeList().size() > 0) {
                 mainActivity.send(sketch);
-                httpReady = false;
+                //httpReady = false;
             }
         }
     }
@@ -362,7 +362,7 @@ public class DrawingView extends View {
         return;
     }
 
-    public void HttpResult(){
-        httpReady = true;
-    }
+    //public void HttpResult(){
+       // httpReady = true;
+   // }
 }

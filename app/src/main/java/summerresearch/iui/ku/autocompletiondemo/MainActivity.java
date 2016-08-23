@@ -1,14 +1,23 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.app.IntentService;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.ScrollingTabContainerView;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,8 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frame;
     private CircleButton sendbtn;
     private CircleButton drawbtn;
-    private LinearLayout scrollLayout;
-    private String IP = "172.31.33.151";
+    LinearLayout scrollLayout;
+    public String[] separated;
+    public ImageMap im;
+
+    private IntentFilter filter;
+    private MyReceiver receiver;
+    private String IP = "172.31.67.89";
 
 
     @Override
@@ -40,11 +54,19 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        filter = new IntentFilter(MyReceiver.PROCESS_RESPONSE);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        receiver = new MyReceiver();
+        registerReceiver( receiver, filter );
+
         getSupportActionBar().hide();
+
         frame = (FrameLayout)findViewById(R.id.frameLayout);
-        scrollLayout = (LinearLayout)findViewById(R.id.scrollLayout);
         sendbtn = (CircleButton) findViewById(R.id.send);
         drawbtn = (CircleButton) findViewById(R.id.draw);
+        im = new ImageMap();
+        scrollLayout = (LinearLayout) findViewById( R.id.scrollLayout );
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -60,14 +82,18 @@ public class MainActivity extends AppCompatActivity {
 
         frame.addView(dv);
         checkInternetConnection();
-
     }
 
     public void send( Sketch sketch )
     {
-        new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
+
+        Log.d("background", "before call service");
+        startService( new Intent( MainActivity.this, BackgroundConnectionService.class).putExtra( "IN", new String[] {"http://" + IP + ":5000/", sketch.getJsonString()} ) );
+        Log.d("background", "after call service");
+        //new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);
+
     }
 
     private void showFinishingAlertDialog(String title, String message)
@@ -151,5 +177,69 @@ public class MainActivity extends AppCompatActivity {
             showFinishingAlertDialog("Internet Connection Error", "Device does not have active internet connection!!!");
             return false;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        this.unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+
+    public class MyReceiver extends BroadcastReceiver {
+
+        public static final String PROCESS_RESPONSE = "com.as400samplecode.intent.action.PROCESS_RESPONSE";
+        private String[] separated;
+        private String result;
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Log.d("background", "here");
+            result = intent.getStringExtra("myResponse");
+            Log.d("background", result);
+            separated = result.split("&");
+            //DELETE ALL EXISTING VIEWS ON SCROLL
+            scrollLayout.removeAllViews();
+            //GET NAME OF ICONS HERE AND PUT INTO IMAGES
+
+            scrollLayout.invalidate();
+            for( int i = 0; i < separated.length/2; i++ ) {
+                final ImageView image = new ImageView(context);
+                image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
+                image.setMaxHeight(40);
+                image.setMaxWidth(40);
+                image.setImageResource(im.getImageMap().get(separated[i]));
+                Log.d("background", "sep : " + separated[i]);
+                image.setClickable(true);
+                image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FrameLayout frame = (FrameLayout) findViewById(R.id.frameLayout);
+                        frame.removeView(dv);
+                        ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+                        frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                        Resources r = view.getResources();
+                        imgView.setImageDrawable( ((ImageView)view).getDrawable() );
+                        frame.invalidate();
+                    }
+                });
+                scrollLayout.addView(image);
+
+                TextView textView = new TextView(context);
+                Float prob = Float.parseFloat(separated[separated.length/2 + i]);
+                // to make it %
+                prob *= 100;
+                String text = String.format("%s\n%.2f%%", separated[i], prob);
+                Log.d("background", "sep : " + text );
+                textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
+                textView.setMaxHeight(40);
+                textView.setMaxWidth(40);
+                textView.setText( text );
+                textView.setGravity(Gravity.CENTER);
+                scrollLayout.addView(textView);
+            }
+
+        }
+
+
     }
 }

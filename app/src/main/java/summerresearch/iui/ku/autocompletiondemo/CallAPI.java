@@ -156,6 +156,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
             textView.setGravity(Gravity.CENTER);
             scrollLayout.addView(textView);
         }
-        dv.HttpResult();
+       // dv.HttpResult();
     }
 }
