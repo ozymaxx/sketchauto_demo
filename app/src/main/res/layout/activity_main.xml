@@ -43,6 +43,7 @@
             android:layout_height="match_parent"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
+            android:onClick="drawingModeOn"
             android:id="@+id/imageView6"/>
     </FrameLayout>
 

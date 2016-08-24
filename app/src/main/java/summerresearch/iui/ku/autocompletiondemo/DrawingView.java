@@ -37,8 +37,6 @@ public class DrawingView extends View {
     Stroke stroke;
     Sketch sketch;
     Sketch sketchShadow;
-    CircleButton  drawbtn;
-    CircleButton  sendbtn;
     private ArrayList<Path> paths;
     DecimalFormat decimalFormat;
     ArrayList<Integer> removedPathIndex = null;
@@ -50,15 +48,13 @@ public class DrawingView extends View {
     List<List<Integer>> changeIndex; // each List means indexes of changed strokes
 
 
-    public DrawingView(MainActivity mainActivity, CircleButton sendbtn, CircleButton drawbtn, Paint p) {
+    public DrawingView(MainActivity mainActivity, Paint p) {
         super((Context) mainActivity);
         this.mainActivity = mainActivity;
         paths = new ArrayList<Path>();
         context = mainActivity;
         mPath = new Path();
         mPaint = p;
-        this.drawbtn = drawbtn;
-        this.sendbtn = sendbtn;
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
         circlePaint = new Paint();
         circlePath = new Path();
@@ -121,8 +117,6 @@ public class DrawingView extends View {
             mPath = new Path();
             paths.add(mPath);
             stroke = new Stroke(width);
-            drawbtn.setVisibility(View.INVISIBLE);
-            sendbtn.setVisibility(View.VISIBLE);
             //mPath.reset();
             mPath.moveTo(x, y);
             mX = x;
