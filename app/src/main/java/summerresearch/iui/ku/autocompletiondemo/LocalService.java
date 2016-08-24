@@ -43,6 +43,8 @@ public class LocalService extends Service {
     private static final int WAIT_TIMEOUT = 30 * 100000;
     private HttpPost httpPost;
     private HttpClient httpclient;
+    public DownloadImageTask task;
+    public boolean isReady;
 
     /**
      * Class used for the client Binder.  Because we know this service always
@@ -90,8 +92,15 @@ public class LocalService extends Service {
     public void getResponseFromServer( String JSON  ) {
         Object[] object = new Object[]{JSON};
         Log.d("background", "getResponseFromServer");
-        new DownloadImageTask().execute( object );
 
+         if( task != null ) {
+             task.cancel( true );
+             Log.d("background", "status " + task.getStatus().toString());
+
+         }
+
+        task = new DownloadImageTask();
+        task.execute( JSON );
     }
 
     private class DownloadImageTask extends AsyncTask {
@@ -131,6 +140,9 @@ public class LocalService extends Service {
             //super.onPostExecute(o);
             Log.d("background", "onPOSTEXE" + o.toString() );
             MainActivity.refreshScroll( (String) o);
+            task = null;
         }
+
+
     }
 }

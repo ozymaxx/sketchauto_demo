@@ -74,9 +74,6 @@ final public class MainActivity extends AppCompatActivity {
 
         startService( new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" ) );
 
-       // StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
-
         frame.addView(dv);
         checkInternetConnection();
     }
@@ -264,64 +261,4 @@ final public class MainActivity extends AppCompatActivity {
        // this.unregisterReceiver(receiver);
         super.onDestroy();
     }
-
-
-
-    /*public class MyReceiver extends BroadcastReceiver {
-
-        public static final String PROCESS_RESPONSE = "com.as400samplecode.intent.action.PROCESS_RESPONSE";
-        private String[] separated;
-        private String result;
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            Log.d("background", "here");
-            result = intent.getStringExtra("myResponse");
-            Log.d("background", result);
-            separated = result.split("&");
-            //DELETE ALL EXISTING VIEWS ON SCROLL
-            scrollLayout.removeAllViews();
-            //GET NAME OF ICONS HERE AND PUT INTO IMAGES
-
-            scrollLayout.invalidate();
-            for( int i = 0; i < separated.length/2; i++ ) {
-                final ImageView image = new ImageView(context);
-                image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
-                image.setMaxHeight(40);
-                image.setMaxWidth(40);
-                image.setImageResource(im.getImageMap().get(separated[i]));
-                Log.d("background", "sep : " + separated[i]);
-                image.setClickable(true);
-                image.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FrameLayout frame = (FrameLayout) findViewById(R.id.frameLayout);
-                        frame.removeView(dv);
-                        ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
-                        frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                        Resources r = view.getResources();
-                        imgView.setImageDrawable( ((ImageView)view).getDrawable() );
-                        frame.invalidate();
-                    }
-                });
-                scrollLayout.addView(image);
-
-                TextView textView = new TextView(context);
-                Float prob = Float.parseFloat(separated[separated.length/2 + i]);
-                // to make it %
-                prob *= 100;
-                String text = String.format("%s\n%.2f%%", separated[i], prob);
-                Log.d("background", "sep : " + text );
-                textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
-                textView.setMaxHeight(40);
-                textView.setMaxWidth(40);
-                textView.setText( text );
-                textView.setGravity(Gravity.CENTER);
-                scrollLayout.addView(textView);
-            }
-
-        }
-
-
-    }*/
 }
