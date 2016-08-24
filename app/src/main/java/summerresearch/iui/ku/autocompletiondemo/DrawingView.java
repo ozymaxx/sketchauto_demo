@@ -133,7 +133,6 @@ public class DrawingView extends View {
             mX = x;
             mY = y;
         }
-
     }
 
     private void touch_move(float x, float y)
