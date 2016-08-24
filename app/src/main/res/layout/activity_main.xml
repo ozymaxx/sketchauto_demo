@@ -6,6 +6,14 @@
     android:background="@color/colorWhite"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/ivintro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/yagmur"
+        android:visibility="visible"
+        />
+
 
     <ScrollView
         android:id="@+id/swleft"
@@ -39,31 +47,10 @@
     </FrameLayout>
 
     <at.markushi.ui.CircleButton
-        android:layout_width="96dip"
-        android:layout_height="96dip"
-        android:id="@+id/send"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:onClick="send"
-        android:visibility="invisible"
-        android:src="@mipmap/ic_done_white_24dp"
-        app:cb_color="@color/colorGreenButton"/>
-
-    <at.markushi.ui.CircleButton
-        android:layout_width="96dip"
-        android:layout_height="96dip"
-        android:id="@+id/draw"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:onClick="draw"
-        android:src="@mipmap/ic_brush_white_24dp"
-        app:cb_color="@color/colorBlueButton"/>
-
-    <at.markushi.ui.CircleButton
         android:layout_width="64dip"
         android:layout_height="64dip"
         android:id="@+id/undo"
-        android:layout_below = "@+id/draw"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:clickable="true"
         android:onClick="undo"
