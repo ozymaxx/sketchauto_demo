@@ -76,7 +76,6 @@ public class DrawingView extends View {
         changeIndex = new ArrayList<List<Integer>>();
     }
 
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
