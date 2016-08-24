@@ -13,6 +13,7 @@ public class Sketch implements JSONable {
     private String strokesString;
     private ArrayList<Integer> startIndexes;
     private ArrayList<Integer> sizes;
+    private boolean sketchupdated = false;
 
     public Sketch() {
         skid = System.currentTimeMillis() + "";
@@ -38,14 +39,18 @@ public class Sketch implements JSONable {
             strokesString += jsonString;
             sizes.add( jsonString.length() );
         }
+        this.sketchupdated = true;
     }
 
     public String getJsonString() {
         Log.d("tag", "getJsonString: " + "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}" );
-       return "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}";
+        this.sketchupdated = false;
+        return "{\"id\":\""+skid+"\",\"strokes\":["+ strokesString +"]}";
     }
 
+
     public String jsonString() {
+
         String result = "";
 
         for (int i = 0; i < strokes.size(); i++) {
@@ -71,6 +76,7 @@ public class Sketch implements JSONable {
         if ( !strokes.isEmpty() ) {
             deleteStrokeFromJsonString( strokes.size() - 1  );
         }
+        this.sketchupdated = true;
     }
 
     public void deleteStrokeFromJsonString( String sId ) {
@@ -83,6 +89,7 @@ public class Sketch implements JSONable {
         }
         Log.d("json","index = " + index);
         deleteStrokeFromJsonString( index );
+        this.sketchupdated = true;
     }
 
     public void deleteStrokeFromJsonString( int index ) {
@@ -113,11 +120,17 @@ public class Sketch implements JSONable {
         startIndexes.remove( index );
         sizes.remove( index );
         strokes.remove( index );
+        this.sketchupdated = true;
     }
 
     public void delete(String id){
         if (!strokes.isEmpty()) {
             deleteStrokeFromJsonString( id );
         }
+        this.sketchupdated = true;
+    }
+
+    public boolean hasSketchUpdated(){
+        return this.sketchupdated;
     }
 }

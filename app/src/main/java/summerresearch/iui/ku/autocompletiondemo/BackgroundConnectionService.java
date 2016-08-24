@@ -45,6 +45,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import sketchImpl.Sketch;
+
 /**
  * Created by ElifYagmur on 11.08.2016.
  */
@@ -56,6 +58,7 @@ public class BackgroundConnectionService extends IntentService {
 
     private String URL = "";
     private String JSON = "";
+    private Sketch sketch;
     private String response;
     private static final int REGISTRATION_TIMEOUT = 3 * 100000;
     private static final int WAIT_TIMEOUT = 30 * 100000;
@@ -64,7 +67,9 @@ public class BackgroundConnectionService extends IntentService {
         // Need this to name the service
         super ("BackgroundConnectionServer");
         Log.d("background", "constructor");
+        this.sketch = sketch;
     }
+
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -73,8 +78,6 @@ public class BackgroundConnectionService extends IntentService {
         String responseMessage = "";
         // SystemClock.sleep(100); // Wait 10 seconds
 
-        // Do some really cool here
-        // I am making web request here as an example...
 
         Log.d("background", "1");
         try {
@@ -99,7 +102,7 @@ public class BackgroundConnectionService extends IntentService {
             httpGet.setHeader("Content-type", "application/json");
             ResponseHandler responseHandler = new BasicResponseHandler();
             // HttpResponse response = (HttpResponse) httpclient.execute( httpPost, responseHandler );
-            response = (String) httpclient.execute( httpPost, responseHandler );
+            response = (String) httpclient.execute( httpPost, responseHandler);
             Log.d("background", response );
 
             Log.d("background", "5");
@@ -143,9 +146,6 @@ public class BackgroundConnectionService extends IntentService {
         boardcastIntent.putExtra(RESPONSE_STRING, response);
         boardcastIntent.putExtra(RESPONSE_MESSAGE, responseMessage);
         sendBroadcast(boardcastIntent);
-        stopSelf();
+        //stopSelf();
     }
-
-
-
 }

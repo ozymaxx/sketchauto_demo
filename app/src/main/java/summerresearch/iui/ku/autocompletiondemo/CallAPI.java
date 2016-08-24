@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpStatus;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +48,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
         this.sketch = sketch;
         this.link = link;
         imageResources = new HashMap<Integer, Integer>() {};
-        im  = new ImageMap();
+        im  = new ImageMap(context);
     }
 
     @Override
@@ -54,61 +56,145 @@ public class CallAPI extends AsyncTask<String, String, String> {
         super.onPreExecute();
     }
 
-
     @Override
     protected String doInBackground(String... params) {
+        while(true) {
+            if(this.sketch.hasSketchUpdated())
+            {
+                String urlString = this.link + this.sketch.getJsonString();
+                String resultToDisplay = "";
+                InputStream in = null;
+                Log.d("server", "try 1");
+                URL url = null;
+                try {
+                    Log.d("server", "try 1");
+                    url = new URL(urlString);
+                    Log.d("server", "after url");
+                } catch (MalformedURLException e) {
+                    Log.d("server", "catch 1");
+                    continue;
+                    //return e.getMessage();
+                }
+                HttpURLConnection urlConnection = null;
+                try {
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    Log.d("server", "after urlConnection");
+                    /*
+                    int status = urlConnection.getResponseCode();
 
-        String urlString = this.link + this.sketch.getJsonString();
-        String resultToDisplay = "";
-        InputStream in = null;
-        Log.d("server", "try 1");
-        URL url = null;
-        try {
-            Log.d("server", "try 1");
-            url = new URL(urlString);
-            Log.d("server", "after url");
-        }
+                    if(status >= HttpStatus.SC_BAD_REQUEST){
+                        Log.d("server", "bad request");
+                    }
+                    */
 
-        catch (MalformedURLException e){
-            Log.d("server", "catch 1");
-            return e.getMessage();
-        }
-        HttpURLConnection urlConnection = null;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            Log.d("server", "after urlConnection");
-            in = new BufferedInputStream(urlConnection.getInputStream());
-            Log.d("server", "after buff input stream");
-        } catch (Exception e) {
+                    in = new BufferedInputStream(urlConnection.getInputStream());
+                    Log.d("server", "after buff input stream");
+                } catch (Exception e) {
 
-            //System.out.println(e.getMessage());
-            Log.d("server", "catch 1");
-            return e.getMessage();
-        }
+                    //System.out.println(e.getMessage());
+                    Log.d("server", "catch 1");
+                    continue;
+                    //return e.getMessage();
+                }
 
-        try {
-            Log.d("server", "try 2");
-            resultToDisplay = IOUtils.toString(in, "UTF-8");
-            Log.d("server", resultToDisplay );
-            //to [convert][1] byte stream to a string
-        } catch (IOException e) {
-            Log.d("server", "catch 2");
-            e.printStackTrace();
-        }
-        Log.d("server", "before return");
-        urlConnection.disconnect();
+                try {
+                    Log.d("server", "try 2");
+                    resultToDisplay = IOUtils.toString(in, "UTF-8");
+                    Log.d("server", resultToDisplay);
+                    //to [convert][1] byte stream to a string
+                } catch (IOException e) {
+                    Log.d("server", "catch 2");
+                    e.printStackTrace();
+                }
+                Log.d("server", "before return");
+                urlConnection.disconnect();
 
-        try
-        {
-            in.close();
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                final String finalstupidity = new String(resultToDisplay);
+                activity.runOnUiThread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                onPostExecute2(finalstupidity);
+                            }
+                        }
+                );
+            }
+/*
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return resultToDisplay;
     }
 
+    protected void onPostExecute2(String result)
+    {
+        //UPDATE UI
+        Log.d("response", result);
+        //PARSE THE STRING WHICH SERVER SENDS US
+        separated = result.split("&");
+        //DELETE ALL EXISTING VIEWS ON SCROLL
+        try
+        {
+            scrollLayout.removeAllViews();
+        }
+        catch(Exception e)
+        {
+
+        }
+        //GET NAME OF ICONS HERE AND PUT INTO IMAGES
+
+
+        for( int i = 0; i < separated.length/2; i++ ) {
+
+            final ImageView image = new ImageView(context);
+            image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
+            image.setMaxHeight(40);
+            image.setMaxWidth(40);
+            try {
+                image.setImageBitmap(im.getImageMap(separated[i]));
+            }
+            catch (NullPointerException e){
+
+            }
+            Log.d("img res name", "" + image.getDrawable());
+            image.setClickable(true);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FrameLayout frame = (FrameLayout) activity.findViewById(R.id.frameLayout);
+                    frame.removeView(dv);
+                    ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+                    frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                    Resources r = view.getResources();
+                    imgView.setImageDrawable( ((ImageView)view).getDrawable() );
+                    frame.invalidate();
+                }
+            });
+            scrollLayout.addView(image);
+
+            TextView textView = new TextView(context);
+            Float prob = Float.parseFloat(separated[separated.length/2 + i]);
+            // to make it %
+            prob *= 100;
+            String text = String.format("%s\n%.2f%%", separated[i], prob);
+            Log.d("separeted", "sep : " + text );
+            textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
+            textView.setMaxHeight(40);
+            textView.setMaxWidth(40);
+            textView.setText( text );
+            textView.setGravity(Gravity.CENTER);
+            scrollLayout.addView(textView);
+        }
+        // dv.HttpResult();
+    }
 
     @Override
     protected void onPostExecute(String result)
@@ -129,7 +215,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
             image.setMaxHeight(40);
             image.setMaxWidth(40);
             try {
-                image.setImageResource(im.getImageMap().get(separated[i]));
+                image.setImageBitmap(im.getImageMap(separated[i]));
             }
             catch (NullPointerException e){
 

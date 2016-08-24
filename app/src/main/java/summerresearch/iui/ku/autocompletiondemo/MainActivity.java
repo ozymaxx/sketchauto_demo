@@ -1,5 +1,6 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -43,10 +44,12 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout scrollLayout;
     public String[] separated;
     public ImageMap im;
+    private CallAPI callbackapi;
 
     private IntentFilter filter;
     private MyReceiver receiver;
-    private String IP = "172.31.67.89";
+    //private String IP = "172.31.67.89";
+    private String IP = "172.31.67.189";
 
 
     @Override
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         sendbtn = (CircleButton) findViewById(R.id.send);
         drawbtn = (CircleButton) findViewById(R.id.draw);
-        im = new ImageMap();
+        im = new ImageMap(this);
         scrollLayout = (LinearLayout) findViewById( R.id.scrollLayout );
 
         mPaint = new Paint();
@@ -82,17 +85,21 @@ public class MainActivity extends AppCompatActivity {
 
         frame.addView(dv);
         checkInternetConnection();
+
+        this.callbackapi = new CallAPI(this, this,  dv, dv.getSketch(), "http://" + IP + ":5000/?json=");
+        this.callbackapi.execute();
+
+        //startService( new Intent( MainActivity.this, BackgroundConnectionService.class).putExtra( "IN", new String[] {"http://" + IP + ":5000/", this.dv.getSketch()} ) );
     }
 
     public void send( Sketch sketch )
     {
 
         Log.d("background", "before call service");
-        startService( new Intent( MainActivity.this, BackgroundConnectionService.class).putExtra( "IN", new String[] {"http://" + IP + ":5000/", sketch.getJsonString()} ) );
         Log.d("background", "after call service");
         //new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
-        sendbtn.setVisibility(View.INVISIBLE);
-        drawbtn.setVisibility(View.VISIBLE);
+        //sendbtn.setVisibility(View.INVISIBLE);
+        //drawbtn.setVisibility(View.VISIBLE);
 
     }
 
@@ -189,12 +196,20 @@ public class MainActivity extends AppCompatActivity {
 
         public static final String PROCESS_RESPONSE = "com.as400samplecode.intent.action.PROCESS_RESPONSE";
         private String[] separated;
-        private String result;
+        private String result = "";
         @Override
         public void onReceive(Context context, Intent intent) {
 
             Log.d("background", "here");
             result = intent.getStringExtra("myResponse");
+
+            if (result == null){
+                Log.d("background","result is null");
+                return;
+            }
+
+
+
             Log.d("background", result);
             separated = result.split("&");
             //DELETE ALL EXISTING VIEWS ON SCROLL
@@ -207,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
                 image.setMaxHeight(40);
                 image.setMaxWidth(40);
-                image.setImageResource(im.getImageMap().get(separated[i]));
+                image.setImageBitmap(im.getImageMap(separated[i]));
                 Log.d("background", "sep : " + separated[i]);
                 image.setClickable(true);
                 image.setOnClickListener(new View.OnClickListener() {
