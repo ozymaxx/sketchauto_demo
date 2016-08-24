@@ -121,8 +121,6 @@ public class DrawingView extends View {
             mPath = new Path();
             paths.add(mPath);
             stroke = new Stroke(width);
-            drawbtn.setVisibility(View.INVISIBLE);
-            sendbtn.setVisibility(View.VISIBLE);
             //mPath.reset();
             mPath.moveTo(x, y);
             mX = x;

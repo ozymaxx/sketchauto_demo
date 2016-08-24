@@ -55,8 +55,6 @@ final public class MainActivity extends AppCompatActivity {
         main = this;
 
         frame = (FrameLayout)findViewById(R.id.frameLayout);
-        sendbtn = (CircleButton) findViewById(R.id.send);
-        drawbtn = (CircleButton) findViewById(R.id.draw);
         im = new ImageMap( MainActivity.this );
         scrollLayout = (LinearLayout) findViewById( R.id.scrollLayout );
 
@@ -75,6 +73,10 @@ final public class MainActivity extends AppCompatActivity {
         startService( new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" ) );
 
         frame.addView(dv);
+
+        ImageView imgView = (ImageView)findViewById(R.id.ivintro);
+        imgView.setVisibility(View.INVISIBLE);
+
         checkInternetConnection();
     }
 
@@ -107,8 +109,6 @@ final public class MainActivity extends AppCompatActivity {
             //Toast.makeText(this, "response : " + response, Toast.LENGTH_SHORT).show();
         }
         //new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
-        sendbtn.setVisibility(View.INVISIBLE);
-        drawbtn.setVisibility(View.VISIBLE);
 
     }
 
