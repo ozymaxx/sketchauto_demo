@@ -46,7 +46,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
         this.sketch = sketch;
         this.link = link;
         imageResources = new HashMap<Integer, Integer>() {};
-        im  = new ImageMap();
+        im  = new ImageMap(context);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
             image.setMaxHeight(40);
             image.setMaxWidth(40);
             try {
-                image.setImageResource(im.getImageMap().get(separated[i]));
+                //image.setImageResource(im.getImageMap().get(separated[i]));
             }
             catch (NullPointerException e){
 

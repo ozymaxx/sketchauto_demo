@@ -1,53 +1,49 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
-import android.app.IntentService;
-import android.content.BroadcastReceiver;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.ScrollingTabContainerView;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+
 import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
 
-public class MainActivity extends AppCompatActivity {
+final public class MainActivity extends AppCompatActivity {
 
-    private DrawingView dv ;
+    public static DrawingView dv ;
     private Paint mPaint;
     private FrameLayout frame;
     private CircleButton sendbtn;
     private CircleButton drawbtn;
-    LinearLayout scrollLayout;
+    public static LinearLayout scrollLayout;
     public String[] separated;
-    public ImageMap im;
+    public static ImageMap im;
+    public static Activity main;
 
-    private IntentFilter filter;
-    private MyReceiver receiver;
-    private String IP = "172.31.67.89";
+    LocalService mService;
+    boolean mBound = false;
 
+    private String IP = "172.31.29.86";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,17 +51,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        filter = new IntentFilter(MyReceiver.PROCESS_RESPONSE);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        receiver = new MyReceiver();
-        registerReceiver( receiver, filter );
-
         getSupportActionBar().hide();
+        main = this;
 
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         sendbtn = (CircleButton) findViewById(R.id.send);
         drawbtn = (CircleButton) findViewById(R.id.draw);
-        im = new ImageMap();
+        im = new ImageMap( MainActivity.this );
         scrollLayout = (LinearLayout) findViewById( R.id.scrollLayout );
 
         mPaint = new Paint();
@@ -80,21 +72,66 @@ public class MainActivity extends AppCompatActivity {
         dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
+        startService( new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" ) );
+
+       // StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //StrictMode.setThreadPolicy(policy);
+
         frame.addView(dv);
         checkInternetConnection();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Bind to LocalService
+        Log.d("background", "onStart" );
+        Intent intent = new Intent(this, LocalService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Unbind from the service
+        if (mBound) {
+            unbindService(mConnection);
+            mBound = false;
+        }
+    }
+
     public void send( Sketch sketch )
     {
-
-        Log.d("background", "before call service");
-        startService( new Intent( MainActivity.this, BackgroundConnectionService.class).putExtra( "IN", new String[] {"http://" + IP + ":5000/", sketch.getJsonString()} ) );
-        Log.d("background", "after call service");
+        if (mBound) {
+            // Call a method from the LocalService.
+            // However, if this call were something that might hang, then this request should
+            // occur in a separate thread to avoid slowing down the activity performance.
+             mService.getResponseFromServer( sketch.getJsonString() );
+            //Toast.makeText(this, "response : " + response, Toast.LENGTH_SHORT).show();
+        }
         //new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
         sendbtn.setVisibility(View.INVISIBLE);
         drawbtn.setVisibility(View.VISIBLE);
 
     }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            LocalService.LocalBinder binder = (LocalService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
 
     private void showFinishingAlertDialog(String title, String message)
     {
@@ -145,13 +182,56 @@ public class MainActivity extends AppCompatActivity {
         frame.addView(dv);
     }
 
-    public void imageClicked (View v)
+    public static void refreshScroll ( String result )
     {
-        frame.removeView(dv);
-        ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+        String [] separated;
+        Log.d("background", result);
+        separated = result.split("&");
+        //DELETE ALL EXISTING VIEWS ON SCROLL
+        scrollLayout.removeAllViews();
+        //GET NAME OF ICONS HERE AND PUT INTO IMAGES
 
-        frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-        frame.invalidate();
+        scrollLayout.invalidate();
+        for( int i = 0; i < separated.length/2; i++ ) {
+            final ImageView image = new ImageView( main.getApplicationContext() );
+            image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
+            image.setMaxHeight(40);
+            image.setMaxWidth(40);
+            try {
+                image.setImageBitmap(im.getImageMap(separated[i]));
+            }
+            catch (NullPointerException e){
+
+            }
+            Log.d("img res name", "" + image.getDrawable());
+            image.setClickable(true);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FrameLayout frame = (FrameLayout) main.findViewById(R.id.frameLayout);
+                    frame.removeView(dv);
+                    ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+                    frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                    Resources r = view.getResources();
+                    imgView.setImageDrawable( ((ImageView)view).getDrawable() );
+                    frame.invalidate();
+                }
+            });
+            scrollLayout.addView(image);
+
+            TextView textView = new TextView( main.getApplicationContext() );
+            Float prob = Float.parseFloat(separated[separated.length/2 + i]);
+            // to make it %
+            prob *= 100;
+            String text = String.format("%s\n%.2f%%", separated[i], prob);
+            Log.d("separeted", "sep : " + text );
+            textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
+            textView.setMaxHeight(40);
+            textView.setMaxWidth(40);
+            textView.setText( text );
+            textView.setGravity(Gravity.CENTER);
+            scrollLayout.addView(textView);
+        }
     }
 
     public void undo(View view)
@@ -181,11 +261,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        this.unregisterReceiver(receiver);
+       // this.unregisterReceiver(receiver);
         super.onDestroy();
     }
 
-    public class MyReceiver extends BroadcastReceiver {
+
+
+    /*public class MyReceiver extends BroadcastReceiver {
 
         public static final String PROCESS_RESPONSE = "com.as400samplecode.intent.action.PROCESS_RESPONSE";
         private String[] separated;
@@ -241,5 +323,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
+    }*/
 }
