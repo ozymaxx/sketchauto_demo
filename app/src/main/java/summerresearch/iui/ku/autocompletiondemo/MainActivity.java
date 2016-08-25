@@ -24,8 +24,6 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
 
 final public class MainActivity extends AppCompatActivity {
@@ -47,10 +45,9 @@ final public class MainActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().hide();
-        main = this;
 
+        main = this;
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         im = new ImageMap( MainActivity.this );
         scrollLayout = (LinearLayout) findViewById( R.id.scrollLayout );
