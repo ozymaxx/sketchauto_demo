@@ -138,7 +138,7 @@ public class LocalService extends Service {
         @Override
         protected void onPostExecute(Object o) {
             //super.onPostExecute(o);
-            if (o != null){
+            if (o == null){
                 Log.d("background", "onPOSTEXE, Null Response. No Internet Connection?" );
             }
             else {
