@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
@@ -24,32 +25,37 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
 
 final public class MainActivity extends AppCompatActivity {
 
+    public static DrawingView dv ;
     private Paint mPaint;
     private FrameLayout frame;
-    private String IP = "172.31.29.86";
-    public static DrawingView dv ;
+    private CircleButton sendbtn;
+    private CircleButton drawbtn;
     public static LinearLayout scrollLayout;
+    public String[] separated;
     public static ImageMap im;
     public static Activity main;
 
     LocalService mService;
     boolean mBound = false;
 
+    private String IP = "172.31.29.86";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
 
+        getSupportActionBar().hide();
         main = this;
+
         frame = (FrameLayout)findViewById(R.id.frameLayout);
-        im = new ImageMap( MainActivity.this );
         scrollLayout = (LinearLayout) findViewById( R.id.scrollLayout );
 
         mPaint = new Paint();
@@ -64,13 +70,54 @@ final public class MainActivity extends AppCompatActivity {
         dv = new DrawingView(this, mPaint);
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        //Start service that runs in background to provide http server connection.
-        startService( new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" ) );
+        startService(new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" ));
 
         frame.addView(dv);
+
         checkInternetConnection();
+
+        new AsyncTask<Context,Void,Void>() {
+            protected void onPreExecute() {
+                // Pre Code
+            }
+            protected Void doInBackground(Context... unused) {
+                im  = new ImageMap(unused[0]);
+                ((MainActivity)unused[0]).setImageMap(im);
+                return null;
+            }
+
+            protected Void onPostExecute(Context... unused) {
+                return null;
+            }
+        }.execute(this);
     }
 
+    public void setImageMap(ImageMap im){
+        this.im = im;
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                ImageView imgView = (ImageView)findViewById(R.id.ivintro);
+                imgView.setVisibility(View.INVISIBLE);
+
+                ImageView undo = (ImageView)findViewById(R.id.undo);
+                undo.setVisibility(View.VISIBLE);
+
+                ImageView eraseStrk = (ImageView)findViewById(R.id.eraseStrk);
+                eraseStrk.setVisibility(View.VISIBLE);
+
+                ImageView erase = (ImageView)findViewById(R.id.erase);
+                erase.setVisibility(View.VISIBLE);
+
+                ImageView ip = (ImageView)findViewById(R.id.ip);
+                ip.setVisibility(View.VISIBLE);
+            }
+        });
+
+        /*
+        ImageView imgView = (ImageView)findViewById(R.id.ivintro);
+        imgView.setVisibility(View.INVISIBLE);
+        */
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -97,7 +144,10 @@ final public class MainActivity extends AppCompatActivity {
             // However, if this call were something that might hang, then this request should
             // occur in a separate thread to avoid slowing down the activity performance.
              mService.getResponseFromServer( sketch.getJsonString() );
+            //Toast.makeText(this, "response : " + response, Toast.LENGTH_SHORT).show();
         }
+        //new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
+
     }
 
     /** Defines callbacks for service binding, passed to bindService() */
@@ -147,8 +197,6 @@ final public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 IP = input.getText().toString();
-                stopService(getIntent());
-                startService( new Intent( main, LocalService.class ).putExtra( "URL", "http://" + IP + ":5000/" ) );
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -160,23 +208,25 @@ final public class MainActivity extends AppCompatActivity {
 
         builder.show();
     }
-/*
+
     public void draw()
     {
         //CLEAR LINEAR LAYOUT ON SCROLL EYE
         frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-        dv = new DrawingView(this, sendbtn, drawbtn, mPaint);
+        dv = new DrawingView(this, mPaint);
         frame.addView(dv);
-    }*/
+    }
 
     public static void refreshScroll ( String result )
     {
-        String [] separated = result.split("&");
-
+        String [] separated;
+        Log.d("background", result);
+        separated = result.split("&");
         //DELETE ALL EXISTING VIEWS ON SCROLL
         scrollLayout.removeAllViews();
-        scrollLayout.invalidate();
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
+
+        scrollLayout.invalidate();
         for( int i = 0; i < separated.length/2; i++ ) {
             final ImageView image = new ImageView( main.getApplicationContext() );
             image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
@@ -188,7 +238,7 @@ final public class MainActivity extends AppCompatActivity {
             catch (NullPointerException e){
 
             }
-
+            Log.d("img res name", "" + image.getDrawable());
             image.setClickable(true);
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -196,7 +246,7 @@ final public class MainActivity extends AppCompatActivity {
                     FrameLayout frame = (FrameLayout) main.findViewById(R.id.frameLayout);
                     frame.removeView(dv);
                     ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
-                    imgView.setVisibility(View.VISIBLE);
+                    frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
                     Resources r = view.getResources();
                     imgView.setImageDrawable( ((ImageView)view).getDrawable() );
                     frame.invalidate();
@@ -209,6 +259,7 @@ final public class MainActivity extends AppCompatActivity {
             // to make it %
             prob *= 100;
             String text = String.format("%s\n%.2f%%", separated[i], prob);
+            Log.d("separeted", "sep : " + text );
             textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
             textView.setMaxHeight(40);
             textView.setMaxWidth(40);
@@ -216,20 +267,6 @@ final public class MainActivity extends AppCompatActivity {
             textView.setGravity(Gravity.CENTER);
             scrollLayout.addView(textView);
         }
-    }
-
-    public void drawingModeOn( View view ){
-        FrameLayout frame = (FrameLayout) main.findViewById(R.id.frameLayout);
-        ImageView image = (ImageView) frame.findViewById(R.id.imageView6);
-        image.setVisibility( View.INVISIBLE );
-
-        frame.removeView( image );
-
-        dv = new DrawingView( MainActivity.this, mPaint );
-        dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        frame.addView(dv);
-        frame.invalidate();
     }
 
     public void undo(View view)
@@ -246,15 +283,20 @@ final public class MainActivity extends AppCompatActivity {
 
     private boolean checkInternetConnection() {
         // get Connectivity Manager object to check connection
-        ConnectivityManager connec = (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+        ConnectivityManager connec =(ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
         Log.d( "ConnectivityManager", "" + connec.getActiveNetworkInfo());
         // Check for network connections
         if ( connec.getActiveNetworkInfo() != null) {
             return true;
-        }
-        else {
+        }else {
             showFinishingAlertDialog("Internet Connection Error", "Device does not have active internet connection!!!");
             return false;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+       // this.unregisterReceiver(receiver);
+        super.onDestroy();
     }
 }

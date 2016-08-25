@@ -6,6 +6,41 @@
     android:background="@color/colorWhite"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frameLayout"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_toRightOf="@+id/swleft"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+    android:background="@color/colorWhite">
+</FrameLayout>
+
+
+
+<ImageView
+    android:id="@+id/ivintro"
+    android:layout_width="600dp"
+    android:layout_height="300dp"
+    android:src="@drawable/yagmur"
+    android:visibility="visible"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    />
+
+
+
     <ScrollView
         android:id="@+id/swleft"
         android:layout_width="200dp"
@@ -18,35 +53,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frameLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/swleft"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:background="@color/colorWhite">
 
-        <ImageView
-            android:id="@+id/ivintro"
-            android:layout_width="600dp"
-            android:layout_height="300dp"
-            android:src="@drawable/koc"
-            android:visibility="visible"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="150dp"
-            />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:onClick="drawingModeOn"
-            android:id="@+id/imageView6"/>
-    </FrameLayout>
 
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
@@ -57,7 +64,9 @@
         android:clickable="true"
         android:onClick="undo"
         android:src="@mipmap/ic_undo_white_24dp"
-        app:cb_color="#FFBB33"/>
+        android:visibility="invisible"
+        app:cb_color="#FFBB33"
+        />
 
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
@@ -68,7 +77,9 @@
         android:clickable="true"
         android:onClick="eraseStrk"
         android:src="@mipmap/ic_backspace_white_24dp"
-        app:cb_color="#ff33e0"/>
+        app:cb_color="#ff33e0"
+        android:visibility="invisible"
+        />
 
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
@@ -79,7 +90,9 @@
         android:clickable="true"
         android:onClick="erase"
         android:src="@mipmap/ic_clear_white_24dp"
-        app:cb_color="#B71C1C"/>
+        app:cb_color="#B71C1C"
+        android:visibility="invisible"
+        />
 
     <at.markushi.ui.CircleButton
         android:layout_width="64dip"
@@ -89,6 +102,8 @@
         android:layout_alignParentRight="true"
         android:onClick="setip"
         android:src="@mipmap/ic_settings_ethernet_white_24dp"
-        app:cb_color="#000000"/>
+        app:cb_color="#000000"
+        android:visibility="invisible"
+        />
 
 </RelativeLayout>

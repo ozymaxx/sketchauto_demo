@@ -46,7 +46,9 @@ public class CallAPI extends AsyncTask<String, String, String> {
         this.sketch = sketch;
         this.link = link;
         imageResources = new HashMap<Integer, Integer>() {};
-        im  = new ImageMap(context);
+
+
+
     }
 
     @Override
@@ -141,10 +143,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
                 public void onClick(View view) {
                     FrameLayout frame = (FrameLayout) activity.findViewById(R.id.frameLayout);
                     frame.removeView(dv);
-                    ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
-                    frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
                     Resources r = view.getResources();
-                    imgView.setImageDrawable( ((ImageView)view).getDrawable() );
                     frame.invalidate();
                 }
             });

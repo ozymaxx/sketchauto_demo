@@ -138,9 +138,14 @@ public class LocalService extends Service {
         @Override
         protected void onPostExecute(Object o) {
             //super.onPostExecute(o);
-            Log.d("background", "onPOSTEXE" + o.toString() );
-            MainActivity.refreshScroll( (String) o);
-            task = null;
+            if (o != null){
+                Log.d("background", "onPOSTEXE, Null Response. No Internet Connection?" );
+            }
+            else {
+                Log.d("background", "onPOSTEXE" + o.toString());
+                MainActivity.refreshScroll((String) o);
+                task = null;
+            }
         }
 
 
