@@ -33,7 +33,7 @@
     android:id="@+id/ivintro"
     android:layout_width="600dp"
     android:layout_height="300dp"
-    android:src="@drawable/yagmur"
+    android:src="@drawable/koc"
     android:visibility="visible"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
