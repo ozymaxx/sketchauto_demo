@@ -6,9 +6,6 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -23,9 +20,6 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Objects;
-import java.util.Random;
-import summerresearch.iui.ku.autocompletiondemo.MainActivity;
 
 /**
  * Created by ElifYagmur on 23.08.2016.
@@ -34,8 +28,6 @@ public class LocalService extends Service {
 
     // Binder given to clients
     private final IBinder mBinder = new LocalBinder();
-    public static final String RESPONSE_STRING = "myResponse";
-    public static final String RESPONSE_MESSAGE = "myResponseMessage";
     private String URL = "";
     private String response;
     private Intent intent;
@@ -44,7 +36,6 @@ public class LocalService extends Service {
     private HttpPost httpPost;
     private HttpClient httpclient;
     public DownloadImageTask task;
-    public boolean isReady;
 
     /**
      * Class used for the client Binder.  Because we know this service always
@@ -147,7 +138,5 @@ public class LocalService extends Service {
                 task = null;
             }
         }
-
-
     }
 }

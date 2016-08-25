@@ -25,26 +25,20 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import at.markushi.ui.CircleButton;
 import sketchImpl.Sketch;
 
 final public class MainActivity extends AppCompatActivity {
 
     public static DrawingView dv ;
-    private Paint mPaint;
-    private FrameLayout frame;
-    private CircleButton sendbtn;
-    private CircleButton drawbtn;
     public static LinearLayout scrollLayout;
-    public String[] separated;
     public static ImageMap im;
     public static Activity main;
-
+    private Paint mPaint;
+    private FrameLayout frame;
     LocalService mService;
     boolean mBound = false;
-
-    private String IP = "172.31.29.86";
+    private String IP = "172.31.78.253";
+    private Intent serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,7 +48,6 @@ final public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
         main = this;
-
         frame = (FrameLayout)findViewById(R.id.frameLayout);
         scrollLayout = (LinearLayout) findViewById( R.id.scrollLayout );
 
@@ -70,10 +63,10 @@ final public class MainActivity extends AppCompatActivity {
         dv = new DrawingView(this, mPaint);
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        startService(new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" ));
+        serviceIntent = new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" );
+        startService( serviceIntent );
 
         frame.addView(dv);
-
         checkInternetConnection();
 
         new AsyncTask<Context,Void,Void>() {
@@ -112,17 +105,12 @@ final public class MainActivity extends AppCompatActivity {
                 ip.setVisibility(View.VISIBLE);
             }
         });
-
-        /*
-        ImageView imgView = (ImageView)findViewById(R.id.ivintro);
-        imgView.setVisibility(View.INVISIBLE);
-        */
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         // Bind to LocalService
-        Log.d("background", "onStart" );
         Intent intent = new Intent(this, LocalService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
@@ -144,9 +132,7 @@ final public class MainActivity extends AppCompatActivity {
             // However, if this call were something that might hang, then this request should
             // occur in a separate thread to avoid slowing down the activity performance.
              mService.getResponseFromServer( sketch.getJsonString() );
-            //Toast.makeText(this, "response : " + response, Toast.LENGTH_SHORT).show();
         }
-        //new CallAPI( this, MainActivity.this, dv, sketch, "http://" + IP + ":5000/?json=").execute();
 
     }
 
@@ -197,6 +183,8 @@ final public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 IP = input.getText().toString();
+                Log.d("background", "INSIDE OK");
+               // mService.onRebind();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -209,64 +197,65 @@ final public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void draw()
-    {
-        //CLEAR LINEAR LAYOUT ON SCROLL EYE
-        frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-        dv = new DrawingView(this, mPaint);
-        frame.addView(dv);
-    }
-
     public static void refreshScroll ( String result )
     {
-        String [] separated;
+        String [] separated = new String[]{};
         Log.d("background", result);
-        separated = result.split("&");
         //DELETE ALL EXISTING VIEWS ON SCROLL
         scrollLayout.removeAllViews();
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
-
         scrollLayout.invalidate();
-        for( int i = 0; i < separated.length/2; i++ ) {
-            final ImageView image = new ImageView( main.getApplicationContext() );
-            image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
-            image.setMaxHeight(40);
-            image.setMaxWidth(40);
-            try {
-                image.setImageBitmap(im.getImageMap(separated[i]));
-            }
-            catch (NullPointerException e){
+        separated = result.split("&");
 
-            }
-            Log.d("img res name", "" + image.getDrawable());
-            image.setClickable(true);
-            image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FrameLayout frame = (FrameLayout) main.findViewById(R.id.frameLayout);
-                    frame.removeView(dv);
-                    ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
-                    frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                    Resources r = view.getResources();
-                    imgView.setImageDrawable( ((ImageView)view).getDrawable() );
-                    frame.invalidate();
+        if( separated.length > 0 ) {
+            for( int i = 0; i < separated.length/2; i++ ) {
+                final ImageView image = new ImageView( main.getApplicationContext() );
+                image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
+                image.setMaxHeight(40);
+                image.setMaxWidth(40);
+                try {
+                    image.setImageBitmap(im.getImageMap(separated[i]));
                 }
-            });
-            scrollLayout.addView(image);
+                catch (NullPointerException e){
 
-            TextView textView = new TextView( main.getApplicationContext() );
-            Float prob = Float.parseFloat(separated[separated.length/2 + i]);
-            // to make it %
-            prob *= 100;
-            String text = String.format("%s\n%.2f%%", separated[i], prob);
-            Log.d("separeted", "sep : " + text );
-            textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
-            textView.setMaxHeight(40);
-            textView.setMaxWidth(40);
-            textView.setText( text );
-            textView.setGravity(Gravity.CENTER);
-            scrollLayout.addView(textView);
+                }
+                Log.d("img res name", "" + image.getDrawable());
+                image.setClickable(true);
+                image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FrameLayout frame = (FrameLayout) main.findViewById(R.id.frameLayout);
+                        frame.removeView(dv);
+                        ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+                        frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                        Resources r = view.getResources();
+                        imgView.setImageDrawable( ((ImageView)view).getDrawable() );
+                        frame.invalidate();
+                    }
+                });
+                scrollLayout.addView(image);
+
+                TextView textView = new TextView( main.getApplicationContext() );
+                Float prob = Float.parseFloat(separated[separated.length/2 + i]);
+                // to make it %
+                prob *= 100;
+                String text = String.format("%s\n%.2f%%", separated[i], prob);
+                Log.d("separeted", "sep : " + text );
+                textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
+                textView.setMaxHeight(40);
+                textView.setMaxWidth(40);
+                textView.setText( text );
+                textView.setGravity(Gravity.CENTER);
+                scrollLayout.addView(textView);
+            }
         }
+
+    }
+
+    public void drawingModeOn(View view) {
+        frame.findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+        dv = new DrawingView(this, mPaint);
+        frame.addView(dv);
     }
 
     public void undo(View view)
@@ -279,6 +268,7 @@ final public class MainActivity extends AppCompatActivity {
     public void erase(View view)
     {
         dv.clear();
+        refreshScroll("");
     }
 
     private boolean checkInternetConnection() {
@@ -292,11 +282,5 @@ final public class MainActivity extends AppCompatActivity {
             showFinishingAlertDialog("Internet Connection Error", "Device does not have active internet connection!!!");
             return false;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-       // this.unregisterReceiver(receiver);
-        super.onDestroy();
     }
 }

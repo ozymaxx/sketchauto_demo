@@ -228,7 +228,8 @@ public class DrawingView extends View {
             Log.d("del", "5");
             eraseMode = false;
             invalidate();
-        }else {
+        }
+        else {
             mPath.lineTo(mX, mY);
             circlePath.reset();
             // commit the path to our offscreen
@@ -243,11 +244,13 @@ public class DrawingView extends View {
             //mPath.reset();
             //Log.d("Stroke", sketch.jsonString());
         }
-        if (httpReady) {
-            if(sketch.getStrokeList().size() > 0) {
-                mainActivity.send(sketch);
-                //httpReady = false;
-            }
+
+        if(sketch.getStrokeList().size() > 0) {
+            mainActivity.send(sketch);
+            //httpReady = false;
+        }
+        else {
+            mainActivity.refreshScroll("");
         }
     }
 
@@ -289,12 +292,13 @@ public class DrawingView extends View {
         paths.clear();
         invalidate();
 
-        if (httpReady) {
-            if(sketch.getStrokeList().size() > 0) {
-                mainActivity.send(sketch);
-                //httpReady = false;
-            }
+        if(sketch.getStrokeList().size() > 0) {
+            mainActivity.send(sketch);
         }
+        else {
+            mainActivity.refreshScroll("");
+        }
+
     }
 
     public Canvas getCanvas() {
@@ -324,12 +328,6 @@ public class DrawingView extends View {
                 for(int i = 0 ; i < (changeIndex.get(changeIndex.size() - 1)).size() ; i++) {
                     int indexComeBack = (changeIndex.get(changeIndex.size() - 1).get(i));
                     removedPathIndex.remove(Integer.valueOf(indexComeBack));
-
-//                    int prevNum = 0;
-//                    for(int j = 0 ; j < removedPathIndex.size() ; j++){
-//                        if(j < indexComeBack)
-//                            prevNum++;
-//                    }
                     Log.d("check","indexComeBack  =   " + indexComeBack);
                     sketch.addStroke( sketchShadow.getStrokeList().get( indexComeBack ) );
                 }
@@ -340,12 +338,14 @@ public class DrawingView extends View {
         }
         invalidate();
 
-        if (httpReady) {
-            if(sketch.getStrokeList().size() > 0) {
-                mainActivity.send(sketch);
-                //httpReady = false;
-            }
+        if(sketch.getStrokeList().size() > 0) {
+            mainActivity.send(sketch);
+            //httpReady = false;
         }
+        else {
+            mainActivity.refreshScroll("");
+        }
+
     }
 
     public void eraseStrk (boolean b){
@@ -353,8 +353,4 @@ public class DrawingView extends View {
         invalidate();
         return;
     }
-
-    //public void HttpResult(){
-       // httpReady = true;
-   // }
 }
