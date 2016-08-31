@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by ElifYagmur on 23.08.2016.
+ * The LocalService is a service that runs in the background and provides constant server connection.
  */
 public class LocalService extends Service {
 
@@ -35,7 +36,7 @@ public class LocalService extends Service {
     private static final int WAIT_TIMEOUT = 30 * 100000;
     private HttpPost httpPost;
     private HttpClient httpclient;
-    public DownloadImageTask task;
+    public ConnectToServer task;
 
     /**
      * Class used for the client Binder.  Because we know this service always
@@ -50,21 +51,17 @@ public class LocalService extends Service {
 
     @Override
     public void onStart(Intent intent, int startId) {
-        Log.d("background", "on Local service start");
         URL = intent.getStringExtra("URL");
         try {
-            Log.d("background", "2");
             String simpleURL = new String( URL.getBytes(),"UTF-8");
             Log.d( "background", simpleURL );
             httpclient = new DefaultHttpClient();
             HttpParams params = httpclient.getParams();
 
-            Log.d("background", "3");
             HttpConnectionParams.setConnectionTimeout(params, REGISTRATION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(params, WAIT_TIMEOUT);
             ConnManagerParams.setTimeout(params, WAIT_TIMEOUT);
 
-            Log.d("background", "4");
             httpPost = new HttpPost( URL );
 
         } catch (UnsupportedEncodingException e) {
@@ -79,6 +76,27 @@ public class LocalService extends Service {
         return mBinder;
     }
 
+    @Override
+    public void onRebind(Intent intent) {
+        URL = intent.getStringExtra("URL");
+        try {
+            String simpleURL = new String( URL.getBytes(),"UTF-8");
+            Log.d( "background", simpleURL );
+            httpclient.getConnectionManager().shutdown();
+            httpclient = new DefaultHttpClient();
+            HttpParams params = httpclient.getParams();
+
+            HttpConnectionParams.setConnectionTimeout(params, REGISTRATION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(params, WAIT_TIMEOUT);
+            ConnManagerParams.setTimeout(params, WAIT_TIMEOUT);
+
+            httpPost = new HttpPost( URL );
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
     /** method for clients */
     public void getResponseFromServer( String JSON  ) {
         Object[] object = new Object[]{JSON};
@@ -90,29 +108,27 @@ public class LocalService extends Service {
 
          }
 
-        task = new DownloadImageTask();
+        task = new ConnectToServer();
         task.execute( JSON );
     }
 
-    private class DownloadImageTask extends AsyncTask {
+    /**
+    * ConnectToServer connects executes post request on Http connection.
+    * Each time send() method in MainActivity called it calls getResponseFromServer() method in LocalService,
+     * and that executes ConnectToServer as an asyncTask with input JSON string.
+    */
+    private class ConnectToServer extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] objects) {
             String responseMessage;
-            Log.d("background", "1");
             try {
-                Log.d("background", "try1");
                 StringEntity stringEntity = new StringEntity( (String) objects[0] );
                 stringEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
                 httpPost.setEntity( stringEntity );
 
-                Log.d("background", "try2");
                 ResponseHandler responseHandler = new BasicResponseHandler();
                 response = (String) httpclient.execute( httpPost, responseHandler );
-                Log.d("background", response );
-
-                Log.d("background", "5");
-
             } catch (ClientProtocolException e) {
                 Log.w("HTTP2:",e );
                 responseMessage = e.getMessage();
@@ -128,7 +144,6 @@ public class LocalService extends Service {
 
         @Override
         protected void onPostExecute(Object o) {
-            //super.onPostExecute(o);
             if (o == null){
                 Log.d("background", "onPOSTEXE, Null Response. No Internet Connection?" );
             }

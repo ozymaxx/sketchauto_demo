@@ -37,7 +37,7 @@ final public class MainActivity extends AppCompatActivity {
     private FrameLayout frame;
     LocalService mService;
     boolean mBound = false;
-    private String IP = "172.31.78.253";
+    private String IP = "172.31.89.215";
     private Intent serviceIntent;
 
     @Override
@@ -184,7 +184,7 @@ final public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 IP = input.getText().toString();
                 Log.d("background", "INSIDE OK");
-               // mService.onRebind();
+                mService.onRebind(new Intent( main, LocalService.class).putExtra( "URL", "http://" + input.getText().toString() + ":5000/" ));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

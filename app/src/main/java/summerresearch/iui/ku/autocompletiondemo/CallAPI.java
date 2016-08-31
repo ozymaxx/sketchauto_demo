@@ -25,6 +25,7 @@ import sketchImpl.Sketch;
 
 /**
  * Created by ElifYagmur on 22.07.2016.
+ * Firstly implemented to provide server connection in asyncronous treads.
  */
 
 public class CallAPI extends AsyncTask<String, String, String> {
