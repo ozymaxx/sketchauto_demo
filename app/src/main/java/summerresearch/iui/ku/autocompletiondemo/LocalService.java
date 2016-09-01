@@ -1,11 +1,21 @@
 package summerresearch.iui.ku.autocompletiondemo;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -20,6 +30,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Stack;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by ElifYagmur on 23.08.2016.
@@ -37,6 +49,23 @@ public class LocalService extends Service {
     private HttpPost httpPost;
     private HttpClient httpclient;
     public ConnectToServer task;
+    public DrawingView dv ;
+    public LinearLayout scrollLayout;
+    public Activity main;
+    public ImageMap im;
+    public ReentrantLock lockOnResultStack;
+    public Stack <String> results;
+    public boolean flag;
+
+    public LocalService(){
+        this.dv = MainActivity.dv;
+        this.scrollLayout = MainActivity.scrollLayout;
+        this.main = MainActivity.main;
+        this.im  = MainActivity.im;
+        this.lockOnResultStack = new ReentrantLock();
+        this.results = new Stack<>();
+        this.flag = true;
+    }
 
     /**
      * Class used for the client Binder.  Because we know this service always
@@ -98,19 +127,92 @@ public class LocalService extends Service {
     }
 
     /** method for clients */
-    public void getResponseFromServer( String JSON  ) {
-        Object[] object = new Object[]{JSON};
+    public void getResponseFromServer( String JSON ) {
         Log.d("background", "getResponseFromServer");
-
+        /*
          if( task != null ) {
              task.cancel( true );
              Log.d("background", "status " + task.getStatus().toString());
-
-         }
-
+         } */
         task = new ConnectToServer();
         task.execute( JSON );
     }
+
+    public void checkUpdatable() {
+        if( !results.isEmpty() ) {
+            String in = results.peek();
+            results.removeAllElements();
+            UpdateScroll updateTask = new UpdateScroll();
+            updateTask.execute( in );
+        }
+    }
+
+
+   private class UpdateScroll extends AsyncTask {
+       @Override
+       protected Object doInBackground(Object[] objects) {
+
+           return objects[0];
+       }
+
+       @Override
+       protected void onPostExecute(Object o) {
+           String result = (String) o;
+           String [] separated = new String[]{};
+           Log.d("background", result);
+           //DELETE ALL EXISTING VIEWS ON SCROLL
+           scrollLayout.removeAllViews();
+           //GET NAME OF ICONS HERE AND PUT INTO IMAGES
+           scrollLayout.invalidate();
+           separated = result.split("&");
+
+           if( separated.length > 0 ) {
+               for( int i = 0; i < separated.length/2; i++ ) {
+                   final ImageView image = new ImageView( main.getApplicationContext() );
+                   image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
+                   image.setMaxHeight(40);
+                   image.setMaxWidth(40);
+                   try {
+                       image.setImageBitmap(im.getImageMap(separated[i]));
+                   }
+                   catch (NullPointerException e){
+
+                   }
+                   Log.d("img res name", "" + image.getDrawable());
+                   image.setClickable(true);
+                   image.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View view) {
+                           FrameLayout frame = (FrameLayout) main.findViewById(R.id.frameLayout);
+                           frame.removeView(dv);
+                           ImageView imgView = (ImageView) frame.findViewById(R.id.imageView6);
+                           frame.findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                           Resources r = view.getResources();
+                           imgView.setImageDrawable( ((ImageView)view).getDrawable() );
+                           frame.invalidate();
+                       }
+                   });
+                   scrollLayout.addView(image);
+
+                   TextView textView = new TextView( main.getApplicationContext() );
+                   Float prob = Float.parseFloat(separated[separated.length/2 + i]);
+                   // to make it %
+                   prob *= 100;
+                   String text = String.format("%s\n%.2f%%", separated[i], prob);
+                   Log.d("separeted", "sep : " + text );
+                   textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
+                   textView.setMaxHeight(40);
+                   textView.setMaxWidth(40);
+                   textView.setText( text );
+                   textView.setGravity(Gravity.CENTER);
+                   scrollLayout.addView(textView);
+               }
+           }
+
+           flag = true;
+       }
+   }
+
 
     /**
     * ConnectToServer connects executes post request on Http connection.
@@ -148,9 +250,8 @@ public class LocalService extends Service {
                 Log.d("background", "onPOSTEXE, Null Response. No Internet Connection?" );
             }
             else {
-                Log.d("background", "onPOSTEXE" + o.toString());
-                MainActivity.refreshScroll((String) o);
-                task = null;
+                results.push( (String) o );
+                checkUpdatable();
             }
         }
     }

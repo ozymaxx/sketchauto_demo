@@ -37,7 +37,7 @@ final public class MainActivity extends AppCompatActivity {
     private FrameLayout frame;
     LocalService mService;
     boolean mBound = false;
-    private String IP = "172.31.89.215";
+    private String IP = "172.31.29.86";
     private Intent serviceIntent;
 
     @Override
@@ -64,6 +64,7 @@ final public class MainActivity extends AppCompatActivity {
         dv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         serviceIntent = new Intent(this, LocalService.class).putExtra( "URL", "http://" + IP + ":5000/" );
+
         startService( serviceIntent );
 
         frame.addView(dv);
@@ -249,6 +250,7 @@ final public class MainActivity extends AppCompatActivity {
                 scrollLayout.addView(textView);
             }
         }
+
 
     }
 
