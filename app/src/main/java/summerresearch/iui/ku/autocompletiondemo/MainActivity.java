@@ -34,7 +34,7 @@ final public class MainActivity extends AppCompatActivity {
     public static ImageMap im;
     public static Activity main;
     private Paint mPaint;
-    private FrameLayout frame;
+    public static FrameLayout frame;
     LocalService mService;
     boolean mBound = false;
     private String IP = "172.31.29.86";
@@ -183,8 +183,6 @@ final public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                IP = input.getText().toString();
-                Log.d("background", "INSIDE OK");
                 mService.onRebind(new Intent( main, LocalService.class).putExtra( "URL", "http://" + input.getText().toString() + ":5000/" ));
             }
         });
@@ -207,6 +205,8 @@ final public class MainActivity extends AppCompatActivity {
         //GET NAME OF ICONS HERE AND PUT INTO IMAGES
         scrollLayout.invalidate();
         separated = result.split("&");
+        ImageView mainImage = (ImageView) frame.findViewById(R.id.imageView6);
+        mainImage.setVisibility(View.INVISIBLE);
 
         if( separated.length > 0 ) {
             for( int i = 0; i < separated.length/2; i++ ) {
