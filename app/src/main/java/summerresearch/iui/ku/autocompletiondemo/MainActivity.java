@@ -7,12 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -215,7 +218,10 @@ final public class MainActivity extends AppCompatActivity {
                 image.setMaxHeight(40);
                 image.setMaxWidth(40);
                 try {
-                    image.setImageBitmap(im.getImageMap(separated[i]));
+                    byte[] decodedString = Base64.decode(separated[i], Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    image.setImageBitmap( decodedByte );
+                    //image.setImageBitmap(im.getImageMap(separated[i]));
                 }
                 catch (NullPointerException e){
 
