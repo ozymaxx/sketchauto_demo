@@ -27,10 +27,10 @@ The rest: The source code of Android application
 The application is now ready! Just draw a sketch on the canvas, and see how it's classified on the left panel.
 
 ## How to use the application
-![Change IP](https://s21.postimg.org/fuhblt283/Screenshot_from_2016_09_05_14_00_02.png): Click on this button if you want to change the IP address of the computer where the classification server is running.<br>
-![Undo](https://s21.postimg.org/ofanczceb/Screenshot_from_2016_09_05_14_03_03.png): This is the button to undo the latest change on the canvas.
-![Clear Canvas](https://s21.postimg.org/j5a9zfhj7/Screenshot_from_2016_09_05_14_03_16.png): Using this button, you can clear the entire canvas.
-![Remove Stroke](https://s21.postimg.org/6nz0yiwzn/Screenshot_from_2016_09_05_14_02_53.png): If you want to remove a stroke, just click on this button and then click on the stroke you want to remove.
+![Change IP](https://s9.postimg.org/esz2yhkor/image.png): Click on this button if you want to change the IP address of the computer where the classification server is running.<br>
+![Undo](https://s9.postimg.org/fwj7ag5bv/image.png): This is the button to undo the latest change on the canvas.
+![Clear Canvas](https://s9.postimg.org/48p5fwg6z/image.png): Using this button, you can clear the entire canvas.
+![Remove Stroke](https://s9.postimg.org/nf6xwtm2j/image.png): If you want to remove a stroke, just click on this button and then click on the stroke you want to remove.
 
 ## Contact
 * Ozan Can Altıok - [Koç University IUI Laboratory](http://iui.ku.edu.tr) - oaltiok15 at ku dot edu dot tr
