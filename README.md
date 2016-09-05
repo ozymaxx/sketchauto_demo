@@ -22,8 +22,15 @@ The rest: The source code of Android application
 * Copy the necessary models (read the [README of the autocompletion framework]()) into the same directory as `server.py`
 * Run the server by typing `python server.py` on terminal
 * Open Android Studio and run the application
+* Click on ![Change IP](https://s21.postimg.org/fuhblt283/Screenshot_from_2016_09_05_14_00_02.png), and type the IP of the computer where the classification server is running.
 
-The application is now ready!
+The application is now ready! Just draw a sketch on the canvas, and see how it's classified on the left panel.
+
+## How to use the application
+![Change IP](https://s21.postimg.org/fuhblt283/Screenshot_from_2016_09_05_14_00_02.png): Click on this button if you want to change the IP address of the computer where the classification server is running.<br>
+![Undo](https://s21.postimg.org/ofanczceb/Screenshot_from_2016_09_05_14_03_03.png): This is the button to undo the latest change on the canvas.
+![Clear Canvas](https://s21.postimg.org/j5a9zfhj7/Screenshot_from_2016_09_05_14_03_16.png): Using this button, you can clear the entire canvas.
+![Remove Stroke](https://s21.postimg.org/6nz0yiwzn/Screenshot_from_2016_09_05_14_02_53.png): If you want to remove a stroke, just click on this button and then click on the stroke you want to remove.
 
 ## Contact
 * Ozan Can Altıok - [Koç University IUI Laboratory](http://iui.ku.edu.tr) - oaltiok15 at ku dot edu dot tr
