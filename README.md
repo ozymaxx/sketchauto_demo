@@ -3,7 +3,7 @@ This application basically demonstrates the auto-completion pipeline for sketche
 [here](http://iui.ku.edu.tr/sezgin_publications/2012/PR%202012%20Sezgin.pdf).
 
 ## Directory structure
-`server/`: The source code of sketch classification server<br>
+`server/`: The source code of sketch classification server (Deprecated, use the latest one available in [this repository](https://github.com/ozymaxx/sketchautocompletion))<br>
 The rest: The source code of Android application
 
 ## How to run the application
