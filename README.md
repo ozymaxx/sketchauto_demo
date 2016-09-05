@@ -28,9 +28,9 @@ The application is now ready! Just draw a sketch on the canvas, and see how it's
 
 ## How to use the application
 ![Change IP](https://s9.postimg.org/esz2yhkor/image.png): Click on this button if you want to change the IP address of the computer where the classification server is running.<br>
-![Undo](https://s9.postimg.org/fwj7ag5bv/image.png): This is the button to undo the latest change on the canvas.
-![Clear Canvas](https://s9.postimg.org/48p5fwg6z/image.png): Using this button, you can clear the entire canvas.
-![Remove Stroke](https://s9.postimg.org/nf6xwtm2j/image.png): If you want to remove a stroke, just click on this button and then click on the stroke you want to remove.
+![Undo](https://s9.postimg.org/fwj7ag5bv/image.png): This is the button to undo the latest change on the canvas.<br>
+![Clear Canvas](https://s9.postimg.org/48p5fwg6z/image.png): Using this button, you can clear the entire canvas.<br>
+![Remove Stroke](https://s9.postimg.org/nf6xwtm2j/image.png): If you want to remove a stroke, just click on this button and then click on the stroke you want to remove.<br>
 
 ## Contact
 * Ozan Can Altıok - [Koç University IUI Laboratory](http://iui.ku.edu.tr) - oaltiok15 at ku dot edu dot tr
