@@ -2,6 +2,10 @@
 This application basically demonstrates the auto-completion pipeline for sketched symbols, which is decribed in 
 [here](http://iui.ku.edu.tr/sezgin_publications/2012/PR%202012%20Sezgin.pdf).
 
+## Directory structure
+`server/`: The source code of sketch classification server
+The rest: The source code of Android application
+
 ## How to run the application
 * Install pip by typing `sudo apt-get install pip`
 * Set up **numpy** by typing `sudo pip install numpy`
@@ -12,6 +16,7 @@ This application basically demonstrates the auto-completion pipeline for sketche
 * Plug your tablet in your computer
 * Open Android Studio and import the application into your Android Studio workspace
 * Build the application
+* Type `cd server` to enter the directory including the source code of the classification server
 * Copy the predictor into the same directory as `server.py`, which is also included in 
 [the repository of the autocompletion framework]().
 * Copy the necessary models (read the [README of the autocompletion framework]()) into the same directory as `server.py`
