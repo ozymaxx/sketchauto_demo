@@ -4,11 +4,11 @@ This application basically demonstrates the auto-completion pipeline for sketche
 
 ## How to run the application
 * Install pip by typing `sudo apt-get install pip`
-* Set up *numpy* by typing `sudo pip install numpy`
-* Set up *sci-py* by typing `sudo pip install scipy`
+* Set up **numpy** by typing `sudo pip install numpy`
+* Set up **sci-py** by typing `sudo pip install scipy`
 * Set up the [the feature extractor](https://github.com/ozymaxx/sketchfe) as described in the README of the repository
 * Download & set-up the Android SDK & Android Studio from [its official website](https://developer.android.com/studio/index.html)
-* Go to *Settings -> Developer options* and enable USB debugging.
+* Go to **Settings -> Developer options** and enable USB debugging.
 * Plug your tablet in your computer
 * Open Android Studio and import the application into your Android Studio workspace
 * Build the application
