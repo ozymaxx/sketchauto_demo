@@ -6,9 +6,12 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.entity.StringEntity;
@@ -129,6 +132,7 @@ public class LocalService extends Service {
             String responseMessage;
             try {
                 StringEntity stringEntity = new StringEntity( (String) objects[0] );
+                Log.d( "JSON", "" + objects[0] );
                 stringEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
                 httpPost.setEntity( stringEntity );
 

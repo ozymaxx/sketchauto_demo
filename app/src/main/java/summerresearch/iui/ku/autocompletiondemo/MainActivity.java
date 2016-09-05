@@ -40,7 +40,7 @@ final public class MainActivity extends AppCompatActivity {
     public static FrameLayout frame;
     LocalService mService;
     boolean mBound = false;
-    private String IP = "172.31.29.86";
+    private String IP = "172.31.118.3";
     private Intent serviceIntent;
 
     @Override
@@ -70,8 +70,9 @@ final public class MainActivity extends AppCompatActivity {
 
         startService( serviceIntent );
 
-        frame.addView(dv);
+
         checkInternetConnection();
+        frame.addView(dv);
 
         new AsyncTask<Context,Void,Void>() {
             protected void onPreExecute() {
@@ -83,16 +84,20 @@ final public class MainActivity extends AppCompatActivity {
                 return null;
             }
 
-            protected Void onPostExecute(Context... unused) {
-                return null;
+            protected void onPostExecute(Context... unused) {
+
             }
         }.execute(this);
+
+
+
     }
 
     public void setImageMap(ImageMap im){
         this.im = im;
         this.runOnUiThread(new Runnable() {
             public void run() {
+
                 ImageView imgView = (ImageView)findViewById(R.id.ivintro);
                 imgView.setVisibility(View.INVISIBLE);
 
@@ -218,10 +223,15 @@ final public class MainActivity extends AppCompatActivity {
                 image.setMaxHeight(40);
                 image.setMaxWidth(40);
                 try {
-                    byte[] decodedString = Base64.decode(separated[i], Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    image.setImageBitmap( decodedByte );
-                    //image.setImageBitmap(im.getImageMap(separated[i]));
+
+                    if( im.contains(separated[i]) ) {
+                        image.setImageBitmap(im.getImageMap(separated[i]));
+                    }
+                    else {
+                        byte[] decodedString = Base64.decode(separated[i], Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        image.setImageBitmap( decodedByte );
+                    }
                 }
                 catch (NullPointerException e){
 
