@@ -40,7 +40,7 @@ final public class MainActivity extends AppCompatActivity {
     public static FrameLayout frame;
     LocalService mService;
     boolean mBound = false;
-    private String IP = "172.31.118.3";
+    private String IP = "172.31.121.187";
     private Intent serviceIntent;
 
     @Override
@@ -217,21 +217,24 @@ final public class MainActivity extends AppCompatActivity {
         mainImage.setVisibility(View.INVISIBLE);
 
         if( separated.length > 0 ) {
-            for( int i = 0; i < separated.length/2; i++ ) {
+            int lenght = separated.length/3;
+            for( int i = 0; i < separated.length/3; i++ ) {
                 final ImageView image = new ImageView( main.getApplicationContext() );
                 image.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 200));
                 image.setMaxHeight(40);
                 image.setMaxWidth(40);
                 try {
-
+/*
                     if( im.contains(separated[i]) ) {
+                        Log.d("EYE","here1");
                         image.setImageBitmap(im.getImageMap(separated[i]));
                     }
-                    else {
+                    else {*/
+                        Log.d("EYE","here2");
                         byte[] decodedString = Base64.decode(separated[i], Base64.DEFAULT);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                         image.setImageBitmap( decodedByte );
-                    }
+                   // }
                 }
                 catch (NullPointerException e){
 
@@ -253,10 +256,10 @@ final public class MainActivity extends AppCompatActivity {
                 scrollLayout.addView(image);
 
                 TextView textView = new TextView( main.getApplicationContext() );
-                Float prob = Float.parseFloat(separated[separated.length/2 + i]);
+                Float prob = Float.parseFloat(separated[lenght + i]);
                 // to make it %
                 prob *= 100;
-                String text = String.format("%s\n%.2f%%", separated[i], prob);
+                String text = String.format("%s\n%.2f%%", separated[2*lenght + i], prob);
                 Log.d("separeted", "sep : " + text );
                 textView.setLayoutParams(new android.view.ViewGroup.LayoutParams(200, 40));
                 textView.setMaxHeight(40);
