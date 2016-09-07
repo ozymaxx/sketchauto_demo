@@ -43,9 +43,9 @@ public class DrawingView extends View {
     boolean httpReady;
     MainActivity mainActivity;
     private boolean eraseMode;
-    private int thrshld = 20;
-    ArrayList<Integer> change; // 1 for drawing and 0 for erasing
-    List<List<Integer>> changeIndex; // each List means indexes of changed strokes
+    private int thrshld = 20;           // threshold
+    ArrayList<Integer> change;          // 1 for drawing and 0 for erasing
+    List<List<Integer>> changeIndex;    // each List means indexes of changed strokes
 
 
     public DrawingView(MainActivity mainActivity, Paint p) {
@@ -152,8 +152,6 @@ public class DrawingView extends View {
     private void touch_up() {
 
         if(eraseMode) {
-//            Log.d("del",""+paths.size() + "     " + mX + "     " + mY );
-
             int changeFlag = 0;
 
 
@@ -239,10 +237,7 @@ public class DrawingView extends View {
             sketchShadow.addStroke(stroke);
             change.add(1);
             changeIndex.add(Arrays.asList(paths.size() - 1));
-//            Log.d("check", ""+ sketchShadow.getStrokeList().size());
             // kill this so we don't double draw
-            //mPath.reset();
-            //Log.d("Stroke", sketch.jsonString());
         }
 
         if(sketch.getStrokeList().size() > 0) {
@@ -316,7 +311,6 @@ public class DrawingView extends View {
                         index--;
                     }
                     removedPathIndex.add(index);
-                    //paths.remove(paths.size()-1);
                     Log.d("check","index  =   " + paths.size());
                     sketch.delete( sketchShadow.getStrokeList().get( index ).getStrokeId() );
 
@@ -334,7 +328,6 @@ public class DrawingView extends View {
             }
             change.remove(change.size() - 1);
             changeIndex.remove(changeIndex.size() - 1);
-            //
         }
         invalidate();
 
