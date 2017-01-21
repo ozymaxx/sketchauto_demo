@@ -10,21 +10,21 @@ The rest: The source code of Android application
 * Install pip by typing `sudo apt-get install pip`
 * Set up **numpy** by typing `sudo pip install numpy`
 * Set up **sci-py** by typing `sudo pip install scipy`
-* Set up the [the feature extractor](https://github.com/ozymaxx/sketchfe) as described in the README of the repository
-* Download & set-up the Android SDK & Android Studio from [its official website](https://developer.android.com/studio/index.html)
-* Go to **Settings -> Developer options** and enable USB debugging.
+* Set up [the IDM feature extractor](https://github.com/ozymaxx/sketchfe) as described in the README of the repository
+* Download & set-up Android SDK & Android Studio from [the official website](https://developer.android.com/studio/index.html)
+* On your tablet, go to **Settings -> Developer options** and enable USB debugging.
 * Plug your tablet in your computer
 * Open Android Studio and import the application into your Android Studio workspace
 * Build the application
 * Type `cd server` to enter the directory including the source code of the classification server
 * Copy the predictor into the same directory as `server.py`, which is also included in 
 [the repository of the autocompletion framework](https://github.com/ozymaxx/sketchautocompletion/).
-* Copy the necessary models (refer to the [README of the autocompletion framework](https://github.com/ozymaxx/sketchautocompletion/blob/master/README.md)) into the same directory as `server.py`
+* Copy the necessary models (refer to the [README of the autocompletion framework](https://github.com/ozymaxx/sketchautocompletion/blob/master/README.md)) into the same directory as `server.py`. `server.py` in this repository does not have a functionality to run the classification server.
 * Run the server by typing `python server.py` on terminal
-* Open Android Studio and run the application
-* Click on ![Change IP](https://s21.postimg.org/fuhblt283/Screenshot_from_2016_09_05_14_00_02.png), and type the IP of the computer where the classification server is running.
+* Open Android Studio and run the application on your tablet by clicking on **Run**
+* Click on ![Change IP](https://s21.postimg.org/fuhblt283/Screenshot_from_2016_09_05_14_00_02.png), and type the IP adress of the computer where the classification server is running.
 
-The application is now ready! Just draw a sketch on the canvas, and see how it's classified on the left panel.
+The application is now ready! Just draw a sketch on the canvas, and see how it's classified on the left.
 
 ## How to use the application
 ![Change IP](https://s9.postimg.org/esz2yhkor/image.png): Click on this button if you want to change the IP address of the computer where the classification server is running.<br>
