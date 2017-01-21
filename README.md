@@ -18,8 +18,8 @@ The rest: The source code of Android application
 * Build the application
 * Type `cd server` to enter the directory including the source code of the classification server
 * Copy the predictor into the same directory as `server.py`, which is also included in 
-[the repository of the autocompletion framework]().
-* Copy the necessary models (read the [README of the autocompletion framework]()) into the same directory as `server.py`
+[the repository of the autocompletion framework](https://github.com/ozymaxx/sketchautocompletion/).
+* Copy the necessary models (refer to the [README of the autocompletion framework](https://github.com/ozymaxx/sketchautocompletion/blob/master/README.md)) into as the same directory as `server.py`
 * Run the server by typing `python server.py` on terminal
 * Open Android Studio and run the application
 * Click on ![Change IP](https://s21.postimg.org/fuhblt283/Screenshot_from_2016_09_05_14_00_02.png), and type the IP of the computer where the classification server is running.
