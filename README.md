@@ -1,5 +1,5 @@
 # Sketch Autocompletion Demonstration Application
-This application basically demonstrates the auto-completion pipeline for sketched symbols, which is decribed in 
+This application basically demonstrates the auto-completion pipeline for sketched symbols, which is decribed
 [here](http://iui.ku.edu.tr/sezgin_publications/2012/PR%202012%20Sezgin.pdf).
 
 ## Directory structure
